@@ -4,14 +4,14 @@ import plotly.graph_objects as go
 
 # Function for Completeness section
 def show_completeness():
-    st.title("Completeness")
-    st.write("This section is all about completeness.")
+    st.title("Profile Completeness Details")
+    # st.write("This section is all about completeness.")
     # Add content related to Completeness here
 
 # Function for Contactable section
 def show_contactable():
-    st.title("Contactable")
-    st.write("This section contains Profile Contactable Details.")
+    st.title("Profile Contactable Details")
+    # st.write("This section contains Profile Contactable Details.")
     
     # Creating a pandas DataFrame (This assumes 'data' is already defined somewhere)
     # Example structure for df_authors_contactable
@@ -138,8 +138,8 @@ def show_contactable():
 
 # Function for Disambiguation section
 def show_disambiguation():
-    st.title("Disambiguation")
-    st.write("This section is about Disambiguation.")
+    st.title("Profile Disambiguation Details ")
+    # st.write("This section is about Disambiguation.")
     # Add content related to Disambiguation here
 
 # Create a sidebar with navigation
@@ -147,7 +147,7 @@ st.sidebar.title("Navigate")
 section = st.sidebar.radio(
     "Select a Section",
     ("Completeness", "Contactable", "Disambiguation"),
-    index=1  # Default section is Contactable
+    index=0  # Default section is Contactable
 )
 
 # Add icons for each section
