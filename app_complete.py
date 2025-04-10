@@ -146,7 +146,7 @@ def show_disambiguation():
 st.sidebar.title("Navigate")
 
 # Add icons for each section
-icon_completeness = ":bust_in_silhouette:"  # Person or profile icon
+icon_completeness = ":clipboard:"  # Person or profile icon
 icon_contactable = ":email:"  # Email icon
 icon_disambiguation = ":gear:"  # Engine icon
 
