@@ -38,10 +38,10 @@ def show_contactable():
     end_date = st.selectbox("Select End Release Date", options=unique_dates, index=len(unique_dates) - 1)
 
     # Filter the DataFrame based on the selected start and end date range
-    df_filtered = df_authors_contactable[
-        (df_authors_contactable['release_date'].dt.date >= start_date) & 
+    df_filtered = df_authors_contactable[(
+        df_authors_contactable['release_date'].dt.date >= start_date) & 
         (df_authors_contactable['release_date'].dt.date <= end_date)
-    ]
+    ] 
 
     if not df_filtered.empty:
         # Calculate the overall contactable percentage at the end date
@@ -144,24 +144,27 @@ def show_disambiguation():
 
 # Create a sidebar with navigation
 st.sidebar.title("Navigate")
-section = st.sidebar.radio(
-    "Select a Section",
-    ("Completeness", "Contactable", "Disambiguation"),
-    index=0  # Default section is Contactable
-)
 
 # Add icons for each section
 icon_completeness = ":bar_chart:"  # Replace with a person icon if needed
 icon_contactable = ":email:"  # Email icon
 icon_disambiguation = ":gear:"  # Engine icon
 
+# Use markdown to display the icon and section name inline in the radio button
+section = st.sidebar.radio(
+    "Select a Section",
+    (
+        f"{icon_completeness} Completeness", 
+        f"{icon_contactable} Contactable", 
+        f"{icon_disambiguation} Disambiguation"
+    ),
+    index=0  # Default section is Completeness
+)
+
 # Show the selected section content
-if section == "Completeness":
-    st.sidebar.markdown(f"**{icon_completeness} Completeness**")
+if section == f"{icon_completeness} Completeness":
     show_completeness()
-elif section == "Contactable":
-    st.sidebar.markdown(f"**{icon_contactable} Contactable**")
+elif section == f"{icon_contactable} Contactable":
     show_contactable()
-elif section == "Disambiguation":
-    st.sidebar.markdown(f"**{icon_disambiguation} Disambiguation**")
+elif section == f"{icon_disambiguation} Disambiguation":
     show_disambiguation()
