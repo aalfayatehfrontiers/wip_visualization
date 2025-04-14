@@ -197,17 +197,18 @@ def show_completeness():
         x=df_filtered['release'],
         y=df_filtered['score_complete_avg'],
         mode='lines+markers',
-        name='Avg Score'
+        name='Avg Score',
+        line=dict(color='purple', width=3)
     ))
     fig3.update_layout(
         title="Average Completeness Score",
-        xaxis_title="Release Date",
-        yaxis_title="Score"
+        title_font=dict(size=25, family="Arial, sans-serif", color="black"),
+        xaxis_title="Release Date"
     )
     st.plotly_chart(fig3, use_container_width=True)
 
     # Display latest value as hint box
-    st.info(f"Average Completeness Score for selected end date ({end_date}): **{end_row['score_complete_avg']:.2f}**")
+    st.info(f"Current Average Completeness Score: **{end_row['score_complete_avg']:.2f}**")
 
 # Function for Contactable section
 def show_contactable():
