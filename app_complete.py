@@ -455,13 +455,12 @@ def show_disambiguation():
     color = "green" if pct_change >= 0 else "red"
     arrow = "▲" if pct_change >= 0 else "▼"
 
-    st.markdown('<h3 style="font-size: 25px; font-family: Arial, sans-serif; color: black;">Overall Ratio UM profiles fixed </h3>', unsafe_allow_html=True)
+    st.markdown('<h3 style="font-size: 25px; font-family: Arial, sans-serif; color: black;">Overall Ratio UM Profiles Fixed </h3>', unsafe_allow_html=True)
     st.markdown(f'''
         <div style="display: flex; align-items: baseline; gap: 10px;">
             <div style="font-size: 48px;">{overmerged_pct:.2f}%</div>
             <div style="font-size: 18px; color: {color};">{arrow} {pct_change:.2f}%</div>
         </div>
-        <div style="font-size: 16px; color: gray;">Target 20% by Q4</div>
     ''', unsafe_allow_html=True)    
 
     # --------------------------------
@@ -490,7 +489,7 @@ def show_disambiguation():
     fig4 = go.Figure()
     fig4.add_trace(go.Scatter(
         x=df_filtered['release'],
-        y=end_row['number_potential_um_fx']  / end_row['number_potential_um'],
+        y=df_filtered['number_potential_um_fx']  / df_filtered['number_potential_um'],
         mode='lines+markers',
         name='Ratio UM Authors Fixed',
         line=dict(color='#f4f7f9', width=1.5)
