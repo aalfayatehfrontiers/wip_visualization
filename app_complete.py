@@ -141,20 +141,20 @@ def show_completeness():
     # Create the barplot
     fig2 = go.Figure()
     
-    # Adding background bars (100% filled with soft color)
+    # Adding background bars (representing 100% filled with soft color)
     fig2.add_trace(go.Bar(
         y=categories,
-        x=[100] * len(values),  # Always 100% background (no need to multiply)
+        x=[100] * len(values),  # Always 100% background (no multiplication)
         marker_color='lightgray',  # Softer background color
         name='Background',
         orientation='h',  # Horizontal bars
         opacity=0.3  # Make the background a bit transparent
     ))
     
-    # Adding the actual percentage bars
+    # Adding the actual percentage bars (filled proportionally based on percentage)
     fig2.add_trace(go.Bar(
         y=categories,
-        x=values,
+        x=values,  # The actual percentage values (proportional to 100%)
         text=[f"{v:.2f}%" for v in values],
         textposition='auto',
         marker_color=['green' if cat == 'All Criteria Met' else 'royalblue' for cat in categories],  # Green for 'All Criteria Met'
@@ -164,7 +164,7 @@ def show_completeness():
     
     # Update layout for better visualization
     fig2.update_layout(
-        title="Completeness by Criterion",
+        title="Completeness Breakdown by Criterion",
         title_font=dict(size=25, family="Arial, sans-serif", color="black"),
         xaxis_title="Percentage",
         yaxis_title="Criteria",
