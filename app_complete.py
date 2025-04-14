@@ -210,7 +210,7 @@ def show_completeness():
     # Display latest value with custom styling
     # Display latest value with custom styling and lighter purple background
     st.markdown(f"""
-        <div style="background-color: #D8B9FF; color: white; padding: 20px; border-radius: 10px; font-size: 25px;">
+        <div style="background-color: #f9f9f9; color: purple; padding: 20px; border-radius: 10px; font-size: 25px;">
             Current Average Completeness Score: <strong>{end_row['score_complete_avg']:.2f}</strong>
         </div>
     """, unsafe_allow_html=True)
