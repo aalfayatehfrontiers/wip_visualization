@@ -203,7 +203,7 @@ def show_completeness():
     )
     
     # Apply conditional colors to y-axis tick labels
-    fig2.layout.yaxis.tickfont.color = tick_colors
+    # fig2.layout.yaxis.tickfont.color = tick_colors
     
     # Show the plot
     st.plotly_chart(fig2, use_container_width=True)
