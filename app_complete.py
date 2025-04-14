@@ -414,7 +414,7 @@ def show_disambiguation():
         y=df_filtered['number_potential_om_wretractions'],
         mode='lines',
         name='Overmerged with Retractions Authors',
-        line=dict(color='gold', width=3)
+        line=dict(color='#5f9ea0', width=3)
     ))
     fig1.update_layout(
         title="Overmerged with Retractions Trend",
@@ -435,7 +435,7 @@ def show_disambiguation():
         y=df_filtered['number_potential_om_wretractions']/df_filtered['number_base_authors']* 100,
         mode='lines+markers',
         name='% OM with Retractions Authors',
-        line=dict(color='#696969', width=1.5)
+        line=dict(color='#5f9ea0', width=1.5)
     ))
     fig2.update_layout(
         title="% OM with Retractions Overtime",
@@ -447,6 +447,63 @@ def show_disambiguation():
     # Display the plot
     st.plotly_chart(fig2, use_container_width=True)
 
+    # --------------------------------
+    # 4) OVERALL UNDERMERGED BLOCK
+    # --------------------------------
+    undermerged_ratio_fixed = (end_row['number_potential_um_fx']  / end_row['number_potential_um'])
+    pct_change = ((end_row['number_potential_um_fx'] - start_row['number_potential_um_fx']) / start_row['number_potential_um_fx']) * 100
+    color = "green" if pct_change >= 0 else "red"
+    arrow = "▲" if pct_change >= 0 else "▼"
+
+    st.markdown('<h3 style="font-size: 25px; font-family: Arial, sans-serif; color: black;">Overall Ratio UM profiles fixed </h3>', unsafe_allow_html=True)
+    st.markdown(f'''
+        <div style="display: flex; align-items: baseline; gap: 10px;">
+            <div style="font-size: 48px;">{overmerged_pct:.2f}%</div>
+            <div style="font-size: 18px; color: {color};">{arrow} {pct_change:.2f}%</div>
+        </div>
+        <div style="font-size: 16px; color: gray;">Target 20% by Q4</div>
+    ''', unsafe_allow_html=True)    
+
+    # --------------------------------
+    # 5) UNDERMERGED FIXED TREND LINE PLOT
+    # --------------------------------
+    fig3 = go.Figure()
+    fig3.add_trace(go.Scatter(
+        x=df_filtered['release'],
+        y=df_filtered['number_potential_um_fx'],
+        mode='lines',
+        name='Undermerged fixed Authors',
+        line=dict(color='#f4f7f9', width=3)
+    ))
+    fig3.update_layout(
+        title="UM Authors Fixed Trend",
+        xaxis_title="Release Date",
+        yaxis_title="# Authors",
+        title_font=dict(size=25, family="Arial, sans-serif", color="black"),
+    )
+    # Display the plot
+    st.plotly_chart(fig3, use_container_width=True)
+
+    # --------------------------------
+    # 6) UNDERMERGED FIXED RATIO TREND LINE PLOT
+    # --------------------------------
+    fig4 = go.Figure()
+    fig4.add_trace(go.Scatter(
+        x=df_filtered['release'],
+        y=(end_row['number_potential_um_fx']  / end_row['number_potential_um']),
+        mode='lines+markers',
+        name='Ratio UM Authors Fixed',
+        line=dict(color='#f4f7f9', width=1.5)
+    ))
+    fig4.update_layout(
+        title="Ratio UM Authors Fixed Overtime",
+        xaxis_title="Release Date",
+        yaxis_title="Ratio (um-fixed/um-potential)",
+        title_font=dict(size=25, family="Arial, sans-serif", color="black"),
+    )
+
+    # Display the plot
+    st.plotly_chart(fig4, use_container_width=True)
 
     # st.write("This section is about Disambiguation.")
     # Add content related to Disambiguation here
