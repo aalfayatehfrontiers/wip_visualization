@@ -365,17 +365,18 @@ def show_contactable():
 # Function for Disambiguation section
 def show_disambiguation():
     st.title("Profile Disambiguation Details ")
-    # Custom styling for subtitles (underlined and bigger font)
+    # Custom styling for subtitles (underlined, bigger font, white background with black border)
     st.markdown("""
     <style>
         .subtitle-box {
-            background-color: black;
-            color: white;
+            background-color: white;  /* White background */
+            color: black;
             padding: 10px;
             margin-bottom: 10px;
-            font-size: 24px;  /* Bigger font size */
+            font-size: 30px;  /* Bigger font size */
             font-weight: bold;
-            text-decoration: underline;  /* Underline the text */
+            border: 2px solid black;  /* Black border */
+            border-radius: 5px;  /* Optional: rounded corners */
         }
     </style>
     """, unsafe_allow_html=True)
