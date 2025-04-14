@@ -48,11 +48,119 @@ bucket_0000,bucket_0001,bucket_0010,bucket_0011,bucket_0100,bucket_0101,bucket_0
 # Reading the data into a pandas DataFrame
 df_all_kpis = pd.read_csv(StringIO(data))
 
-# Function for Completeness section
 def show_completeness():
     st.title("Profile Completeness Details")
-    # st.write("This section is all about completeness.")
-    # Add content related to Completeness here
+
+    # Convert 'release' to datetime and sort
+    df_all_kpis['release'] = pd.to_datetime(df_all_kpis['release'])
+    df_all_kpis.sort_values('release', inplace=True)
+
+    # Sidebar date range selection
+    unique_releases = df_all_kpis['release'].dt.date.unique()
+    start_date = st.selectbox("Select Start Release Date", options=unique_releases, index=0)
+    end_date = st.selectbox("Select End Release Date", options=unique_releases, index=len(unique_releases) - 1)
+
+    # Filter data
+    df_filtered = df_all_kpis[
+        (df_all_kpis['release'].dt.date >= start_date) &
+        (df_all_kpis['release'].dt.date <= end_date)
+    ].copy()
+
+    if df_filtered.empty:
+        st.warning("No data available for the selected date range.")
+        return
+
+    # Extract rows for selected start and end dates
+    end_row = df_filtered[df_filtered['release'].dt.date == end_date].iloc[-1]
+    start_row = df_filtered[df_filtered['release'].dt.date == start_date].iloc[0]
+
+    # --------------------------------
+    # 1) OVERALL COMPLETENESS BLOCK
+    # --------------------------------
+    completeness_pct = end_row['percentage_complete_authors'] * 100
+    pct_change = ((end_row['number_complete_authors'] - start_row['number_complete_authors']) / start_row['number_complete_authors']) * 100
+    color = "green" if pct_change >= 0 else "red"
+    arrow = "▲" if pct_change >= 0 else "▼"
+
+    st.markdown('<h3>Overall Completeness</h3>', unsafe_allow_html=True)
+    st.markdown(f'''
+        <div style="display: flex; align-items: baseline; gap: 10px;">
+            <div style="font-size: 48px;">{completeness_pct:.2f}%</div>
+            <div style="font-size: 18px; color: {color};">{arrow} {pct_change:.2f}%</div>
+        </div>
+        <div style="font-size: 16px; color: gray;">Target 20% by Q4</div>
+    ''', unsafe_allow_html=True)
+
+    # --------------------------------
+    # 2) COMPLETENESS TREND LINE PLOT
+    # --------------------------------
+    fig1 = go.Figure()
+    fig1.add_trace(go.Scatter(
+        x=df_filtered['release'],
+        y=df_filtered['number_complete_authors'],
+        mode='lines+markers',
+        name='Complete Authors'
+    ))
+    fig1.add_hline(
+        y=2_000_000,
+        line_dash="dash",
+        line_color="orange",
+        annotation_text="Target",
+        annotation_position="top left"
+    )
+    fig1.update_layout(
+        title="Completeness Trend",
+        xaxis_title="Release Date",
+        yaxis_title="Number of Complete Authors"
+    )
+    st.plotly_chart(fig1, use_container_width=True)
+
+    # --------------------------------
+    # 3) BARPLOT: BUCKET COMPLETENESS %
+    # --------------------------------
+    # Extract only columns starting with 'bucket_'
+    bucket_cols = [col for col in df_all_kpis.columns if col.startswith('bucket_')]
+    end_data = end_row[bucket_cols]
+
+    # Derive metrics based on position of 1s in bucket name
+    name_pct = end_data[end_data.index.str[7] == '1'].sum() / end_row['number_base_authors'] * 100
+    affiliation_pct = end_data[end_data.index.str[8] == '1'].sum() / end_row['number_base_authors'] * 100
+    hindex_pct = end_data[end_data.index.str[9] == '1'].sum() / end_row['number_base_authors'] * 100
+    email_pct = end_data[end_data.index.str[10] == '1'].sum() / end_row['number_base_authors'] * 100
+    all_criteria_pct = end_row['percentage_complete_authors'] * 100
+
+    categories = ['Name', 'Affiliation', 'H-Index > 1', 'Valid Email', 'All Criteria Met']
+    values = [name_pct, affiliation_pct, hindex_pct, email_pct, all_criteria_pct]
+
+    fig2 = go.Figure(data=[
+        go.Bar(x=categories, y=values, text=[f"{v:.2f}%" for v in values], textposition='auto')
+    ])
+    fig2.update_layout(
+        title="Completeness Breakdown by Criterion",
+        yaxis_title="Percentage",
+        xaxis_title="Criteria"
+    )
+    st.plotly_chart(fig2, use_container_width=True)
+
+    # --------------------------------
+    # 4) AVERAGE SCORE LINE PLOT
+    # --------------------------------
+    fig3 = go.Figure()
+    fig3.add_trace(go.Scatter(
+        x=df_filtered['release'],
+        y=df_filtered['score_complete_avg'],
+        mode='lines+markers',
+        name='Avg Score'
+    ))
+    fig3.update_layout(
+        title="Average Completeness Score",
+        xaxis_title="Release Date",
+        yaxis_title="Score"
+    )
+    st.plotly_chart(fig3, use_container_width=True)
+
+    # Display latest value as hint box
+    st.info(f"Average Completeness Score for selected end date ({end_date}): **{end_row['score_complete_avg']:.2f}**")
 
 # Function for Contactable section
 def show_contactable():
