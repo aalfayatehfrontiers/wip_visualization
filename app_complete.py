@@ -397,7 +397,7 @@ def show_disambiguation():
     color = "red" if pct_change >= 0 else "green"
     arrow = "▲" if pct_change >= 0 else "▼"
 
-    st.markdown('<h3 style="font-size: 25px; font-family: Arial, sans-serif; color: black;">Overall OM profiles with retractions </h3>', unsafe_allow_html=True)
+    st.markdown('<h3 style="font-size: 25px; font-family: Arial, sans-serif; color: black;">Overall OM profiles with Retractions </h3>', unsafe_allow_html=True)
     st.markdown(f'''
         <div style="display: flex; align-items: baseline; gap: 10px;">
             <div style="font-size: 48px;">{overmerged_pct:.2f}%</div>
@@ -436,7 +436,7 @@ def show_disambiguation():
         y=df_filtered['number_potential_om_wretractions']/df_filtered['number_base_authors']* 100,
         mode='lines+markers',
         name='% OM with Retractions Authors',
-        line=dict(color='gold', width=3)
+        line=dict(color='grey', width=1.5)
     ))
     fig2.update_layout(
         title="% OM with Retractions Overtime",
