@@ -206,7 +206,6 @@ def show_completeness():
         xaxis_title="Release Date"
     )
     st.plotly_chart(fig3, use_container_width=True)
-
     # Display latest value with custom styling
     # Display latest value with custom styling and lighter purple background
     st.markdown(f"""
@@ -214,6 +213,7 @@ def show_completeness():
             Current Average Completeness Score: <strong>{end_row['score_complete_avg']:.2f}</strong>
         </div>
     """, unsafe_allow_html=True)
+
 
 # Function for Contactable section
 def show_contactable():
