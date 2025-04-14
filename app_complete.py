@@ -378,7 +378,7 @@ def show_contactable():
         """, unsafe_allow_html=True)
         
         # Display Overall Contactable Percentage Title
-        st.markdown('<div class="title-font">Overall Percentage Contactable</div>', unsafe_allow_html=True)
+        st.markdown('<div class="title-font">Percentage Change Contactable Authors</div>', unsafe_allow_html=True)
         
         # Corrected f-string formatting for color and arrow symbols
         color = "green" if pct_change_contactable >= 0 else "red"
