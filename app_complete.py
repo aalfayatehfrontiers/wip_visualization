@@ -127,25 +127,61 @@ def show_completeness():
     # Extract only columns starting with 'bucket_'
     bucket_cols = [col for col in df_all_kpis.columns if col.startswith('bucket_')]
     end_data = end_row[bucket_cols]
-
+    
     # Derive metrics based on position of 1s in bucket name
     name_pct = end_data[end_data.index.str[7] == '1'].sum() / end_row['number_base_authors'] * 100
     affiliation_pct = end_data[end_data.index.str[8] == '1'].sum() / end_row['number_base_authors'] * 100
     hindex_pct = end_data[end_data.index.str[9] == '1'].sum() / end_row['number_base_authors'] * 100
     email_pct = end_data[end_data.index.str[10] == '1'].sum() / end_row['number_base_authors'] * 100
     all_criteria_pct = end_row['percentage_complete_authors'] * 100
-
+    
     categories = ['Name', 'Affiliation', 'H-Index > 1', 'Valid Email', 'All Criteria Met']
     values = [name_pct, affiliation_pct, hindex_pct, email_pct, all_criteria_pct]
-
-    fig2 = go.Figure(data=[
-        go.Bar(x=categories, y=values, text=[f"{v:.2f}%" for v in values], textposition='auto')
-    ])
+    
+    # Create the barplot
+    fig2 = go.Figure()
+    
+    # Adding background bars (100% filled with soft color)
+    fig2.add_trace(go.Bar(
+        x=categories,
+        y=[100] * len(values),  # Always 100% background
+        marker_color='lightgray',  # Softer background color
+        name='Background',
+        orientation='v',
+        opacity=0.3  # Make the background a bit transparent
+    ))
+    
+    # Adding the actual percentage bars
+    fig2.add_trace(go.Bar(
+        x=categories,
+        y=values,
+        text=[f"{v:.2f}%" for v in values],
+        textposition='auto',
+        marker_color=['green' if cat == 'All Criteria Met' else 'royalblue' for cat in categories],  # Green for 'All Criteria Met'
+        name='Actual Percentage',
+        orientation='v'
+    ))
+    
+    # Update layout for better visualization
     fig2.update_layout(
         title="Completeness Breakdown by Criterion",
+        title_font=dict(size=25, family="Arial, sans-serif", color="black"),
+        xaxis_title="Criteria",
         yaxis_title="Percentage",
-        xaxis_title="Criteria"
+        barmode='stack',  # Stack bars to show background and actual percentage together
+        xaxis=dict(
+            tickfont=dict(size=12, family="Arial, sans-serif", color="black"),
+        ),
+        yaxis=dict(
+            tickformat="%",  # Format Y-axis as percentage
+            range=[0, 100],  # Ensure y-axis is from 0% to 100%
+            tickfont=dict(size=12, family="Arial, sans-serif", color="black"),
+        ),
+        plot_bgcolor='white',  # Set background to white
+        margin=dict(l=50, r=50, t=50, b=50)  # Add margins for spacing
     )
+    
+    # Show the plot
     st.plotly_chart(fig2, use_container_width=True)
 
     # --------------------------------
