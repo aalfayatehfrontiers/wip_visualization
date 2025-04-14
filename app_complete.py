@@ -403,7 +403,6 @@ def show_disambiguation():
             <div style="font-size: 48px;">{overmerged_pct:.2f}%</div>
             <div style="font-size: 18px; color: {color};">{arrow} {pct_change:.2f}%</div>
         </div>
-        <div style="font-size: 16px; color: gray;">Target 20% by Q4</div>
     ''', unsafe_allow_html=True)
 
     # --------------------------------
@@ -436,7 +435,7 @@ def show_disambiguation():
         y=df_filtered['number_potential_om_wretractions']/df_filtered['number_base_authors']* 100,
         mode='lines+markers',
         name='% OM with Retractions Authors',
-        line=dict(color='grey', width=1.5)
+        line=dict(color='#696969', width=1.5)
     ))
     fig2.update_layout(
         title="% OM with Retractions Overtime",
