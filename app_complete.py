@@ -361,10 +361,94 @@ def show_contactable():
 
     else:
         st.warning("No data available for the selected date range.")
-
+        
 # Function for Disambiguation section
 def show_disambiguation():
     st.title("Profile Disambiguation Details ")
+
+    # Convert 'release' to datetime and sort
+    df_all_kpis['release'] = pd.to_datetime(df_all_kpis['release'])
+    df_all_kpis.sort_values('release', inplace=True)
+
+    # Sidebar date range selection
+    unique_releases = df_all_kpis['release'].dt.date.unique()
+    start_date = st.selectbox("Select Start Release Date", options=unique_releases, index=0)
+    end_date = st.selectbox("Select End Release Date", options=unique_releases, index=len(unique_releases) - 1)
+
+    # Filter data
+    df_filtered = df_all_kpis[
+        (df_all_kpis['release'].dt.date >= start_date) &
+        (df_all_kpis['release'].dt.date <= end_date)
+    ].copy()
+
+    if df_filtered.empty:
+        st.warning("No data available for the selected date range.")
+        return
+
+    # Extract rows for selected start and end dates
+    end_row = df_filtered[df_filtered['release'].dt.date == end_date].iloc[-1]
+    start_row = df_filtered[df_filtered['release'].dt.date == start_date].iloc[0]
+
+    # --------------------------------
+    # 1) OVERALL OVERMERGED BLOCK
+    # --------------------------------
+    overmerged_pct = (end_row['number_potential_om_wretractions']  / end_row['number_base_authors']) * 100
+    pct_change = ((end_row['number_potential_om_wretractions'] - start_row['number_potential_om_wretractions']) / start_row['number_potential_om_wretractions']) * 100
+    color = "red" if pct_change >= 0 else "green"
+    arrow = "▲" if pct_change >= 0 else "▼"
+
+    st.markdown('<h3 style="font-size: 25px; font-family: Arial, sans-serif; color: black;">Overall OM profiles with retractions </h3>', unsafe_allow_html=True)
+    st.markdown(f'''
+        <div style="display: flex; align-items: baseline; gap: 10px;">
+            <div style="font-size: 48px;">{overmerged_pct:.2f}%</div>
+            <div style="font-size: 18px; color: {color};">{arrow} {pct_change:.2f}%</div>
+        </div>
+        <div style="font-size: 16px; color: gray;">Target 20% by Q4</div>
+    ''', unsafe_allow_html=True)
+
+    # --------------------------------
+    # 2) OVERMERGED TREND LINE PLOT
+    # --------------------------------
+    fig1 = go.Figure()
+    fig1.add_trace(go.Scatter(
+        x=df_filtered['release'],
+        y=df_filtered['number_potential_om_wretractions'],
+        mode='lines',
+        name='Overmerged with Retractions Authors',
+        line=dict(color='gold', width=3)
+    ))
+    fig1.update_layout(
+        title="Overmerged with Retractions Trend",
+        xaxis_title="Release Date",
+        yaxis_title="# Authors",
+        title_font=dict(size=25, family="Arial, sans-serif", color="black"),
+    )
+
+    # Display the plot
+    st.plotly_chart(fig1, use_container_width=True)
+
+    # --------------------------------
+    # 3) OVERMERGED PERCENTAGE TREND LINE PLOT
+    # --------------------------------
+    fig2 = go.Figure()
+    fig2.add_trace(go.Scatter(
+        x=df_filtered['release'],
+        y=df_filtered['number_potential_om_wretractions']/df_filtered['number_base_authors']* 100,
+        mode='lines+markers',
+        name='% OM with Retractions Authors',
+        line=dict(color='gold', width=3)
+    ))
+    fig2.update_layout(
+        title="% OM with Retractions Overtime",
+        xaxis_title="Release Date",
+        yaxis_title="Percentage (%)",
+        title_font=dict(size=25, family="Arial, sans-serif", color="black"),
+    )
+
+    # Display the plot
+    st.plotly_chart(fig2, use_container_width=True)
+
+
     # st.write("This section is about Disambiguation.")
     # Add content related to Disambiguation here
 
