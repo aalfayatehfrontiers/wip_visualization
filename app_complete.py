@@ -153,7 +153,7 @@ def show_completeness():
         textfont=dict(color="black", size=14),  # Set text color and size
         marker_color=['#d3d3d3' for _ in sorted_categories],  # Light grey color for 100% bars
         name='100% Criteria',
-        orientation='h'  # Horizontal bars
+        orientation='h',  # Horizontal bars
         showlegend=False  # This disables the legend for the 100% bars
     ))
     
