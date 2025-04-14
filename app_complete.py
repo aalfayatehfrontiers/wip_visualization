@@ -133,7 +133,7 @@ def show_completeness():
     affiliation_pct = end_data[end_data.index.str[8] == '1'].sum() / end_row['number_base_authors'] * 100
     hindex_pct = end_data[end_data.index.str[9] == '1'].sum() / end_row['number_base_authors'] * 100
     email_pct = end_data[end_data.index.str[10] == '1'].sum() / end_row['number_base_authors'] * 100
-    all_criteria_pct = end_row['percentage_complete_authors']
+    all_criteria_pct = end_row['percentage_complete_authors'] * 100
     
     categories = ['Name', 'Affiliation', 'H-Index >= 1', 'Valid Email', 'All Criteria Met']
     values = [name_pct, affiliation_pct, hindex_pct, email_pct, all_criteria_pct]
