@@ -160,9 +160,15 @@ def show_completeness():
         text=[f"{v:.2f}%" for v in sorted_values],  # Show percentage inside the bar
         textposition='outside',  # Position the text inside the bar
         textfont=dict(color="black", size=14),  # Set text color and size
-        marker_color=['#a3c9ff' if cat != 'All Criteria Met' else '#c1e8c1' for cat in sorted_categories],  # Lighter blue and green colors
+        marker_color=['#5e8eff' if cat != 'All Criteria Met' else '#6ebd6e' for cat in sorted_categories],  # Darker blue and green colors
         name='Actual Percentage',
         orientation='h',  # Horizontal bars
+        marker=dict(
+            line=dict(
+                width=3,  # Adjust border width to make the contour visible
+                color=['darkgreen' if cat == 'All Criteria Met' else 'rgba(255,255,255,0)' for cat in sorted_categories]  # Dark green for the "All Criteria Met" bars
+            )
+        )
     ))
     
     # Define the colors for tick labels
