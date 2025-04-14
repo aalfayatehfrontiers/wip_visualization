@@ -207,8 +207,12 @@ def show_completeness():
     )
     st.plotly_chart(fig3, use_container_width=True)
 
-    # Display latest value as hint box
-    st.info(f"Current Average Completeness Score: **{end_row['score_complete_avg']:.2f}**")
+    # Display latest value with custom styling
+    st.markdown("""
+        <div style="background-color: purple; color: white; padding: 20px; border-radius: 10px; font-size: 18px;">
+            <strong>Current Average Completeness Score: **{end_row['score_complete_avg']:.2f}**</strong>
+        </div>
+    """, unsafe_allow_html=True)
 
 # Function for Contactable section
 def show_contactable():
