@@ -141,14 +141,14 @@ def show_completeness():
     # Sort the categories and values by the percentage value in descending order
     sorted_categories, sorted_values = zip(*sorted(zip(categories, values), key=lambda x: x[1], reverse=False))
     
-    # Create the barplot
+    # Create the figure
     fig2 = go.Figure()
     
-    # Adding background bars (representing 100% filled with soft color)
+    # Adding background bars (representing 100% filled with gray color)
     fig2.add_trace(go.Bar(
         y=sorted_categories,
-        x=[100] * len(sorted_values),  # Always 100% background (no multiplication)
-        marker_color='red',  # Softer background color
+        x=[100] * len(sorted_values),  # Always 100% for the background
+        marker_color='lightgray',  # Softer background color
         name='Background',
         orientation='h',  # Horizontal bars
         opacity=0.3  # Make the background a bit transparent
@@ -158,8 +158,8 @@ def show_completeness():
     fig2.add_trace(go.Bar(
         y=sorted_categories,
         x=sorted_values,  # The actual percentage values (proportional to 100%)
-        text=[f"{v:.2f}%" for v in sorted_values],  # Show percentage
-        textposition='inside',  # Position the text outside the bar
+        text=[f"{v:.2f}%" for v in sorted_values],  # Show percentage inside the bar
+        textposition='inside',  # Position the text inside the bar
         textfont=dict(color="black", size=14),  # Set text color and size
         marker_color=['green' if cat == 'All Criteria Met' else 'royalblue' for cat in sorted_categories],  # Green for 'All Criteria Met'
         name='Actual Percentage',
@@ -178,6 +178,7 @@ def show_completeness():
             showticklabels=False,  # Remove x-axis tick labels
         ),
         yaxis=dict(
+            title="Criteria",  # Set y-axis title
             showgrid=False,  # Remove gridlines
             zeroline=False,  # Remove zero line
             showticklabels=True,  # Show y-axis tick labels (category names)
@@ -186,7 +187,6 @@ def show_completeness():
         plot_bgcolor='white',  # Set background to white
         margin=dict(l=50, r=50, t=50, b=50)  # Add margins for spacing
     )
-    
     # Show the plot
     st.plotly_chart(fig2, use_container_width=True)
     # --------------------------------
