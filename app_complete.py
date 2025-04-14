@@ -166,7 +166,7 @@ def show_completeness():
     ))
     
     # Define the colors for tick labels
-    tick_colors = ['darkgreen' if cat == 'All Criteria Met' else 'gray' for cat in sorted_categories]
+    tick_colors = ['#c1e8c1' if cat == 'All Criteria Met' else '#a3c9ff' for cat in sorted_categories]
     
     # Update layout for better visualization
     fig2.update_layout(
