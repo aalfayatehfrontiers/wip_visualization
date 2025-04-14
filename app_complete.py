@@ -186,6 +186,8 @@ def show_completeness():
             showgrid=False,  # Remove gridlines
             zeroline=False,  # Remove zero line
             showticklabels=True,  # Show y-axis tick labels (category names)
+            tickvals=sorted_categories,  # Ensure tick labels are set properly
+            ticktext=sorted_categories,  # Show the correct labels on the y-axis
             tickfont=dict(
                 size=12,
                 family="Arial, sans-serif, 'Comic Sans MS', sans-serif",
