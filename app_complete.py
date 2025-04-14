@@ -458,7 +458,7 @@ def show_disambiguation():
     st.markdown('<h3 style="font-size: 25px; font-family: Arial, sans-serif; color: black;">Overall Ratio UM Profiles Fixed </h3>', unsafe_allow_html=True)
     st.markdown(f'''
         <div style="display: flex; align-items: baseline; gap: 10px;">
-            <div style="font-size: 48px;">{undermerged_ratio_fixed:.2f}%</div>
+            <div style="font-size: 48px;">{undermerged_ratio_fixed:.2f}</div>
             <div style="font-size: 18px; color: {color};">{arrow} {pct_change_um:.2f}%</div>
         </div>
     ''', unsafe_allow_html=True)    
@@ -472,7 +472,7 @@ def show_disambiguation():
         y=df_filtered['number_potential_um_fx'],
         mode='lines',
         name='Undermerged fixed Authors',
-        line=dict(color='#cfd7df', width=3)
+        line=dict(color='#a6b4c1', width=3)
     ))
     fig3.update_layout(
         title="UM Authors Fixed Trend",
@@ -492,7 +492,7 @@ def show_disambiguation():
         y=df_filtered['number_potential_um_fx']  / df_filtered['number_potential_um'],
         mode='lines+markers',
         name='Ratio UM Authors Fixed',
-        line=dict(color='#cfd7df', width=1.5)
+        line=dict(color='#a6b4c1', width=1.5)
     ))
     fig4.update_layout(
         title="Ratio UM Authors Fixed Overtime",
