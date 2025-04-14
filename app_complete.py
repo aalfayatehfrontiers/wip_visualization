@@ -315,9 +315,7 @@ def show_contactable():
             showlegend=True
         )
         # Display the plot
-        st.plotly_chart(fig, use_container_width=True)
-
-        # Apply custom CSS to adjust font sizes and layout
+                # Apply custom CSS to adjust font sizes and layout
         st.markdown("""
         <style>
         .big-font {
@@ -359,6 +357,8 @@ def show_contactable():
             </div>
         ''', unsafe_allow_html=True)
 
+        #Display the plot bellow
+        st.plotly_chart(fig, use_container_width=True)
     else:
         st.warning("No data available for the selected date range.")
         
