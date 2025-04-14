@@ -356,11 +356,11 @@ def show_contactable():
         st.markdown("""
         <style>
             .big-font {
-                font-size: 100px !important;
+                font-size: 48px !important;
                 text-align: left;
             }
             .small-font {
-                font-size: 36px !important;
+                font-size: 18px !important;
                 text-align: left;
             }
             .title-font {
@@ -377,7 +377,7 @@ def show_contactable():
         </style>
         """, unsafe_allow_html=True)
         
-        # Display Overall Contactable Percentage Title
+        # Display Change Contactable Percentage Title
         st.markdown('<div class="title-font">Percentage Change Contactable Authors</div>', unsafe_allow_html=True)
         
         # Corrected f-string formatting for color and arrow symbols
