@@ -148,10 +148,10 @@ def show_completeness():
     fig2.add_trace(go.Bar(
         y=sorted_categories,
         x=[0.01] * len(sorted_values),  # Always 100% for the background
-        marker_color='lightgray',  # Softer background color
+        marker_color='red',  # Softer background color
         name='Background',
         orientation='h',  # Horizontal bars
-        opacity=0.3  # Make the background a bit transparent
+        opacity=0.8  # Make the background a bit transparent
     ))
     
     # Adding the actual percentage bars (filled proportionally based on percentage)
