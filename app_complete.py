@@ -163,12 +163,6 @@ def show_completeness():
         marker_color=['#a3c9ff' if cat != 'All Criteria Met' else '#c1e8c1' for cat in sorted_categories],  # Lighter blue and green colors
         name='Actual Percentage',
         orientation='h',  # Horizontal bars
-        marker=dict(
-            line=dict(
-                width=3,
-                color=['darkgreen' if cat == 'All Criteria Met' else 'rgba(255,255,255,0)' for cat in sorted_categories]  # Dark green outline for "All Criteria Met"
-            )
-        )
     ))
     
     # Define the colors for tick labels
@@ -203,7 +197,7 @@ def show_completeness():
     )
     
     # Apply conditional colors to y-axis tick labels
-    # fig2.layout.yaxis.tickfont.color = tick_colors
+    fig2.layout.yaxis.tickfont.color = tick_colors
     
     # Show the plot
     st.plotly_chart(fig2, use_container_width=True)
