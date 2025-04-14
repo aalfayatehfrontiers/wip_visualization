@@ -154,6 +154,7 @@ def show_completeness():
         marker_color=['#d3d3d3' for _ in sorted_categories],  # Light grey color for 100% bars
         name='100% Criteria',
         orientation='h'  # Horizontal bars
+        showlegend=False  # This disables the legend for the 100% bars
     ))
     
     # Adding the actual percentage bars (filled proportionally based on percentage)
@@ -167,9 +168,7 @@ def show_completeness():
         name='Actual Percentage',
         orientation='h'  # Horizontal bars
     ))
-    
-
-    
+        
     # Update layout for better visualization
     fig2.update_layout(
         title="Completeness Breakdown by Criterion",
