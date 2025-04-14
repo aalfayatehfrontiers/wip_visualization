@@ -139,7 +139,7 @@ def show_completeness():
     values = [name_pct, affiliation_pct, hindex_pct, email_pct, all_criteria_pct]
     
     # Sort the categories and values by the percentage value in descending order
-    sorted_categories, sorted_values = zip(*sorted(zip(categories, values), key=lambda x: x[1], reverse=True))
+    sorted_categories, sorted_values = zip(*sorted(zip(categories, values), key=lambda x: x[1], reverse=False))
     
     # Create the barplot
     fig2 = go.Figure()
