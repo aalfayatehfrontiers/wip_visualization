@@ -204,8 +204,7 @@ def show_completeness():
     yaxis_tickfont.color = ['darkgreen' if cat == 'All Criteria Met' else 'gray' for cat in sorted_categories]
     
     # Apply updated tick font colors for y-axis labels
-    fig2.layout.yaxis.tickfont = yaxis_tickfont
-    
+    fig2.layout.yaxis.tickfont = yaxis_tickfont    
     # Show the plot
     st.plotly_chart(fig2, use_container_width=True)
 
