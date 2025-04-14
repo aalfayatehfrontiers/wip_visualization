@@ -135,16 +135,19 @@ def show_completeness():
     email_pct = end_data[end_data.index.str[10] == '1'].sum() / end_row['number_base_authors'] * 100
     all_criteria_pct = end_row['percentage_complete_authors'] * 100
     
-    categories = ['Name', 'Affiliation', 'H-Index > 1', 'Valid Email', 'All Criteria Met']
+    categories = ['Name', 'Affiliation', 'H-Index >= 1', 'Valid Email', 'All Criteria Met']
     values = [name_pct, affiliation_pct, hindex_pct, email_pct, all_criteria_pct]
+    
+    # Sort the categories and values by the percentage value in descending order
+    sorted_categories, sorted_values = zip(*sorted(zip(categories, values), key=lambda x: x[1], reverse=True))
     
     # Create the barplot
     fig2 = go.Figure()
     
     # Adding background bars (representing 100% filled with soft color)
     fig2.add_trace(go.Bar(
-        y=categories,
-        x=[1] * len(values),  # Always 100% background (no multiplication)
+        y=sorted_categories,
+        x=[1] * len(sorted_values),  # Always 100% background (no multiplication)
         marker_color='lightgray',  # Softer background color
         name='Background',
         orientation='h',  # Horizontal bars
@@ -153,11 +156,11 @@ def show_completeness():
     
     # Adding the actual percentage bars (filled proportionally based on percentage)
     fig2.add_trace(go.Bar(
-        y=categories,
-        x=values,  # The actual percentage values (proportional to 100%)
-        text=[f"{v:.2f}%" for v in values],
-        textposition='auto',
-        marker_color=['green' if cat == 'All Criteria Met' else 'royalblue' for cat in categories],  # Green for 'All Criteria Met'
+        y=sorted_categories,
+        x=sorted_values,  # The actual percentage values (proportional to 100%)
+        text=[f"{cat}: {v:.2f}%" for cat, v in zip(sorted_categories, sorted_values)],  # Show category and percentage
+        textposition='outside',  # Position the text outside the bar
+        marker_color=['green' if cat == 'All Criteria Met' else 'royalblue' for cat in sorted_categories],  # Green for 'All Criteria Met'
         name='Actual Percentage',
         orientation='h'  # Horizontal bars
     ))
@@ -166,16 +169,17 @@ def show_completeness():
     fig2.update_layout(
         title="Completeness Breakdown by Criterion",
         title_font=dict(size=25, family="Arial, sans-serif", color="black"),
-        xaxis_title="Percentage",
-        yaxis_title="Criteria",
         barmode='stack',  # Stack bars to show background and actual percentage together
+        showlegend=False,  # Remove the legend selector
         xaxis=dict(
-            tickformat="%",  # Format X-axis as percentage
-            range=[0, 100],  # Ensure x-axis is from 0% to 100%
-            tickfont=dict(size=12, family="Arial, sans-serif", color="black"),
+            showgrid=False,  # Remove gridlines
+            zeroline=False,  # Remove zero line
+            showticklabels=False,  # Remove x-axis tick labels
         ),
         yaxis=dict(
-            tickfont=dict(size=12, family="Arial, sans-serif", color="black"),
+            showgrid=False,  # Remove gridlines
+            zeroline=False,  # Remove zero line
+            showticklabels=False,  # Remove y-axis tick labels
         ),
         plot_bgcolor='white',  # Set background to white
         margin=dict(l=50, r=50, t=50, b=50)  # Add margins for spacing
@@ -183,7 +187,6 @@ def show_completeness():
     
     # Show the plot
     st.plotly_chart(fig2, use_container_width=True)
-
     # --------------------------------
     # 4) AVERAGE SCORE LINE PLOT
     # --------------------------------
