@@ -350,9 +350,9 @@ def show_contactable():
         # Display numbers side by side in the same column
         st.markdown(f'''
             <div class="numbers-container">
-                <div class="big-font">{overall_contactable_percentage:.2f}%</div>
-                <div class="small-font" style="color: {color};">
-                    {arrow_symbol} {pct_change_contactable:.2f}%
+                <div class="big-font" style="color: {color};">
+                {arrow_symbol} {pct_change_contactable:.2f}%
+                <div class="small-font">{overall_contactable_percentage:.2f}%</div>
                 </div>
             </div>
         ''', unsafe_allow_html=True)
