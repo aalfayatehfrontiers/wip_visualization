@@ -144,6 +144,18 @@ def show_completeness():
     # Create the figure
     fig2 = go.Figure()
     
+    # Adding the 100% bars (overlapping the actual percentage bars)
+    fig2.add_trace(go.Bar(
+        y=sorted_categories,
+        x=[100] * len(sorted_values),  # Each category gets a 100% value
+        text=['100%' for _ in sorted_values],  # Show 100% inside the bar
+        textposition='outside',  # Position the text outside the bar
+        textfont=dict(color="black", size=14),  # Set text color and size
+        marker_color=['#d3d3d3' for _ in sorted_categories],  # Light grey color for 100% bars
+        name='100% Criteria',
+        orientation='h'  # Horizontal bars
+    ))
+    
     # Adding the actual percentage bars (filled proportionally based on percentage)
     fig2.add_trace(go.Bar(
         y=sorted_categories,
@@ -156,17 +168,7 @@ def show_completeness():
         orientation='h'  # Horizontal bars
     ))
     
-    # Adding the 100% bars (overlapping the actual percentage bars)
-    fig2.add_trace(go.Bar(
-        y=sorted_categories,
-        x=[100] * len(sorted_values),  # Each category gets a 100% value
-        text=['100%' for _ in sorted_values],  # Show 100% inside the bar
-        textposition='outside',  # Position the text outside the bar
-        textfont=dict(color="black", size=14),  # Set text color and size
-        marker_color=['#d3d3d3' for _ in sorted_categories],  # Light grey color for 100% bars
-        name='100% Criteria',
-        orientation='h'  # Horizontal bars
-    ))
+
     
     # Update layout for better visualization
     fig2.update_layout(
