@@ -107,11 +107,11 @@ def show_completeness():
         line_dash="dash",
         line_color="green",
         annotation_text="Target",
-        annotation_position="top right"
+        annotation_position="top right",
         annotation_font=dict(
         size=12,
         color="green"  # Change this to the color you want for the annotation text)
-    )
+    ))
     fig1.update_layout(
         title="Completeness Trend",
         xaxis_title="Release Date",
