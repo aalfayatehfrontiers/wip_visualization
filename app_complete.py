@@ -144,16 +144,6 @@ def show_completeness():
     # Create the figure
     fig2 = go.Figure()
     
-    # Adding background bars (representing 100% filled with gray color)
-    fig2.add_trace(go.Bar(
-        y=sorted_categories,
-        x=[0.01] * len(sorted_values),  # Always 100% for the background
-        marker_color='red',  # Softer background color
-        name='Background',
-        orientation='h',  # Horizontal bars
-        opacity=0.8  # Make the background a bit transparent
-    ))
-    
     # Adding the actual percentage bars (filled proportionally based on percentage)
     fig2.add_trace(go.Bar(
         y=sorted_categories,
@@ -161,7 +151,7 @@ def show_completeness():
         text=[f"{v:.2f}%" for v in sorted_values],  # Show percentage inside the bar
         textposition='inside',  # Position the text inside the bar
         textfont=dict(color="black", size=14),  # Set text color and size
-        marker_color=['green' if cat == 'All Criteria Met' else 'royalblue' for cat in sorted_categories],  # Green for 'All Criteria Met'
+        marker_color=['#70a1ff' if cat != 'All Criteria Met' else '#85e085' for cat in sorted_categories],  # Lighter blue and green colors
         name='Actual Percentage',
         orientation='h'  # Horizontal bars
     ))
@@ -178,14 +168,16 @@ def show_completeness():
             showticklabels=False,  # Remove x-axis tick labels
         ),
         yaxis=dict(
+            title="Criteria",  # Set y-axis title
             showgrid=False,  # Remove gridlines
             zeroline=False,  # Remove zero line
             showticklabels=True,  # Show y-axis tick labels (category names)
-            tickfont=dict(size=12, family="Arial, sans-serif", color="black"),  # Set tick font style for y-axis
+            tickfont=dict(size=12, family="Arial, sans-serif, 'Comic Sans MS', sans-serif", color="gray"),  # Rounded font and lighter black color for y-axis labels
         ),
         plot_bgcolor='white',  # Set background to white
         margin=dict(l=50, r=50, t=50, b=50)  # Add margins for spacing
     )
+    
     # Show the plot
     st.plotly_chart(fig2, use_container_width=True)
     # --------------------------------
