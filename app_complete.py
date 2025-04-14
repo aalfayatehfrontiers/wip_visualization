@@ -166,7 +166,7 @@ def show_completeness():
     ))
     
     # Define the colors for tick labels
-    tick_colors = ['#c1e8c1' if cat == 'All Criteria Met' else '#a3c9ff' for cat in sorted_categories]
+    # tick_colors = ['#c1e8c1' if cat == 'All Criteria Met' else '#a3c9ff' for cat in sorted_categories]
     
     # Update layout for better visualization
     fig2.update_layout(
@@ -197,7 +197,7 @@ def show_completeness():
     )
     
     # Apply conditional colors to y-axis tick labels
-    fig2.layout.yaxis.tickfont.color = tick_colors
+    # fig2.layout.yaxis.tickfont.color = tick_colors
     
     # Show the plot
     st.plotly_chart(fig2, use_container_width=True)
