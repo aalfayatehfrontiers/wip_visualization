@@ -120,16 +120,16 @@ def show_completeness():
         title="Completeness Trend",
         xaxis_title="Release Date",
         yaxis_title="Number of Complete Authors",
-        title_font=dict(size=20, family="Arial, sans-serif", color="darkblue"),
+        title_font=dict(size=20, family="Arial, sans-serif", color="darkblue"),  # Title font property
         xaxis=dict(
-            titlefont=dict(size=14, family="Arial, sans-serif", color="black"),
-            tickfont=dict(size=12, family="Arial, sans-serif", color="black"),
+            title=dict(font=dict(size=14, family="Arial, sans-serif", color="black")),  # Axis title font
+            tickfont=dict(size=12, family="Arial, sans-serif", color="black"),  # Tick font property
             showgrid=True,  # Show grid for better readability
             gridcolor="lightgray"
         ),
         yaxis=dict(
-            titlefont=dict(size=14, family="Arial, sans-serif", color="black"),
-            tickfont=dict(size=12, family="Arial, sans-serif", color="black"),
+            title=dict(font=dict(size=14, family="Arial, sans-serif", color="black")),  # Axis title font
+            tickfont=dict(size=12, family="Arial, sans-serif", color="black"),  # Tick font property
             showgrid=True,
             gridcolor="lightgray",
             tickprefix="%",
