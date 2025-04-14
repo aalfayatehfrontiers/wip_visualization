@@ -147,7 +147,7 @@ def show_completeness():
     # Adding background bars (representing 100% filled with soft color)
     fig2.add_trace(go.Bar(
         y=sorted_categories,
-        x=[1] * len(sorted_values),  # Always 100% background (no multiplication)
+        x=[100] * len(sorted_values),  # Always 100% background (no multiplication)
         marker_color='red',  # Softer background color
         name='Background',
         orientation='h',  # Horizontal bars
@@ -159,7 +159,7 @@ def show_completeness():
         y=sorted_categories,
         x=sorted_values,  # The actual percentage values (proportional to 100%)
         text=[f"{v:.2f}%" for v in sorted_values],  # Show percentage
-        textposition='outside',  # Position the text outside the bar
+        textposition='inside',  # Position the text outside the bar
         textfont=dict(color="black", size=14),  # Set text color and size
         marker_color=['green' if cat == 'All Criteria Met' else 'royalblue' for cat in sorted_categories],  # Green for 'All Criteria Met'
         name='Actual Percentage',
