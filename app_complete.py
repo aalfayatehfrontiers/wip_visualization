@@ -199,14 +199,15 @@ def show_completeness():
         margin=dict(l=50, r=50, t=50, b=50)  # Add margins for spacing
     )
     
-    # Apply conditional colors for y-axis labels (custom tick colors)
-    for i, category in enumerate(sorted_categories):
-        if category == 'All Criteria Met':
-            fig2.layout.yaxis.tickfont.color[i] = 'darkgreen'  # Set dark green for "All Criteria Met"
+    # Highlight the "All Criteria Met" category in dark green on the y-axis
+    yaxis_tickfont = fig2.layout.yaxis.tickfont.copy()  # Copy the tickfont to modify
+    yaxis_tickfont.color = ['darkgreen' if cat == 'All Criteria Met' else 'gray' for cat in sorted_categories]
+    
+    # Apply updated tick font colors for y-axis labels
+    fig2.layout.yaxis.tickfont = yaxis_tickfont
     
     # Show the plot
     st.plotly_chart(fig2, use_container_width=True)
-
 
     # --------------------------------
     # 4) AVERAGE SCORE LINE PLOT
