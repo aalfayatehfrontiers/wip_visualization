@@ -115,7 +115,8 @@ def show_completeness():
         yaxis_title="# Complete Authors",
         title_font=dict(size=35, family="Arial, sans-serif", color="black"),
     )
-
+    # Display the plot
+    st.plotly_chart(fig1, use_container_width=True)
 
     # --------------------------------
     # 3) BARPLOT: BUCKET COMPLETENESS %
