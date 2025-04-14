@@ -147,7 +147,7 @@ def show_completeness():
     # Adding background bars (representing 100% filled with gray color)
     fig2.add_trace(go.Bar(
         y=sorted_categories,
-        x=[100] * len(sorted_values),  # Always 100% for the background
+        x=[0.01] * len(sorted_values),  # Always 100% for the background
         marker_color='lightgray',  # Softer background color
         name='Background',
         orientation='h',  # Horizontal bars
@@ -178,7 +178,6 @@ def show_completeness():
             showticklabels=False,  # Remove x-axis tick labels
         ),
         yaxis=dict(
-            title="Criteria",  # Set y-axis title
             showgrid=False,  # Remove gridlines
             zeroline=False,  # Remove zero line
             showticklabels=True,  # Show y-axis tick labels (category names)
