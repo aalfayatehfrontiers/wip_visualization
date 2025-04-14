@@ -160,11 +160,17 @@ def show_completeness():
         text=[f"{v:.2f}%" for v in sorted_values],  # Show percentage inside the bar
         textposition='outside',  # Position the text inside the bar
         textfont=dict(color="black", size=14),  # Set text color and size
-        marker_color=['#70a1ff' if cat != 'All Criteria Met' else '#85e085' for cat in sorted_categories],  # Lighter blue and green colors
+        marker_color=['#a3c9ff' if cat != 'All Criteria Met' else '#c1e8c1' for cat in sorted_categories],  # Lighter blue and green colors
         name='Actual Percentage',
-        orientation='h'  # Horizontal bars
+        orientation='h',  # Horizontal bars
+        marker=dict(
+            line=dict(
+                width=3,
+                color=['darkgreen' if cat == 'All Criteria Met' else 'rgba(255,255,255,0)' for cat in sorted_categories]  # Dark green outline for "All Criteria Met"
+            )
+        )
     ))
-        
+    
     # Update layout for better visualization
     fig2.update_layout(
         title="Completeness Breakdown by Criterion",
@@ -180,7 +186,11 @@ def show_completeness():
             showgrid=False,  # Remove gridlines
             zeroline=False,  # Remove zero line
             showticklabels=True,  # Show y-axis tick labels (category names)
-            tickfont=dict(size=12, family="Arial, sans-serif, 'Comic Sans MS', sans-serif", color="gray"),  # Rounded font and lighter black color for y-axis labels
+            tickfont=dict(
+                size=12,
+                family="Arial, sans-serif, 'Comic Sans MS', sans-serif",
+                color=['darkgreen' if cat == 'All Criteria Met' else 'gray' for cat in sorted_categories]  # Highlight "All Criteria Met" in dark green
+            ),
         ),
         plot_bgcolor='white',  # Set background to white
         margin=dict(l=50, r=50, t=50, b=50)  # Add margins for spacing
