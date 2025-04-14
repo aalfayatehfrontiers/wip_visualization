@@ -144,7 +144,7 @@ def show_completeness():
     # Adding background bars (representing 100% filled with soft color)
     fig2.add_trace(go.Bar(
         y=categories,
-        x=[100] * len(values),  # Always 100% background (no multiplication)
+        x=[1] * len(values),  # Always 100% background (no multiplication)
         marker_color='lightgray',  # Softer background color
         name='Background',
         orientation='h',  # Horizontal bars
