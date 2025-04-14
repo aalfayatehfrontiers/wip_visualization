@@ -135,10 +135,15 @@ def show_completeness():
     email_pct = end_data[end_data.index.str[10] == '1'].sum() / end_row['number_base_authors'] * 100
     all_criteria_pct = end_row['percentage_complete_authors'] * 100
     
+    # Categories and values
     categories = ['Name', 'Affiliation', 'H-Index >= 1', 'Valid Email', 'All Criteria Met']
     values = [name_pct, affiliation_pct, hindex_pct, email_pct, all_criteria_pct]
     
-    # Sort the categories and values by the percentage value in descending order
+    # Add an extra value for "All Categories" set to 100% and light grey color
+    categories.append('All Categories (100%)')
+    values.append(100)
+    
+    # Sort the categories and values by the percentage value in ascending order (reverse=False)
     sorted_categories, sorted_values = zip(*sorted(zip(categories, values), key=lambda x: x[1], reverse=False))
     
     # Create the figure
@@ -149,9 +154,9 @@ def show_completeness():
         y=sorted_categories,
         x=sorted_values,  # The actual percentage values (proportional to 100%)
         text=[f"{v:.2f}%" for v in sorted_values],  # Show percentage inside the bar
-        textposition='outside',  # Position the text inside the bar
+        textposition='outside',  # Position the text outside the bar
         textfont=dict(color="black", size=14),  # Set text color and size
-        marker_color=['#70a1ff' if cat != 'All Criteria Met' else '#85e085' for cat in sorted_categories],  # Lighter blue and green colors
+        marker_color=['#70a1ff' if cat != 'All Categories (100%)' else '#b0b0b0' for cat in sorted_categories],  # Lighter blue and light grey color for "All Categories"
         name='Actual Percentage',
         orientation='h'  # Horizontal bars
     ))
@@ -179,6 +184,7 @@ def show_completeness():
     
     # Show the plot
     st.plotly_chart(fig2, use_container_width=True)
+
     # --------------------------------
     # 4) AVERAGE SCORE LINE PLOT
     # --------------------------------
