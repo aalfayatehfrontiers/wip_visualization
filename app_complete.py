@@ -364,29 +364,9 @@ def show_contactable():
 
 # Function for Disambiguation section
 def show_disambiguation():
-    st.title("Profile Disambiguation Details")
-
-    # Create a radio button to switch between the two subsections under Disambiguation
-    subsection = st.radio(
-        "Select a Subsection",
-        (
-            ":bust_in_silhouette: Profile Undermerged Details",  # Silhouette icon for Undermerged
-            ":bust_in_silhouette: Profile Overmerged Details"    # Silhouette icon for Overmerged
-        ),
-        index=0  # Default subsection is Undermerged
-    )
-
-    # Show content for Undermerged subsection
-    if subsection == ":bust_in_silhouette: Profile Undermerged Details":
-        st.subheader("Profile Undermerged Details")
-        st.write("Content related to Undermerged profiles will be displayed here.")
-        # Add additional content for Undermerged profiles
-
-    # Show content for Overmerged subsection
-    elif subsection == ":bust_in_silhouette: Profile Overmerged Details":
-        st.subheader("Profile Overmerged Details")
-        st.write("Content related to Overmerged profiles will be displayed here.")
-        # Add additional content for Overmerged profiles
+    st.title("Profile Disambiguation Details ")
+    # st.write("This section is about Disambiguation.")
+    # Add content related to Disambiguation here
 
 # Create a sidebar with navigation
 st.sidebar.title("Navigate")
@@ -396,7 +376,7 @@ icon_completeness = ":clipboard:"  # Person or profile icon
 icon_contactable = ":email:"  # Email icon
 icon_disambiguation = ":gear:"  # Engine icon
 
-# Main section radio button for selecting sections (Completeness, Contactable, or Disambiguation)
+# Use markdown to display the icon and section name inline in the radio button
 section = st.sidebar.radio(
     "Select a Section",
     (
@@ -413,23 +393,4 @@ if section == f"{icon_completeness} Completeness":
 elif section == f"{icon_contactable} Contactable":
     show_contactable()
 elif section == f"{icon_disambiguation} Disambiguation":
-    # Add a second navigation level for subsections when Disambiguation is selected
-    subsection_section = st.sidebar.radio(
-        "Select Disambiguation Subsection",
-        (
-            ":bust_in_silhouette: Profile Undermerged Details",  # Silhouette icon for Undermerged
-            ":bust_in_silhouette: Profile Overmerged Details"    # Silhouette icon for Overmerged
-        ),
-        index=0  # Default subsection is Undermerged
-    )
-    
-    # Show content for the selected subsection
-    if subsection_section == ":bust_in_silhouette: Profile Undermerged Details":
-        show_disambiguation()
-        st.write("Content for Undermerged profiles...")
-        # You can add more content or visuals related to Undermerged profiles here
-
-    elif subsection_section == ":bust_in_silhouette: Profile Overmerged Details":
-        show_disambiguation()
-        st.write("Content for Overmerged profiles...")
-        # You can add more content or visuals related to Overmerged profiles here
+    show_disambiguation()
