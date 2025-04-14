@@ -208,9 +208,10 @@ def show_completeness():
     st.plotly_chart(fig3, use_container_width=True)
 
     # Display latest value with custom styling
+    # Display latest value with custom styling and lighter purple background
     st.markdown(f"""
-        <div style="background-color: #D8B9FF; color: black; padding: 20px; border-radius: 10px; font-size: 18px;">
-            <strong>Current Average Completeness Score: **{end_row['score_complete_avg']:.2f}**</strong>
+        <div style="background-color: #D8B9FF; color: white; padding: 20px; border-radius: 10px; font-size: 25px;">
+            Current Average Completeness Score: <strong>{end_row['score_complete_avg']:.2f}</strong>
         </div>
     """, unsafe_allow_html=True)
 
