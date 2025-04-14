@@ -150,6 +150,12 @@ def show_completeness():
         x=[100] * len(sorted_values),  # Each category gets a 100% value
         marker_color=['#a3c9ff' if cat != 'All Criteria Met' else '#c1e8c1' for cat in sorted_categories],  # Lighter blue and green colors
         orientation='h',  # Horizontal bars
+        marker=dict(
+            line=dict(
+                width=3,  # Adjust border width to make the contour visible
+                color=['darkgreen' if cat == 'All Criteria Met' else 'rgba(255,255,255,0)' for cat in sorted_categories]  # Dark green for the "All Criteria Met" bars
+            )
+        ),
         showlegend=False  # This disables the legend for the 100% bars
     ))
     
@@ -162,13 +168,7 @@ def show_completeness():
         textfont=dict(color="black", size=14),  # Set text color and size
         marker_color=['#5e8eff' if cat != 'All Criteria Met' else '#6ebd6e' for cat in sorted_categories],  # Darker blue and green colors
         name='Actual Percentage',
-        orientation='h',  # Horizontal bars
-        marker=dict(
-            line=dict(
-                width=3,  # Adjust border width to make the contour visible
-                color=['darkgreen' if cat == 'All Criteria Met' else 'rgba(255,255,255,0)' for cat in sorted_categories]  # Dark green for the "All Criteria Met" bars
-            )
-        )
+        orientation='h'
     ))
     
     # Define the colors for tick labels
