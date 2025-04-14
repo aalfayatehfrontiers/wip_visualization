@@ -143,38 +143,38 @@ def show_completeness():
     
     # Adding background bars (100% filled with soft color)
     fig2.add_trace(go.Bar(
-        x=categories,
-        y= [100] * len(values),  # Always 100% background
+        y=categories,
+        x=[100] * len(values),  # Always 100% background (no need to multiply)
         marker_color='lightgray',  # Softer background color
         name='Background',
-        orientation='v',
+        orientation='h',  # Horizontal bars
         opacity=0.3  # Make the background a bit transparent
     ))
     
     # Adding the actual percentage bars
     fig2.add_trace(go.Bar(
-        x=categories,
-        y=values,
+        y=categories,
+        x=values,
         text=[f"{v:.2f}%" for v in values],
         textposition='auto',
         marker_color=['green' if cat == 'All Criteria Met' else 'royalblue' for cat in categories],  # Green for 'All Criteria Met'
         name='Actual Percentage',
-        orientation='v'
+        orientation='h'  # Horizontal bars
     ))
     
     # Update layout for better visualization
     fig2.update_layout(
-        title="Completeness Breakdown by Criterion",
+        title="Completeness by Criterion",
         title_font=dict(size=25, family="Arial, sans-serif", color="black"),
-        xaxis_title="Criteria",
-        yaxis_title="Percentage",
+        xaxis_title="Percentage",
+        yaxis_title="Criteria",
         barmode='stack',  # Stack bars to show background and actual percentage together
         xaxis=dict(
+            tickformat="%",  # Format X-axis as percentage
+            range=[0, 100],  # Ensure x-axis is from 0% to 100%
             tickfont=dict(size=12, family="Arial, sans-serif", color="black"),
         ),
         yaxis=dict(
-            tickformat="%",  # Format Y-axis as percentage
-            range=[0, 100],  # Ensure y-axis is from 0% to 100%
             tickfont=dict(size=12, family="Arial, sans-serif", color="black"),
         ),
         plot_bgcolor='white',  # Set background to white
