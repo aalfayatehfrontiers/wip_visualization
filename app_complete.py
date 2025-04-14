@@ -95,25 +95,53 @@ def show_completeness():
     # 2) COMPLETENESS TREND LINE PLOT
     # --------------------------------
     fig1 = go.Figure()
+    
+    # Line plot without markers
     fig1.add_trace(go.Scatter(
         x=df_filtered['release'],
         y=df_filtered['number_complete_authors'],
-        mode='lines+markers',
-        name='Complete Authors'
+        mode='lines',  # Removed markers from the plot
+        name='Complete Authors',
+        line=dict(color='royalblue', width=3)  # Styled the line with color and thickness
     ))
+    
+    # Adding the horizontal target line at 6 million
     fig1.add_hline(
-        y=2_000_000,
+        y=6_000_000,
         line_dash="dash",
         line_color="orange",
         annotation_text="Target",
-        annotation_position="top left"
+        annotation_position="top right",  # Position of the target text in top right corner
+        annotation_font_size=12
     )
+    
+    # Update layout for more attractive visualization
     fig1.update_layout(
         title="Completeness Trend",
         xaxis_title="Release Date",
-        yaxis_title="Number of Complete Authors"
+        yaxis_title="Number of Complete Authors",
+        title_font=dict(size=20, family="Arial, sans-serif", color="darkblue"),
+        xaxis=dict(
+            titlefont=dict(size=14, family="Arial, sans-serif", color="black"),
+            tickfont=dict(size=12, family="Arial, sans-serif", color="black"),
+            showgrid=True,  # Show grid for better readability
+            gridcolor="lightgray"
+        ),
+        yaxis=dict(
+            titlefont=dict(size=14, family="Arial, sans-serif", color="black"),
+            tickfont=dict(size=12, family="Arial, sans-serif", color="black"),
+            showgrid=True,
+            gridcolor="lightgray",
+            tickprefix="%",
+            ticksuffix=" authors"  # Add suffix to the Y-axis ticks for clarity
+        ),
+        plot_bgcolor='white',  # Set background color to white for cleaner look
+        margin=dict(l=50, r=50, t=50, b=50)  # Add margins for spacing
     )
+    
+    # Display the plot
     st.plotly_chart(fig1, use_container_width=True)
+
 
     # --------------------------------
     # 3) BARPLOT: BUCKET COMPLETENESS %
