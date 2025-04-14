@@ -365,7 +365,8 @@ def show_contactable():
 # Function for Disambiguation section
 def show_disambiguation():
     st.title("Profile Disambiguation Details ")
-
+    # Add the subtitles
+    st.subheader("Overmerged Metrics")
     # Convert 'release' to datetime and sort
     df_all_kpis['release'] = pd.to_datetime(df_all_kpis['release'])
     df_all_kpis.sort_values('release', inplace=True)
@@ -446,7 +447,8 @@ def show_disambiguation():
 
     # Display the plot
     st.plotly_chart(fig2, use_container_width=True)
-
+    # Add the subtitles
+    st.subheader("Undermerged Metrics")
     # --------------------------------
     # 4) OVERALL UNDERMERGED BLOCK
     # --------------------------------
