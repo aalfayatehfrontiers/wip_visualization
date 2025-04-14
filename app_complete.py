@@ -490,7 +490,7 @@ def show_disambiguation():
     fig4 = go.Figure()
     fig4.add_trace(go.Scatter(
         x=df_filtered['release'],
-        y=(end_row['number_potential_um_fx']  / end_row['number_potential_um']),
+        y=end_row['number_potential_um_fx']  / end_row['number_potential_um'],
         mode='lines+markers',
         name='Ratio UM Authors Fixed',
         line=dict(color='#f4f7f9', width=1.5)
