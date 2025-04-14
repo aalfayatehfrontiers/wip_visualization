@@ -191,15 +191,22 @@ def show_completeness():
             tickfont=dict(
                 size=12,
                 family="Arial, sans-serif, 'Comic Sans MS', sans-serif",
-                color=['darkgreen' if cat == 'All Criteria Met' else 'gray' for cat in sorted_categories]  # Highlight "All Criteria Met" in dark green
+                color='gray'  # Default color for all categories
             ),
+            tickmode='array',  # Specify that we are using an array of custom values for ticks
         ),
         plot_bgcolor='white',  # Set background to white
         margin=dict(l=50, r=50, t=50, b=50)  # Add margins for spacing
     )
     
+    # Apply conditional colors for y-axis labels (custom tick colors)
+    for i, category in enumerate(sorted_categories):
+        if category == 'All Criteria Met':
+            fig2.layout.yaxis.tickfont.color[i] = 'darkgreen'  # Set dark green for "All Criteria Met"
+    
     # Show the plot
     st.plotly_chart(fig2, use_container_width=True)
+
 
     # --------------------------------
     # 4) AVERAGE SCORE LINE PLOT
