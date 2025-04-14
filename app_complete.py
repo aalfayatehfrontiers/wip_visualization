@@ -451,15 +451,15 @@ def show_disambiguation():
     # 4) OVERALL UNDERMERGED BLOCK
     # --------------------------------
     undermerged_ratio_fixed = (end_row['number_potential_um_fx']  / end_row['number_potential_um'])
-    pct_change = ((end_row['number_potential_um_fx'] - start_row['number_potential_um_fx']) / start_row['number_potential_um_fx']) * 100
-    color = "green" if pct_change >= 0 else "red"
-    arrow = "▲" if pct_change >= 0 else "▼"
+    pct_change_um = ((end_row['number_potential_um_fx'] - start_row['number_potential_um_fx']) / start_row['number_potential_um_fx']) * 100
+    color = "green" if pct_change_um >= 0 else "red"
+    arrow = "▲" if pct_change_um >= 0 else "▼"
 
     st.markdown('<h3 style="font-size: 25px; font-family: Arial, sans-serif; color: black;">Overall Ratio UM Profiles Fixed </h3>', unsafe_allow_html=True)
     st.markdown(f'''
         <div style="display: flex; align-items: baseline; gap: 10px;">
-            <div style="font-size: 48px;">{overmerged_pct:.2f}%</div>
-            <div style="font-size: 18px; color: {color};">{arrow} {pct_change:.2f}%</div>
+            <div style="font-size: 48px;">{undermerged_ratio_fixed:.2f}%</div>
+            <div style="font-size: 18px; color: {color};">{arrow} {pct_change_um:.2f}%</div>
         </div>
     ''', unsafe_allow_html=True)    
 
@@ -472,7 +472,7 @@ def show_disambiguation():
         y=df_filtered['number_potential_um_fx'],
         mode='lines',
         name='Undermerged fixed Authors',
-        line=dict(color='#f4f7f9', width=3)
+        line=dict(color='#cfd7df', width=3)
     ))
     fig3.update_layout(
         title="UM Authors Fixed Trend",
@@ -492,7 +492,7 @@ def show_disambiguation():
         y=df_filtered['number_potential_um_fx']  / df_filtered['number_potential_um'],
         mode='lines+markers',
         name='Ratio UM Authors Fixed',
-        line=dict(color='#f4f7f9', width=1.5)
+        line=dict(color='#cfd7df', width=1.5)
     ))
     fig4.update_layout(
         title="Ratio UM Authors Fixed Overtime",
