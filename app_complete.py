@@ -82,7 +82,7 @@ def show_completeness():
     color = "green" if pct_change >= 0 else "red"
     arrow = "▲" if pct_change >= 0 else "▼"
 
-    st.markdown('<h3>Overall Completeness</h3>', unsafe_allow_html=True)
+    st.markdown('<h3 style="font-size: 25px; font-family: Arial, sans-serif; color: black;">Overall Completeness</h3>', unsafe_allow_html=True)
     st.markdown(f'''
         <div style="display: flex; align-items: baseline; gap: 10px;">
             <div style="font-size: 48px;">{completeness_pct:.2f}%</div>
@@ -105,15 +105,18 @@ def show_completeness():
     fig1.add_hline(
         y=5_000_000,
         line_dash="dash",
-        line_color="orange",
+        line_color="green",
         annotation_text="Target",
         annotation_position="top right"
+        annotation_font=dict(
+        size=12,
+        color="green"  # Change this to the color you want for the annotation text)
     )
     fig1.update_layout(
         title="Completeness Trend",
         xaxis_title="Release Date",
-        yaxis_title="# Complete Authors",
-        title_font=dict(size=35, family="Arial, sans-serif", color="black"),
+        yaxis_title="# Authors",
+        title_font=dict(size=25, family="Arial, sans-serif", color="black"),
     )
     # Display the plot
     st.plotly_chart(fig1, use_container_width=True)
