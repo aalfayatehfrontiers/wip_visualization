@@ -350,13 +350,12 @@ def show_contactable():
         # Display numbers with triangle first in big font and percentage afterwards in smaller font
         st.markdown(f'''
             <div class="numbers-container">
-                <div class="big-font">{arrow_symbol} {overall_contactable_percentage:.2f}%</div>
-                <div class="small-font" style="color: {color};">
-                    {pct_change_contactable:.2f}%
+                <div class="big-font" style="color: {color};">{arrow_symbol} {pct_change_contactable:.2f}%</div>
+                <div class="small-font">
+                    {overall_contactable_percentage:.2f}%
                 </div>
             </div>
         ''', unsafe_allow_html=True)
-
 
         #Display the plot bellow
         st.plotly_chart(fig, use_container_width=True)
