@@ -135,15 +135,10 @@ def show_completeness():
     email_pct = end_data[end_data.index.str[10] == '1'].sum() / end_row['number_base_authors'] * 100
     all_criteria_pct = end_row['percentage_complete_authors'] * 100
     
-    # Categories and values
     categories = ['Name', 'Affiliation', 'H-Index >= 1', 'Valid Email', 'All Criteria Met']
     values = [name_pct, affiliation_pct, hindex_pct, email_pct, all_criteria_pct]
     
-    # Add an extra value for "All Categories" set to 100% and light grey color
-    categories.append('All Categories (100%)')
-    values.append(100)
-    
-    # Sort the categories and values by the percentage value in ascending order (reverse=False)
+    # Sort the categories and values by the percentage value in descending order
     sorted_categories, sorted_values = zip(*sorted(zip(categories, values), key=lambda x: x[1], reverse=False))
     
     # Create the figure
@@ -154,10 +149,22 @@ def show_completeness():
         y=sorted_categories,
         x=sorted_values,  # The actual percentage values (proportional to 100%)
         text=[f"{v:.2f}%" for v in sorted_values],  # Show percentage inside the bar
+        textposition='outside',  # Position the text inside the bar
+        textfont=dict(color="black", size=14),  # Set text color and size
+        marker_color=['#70a1ff' if cat != 'All Criteria Met' else '#85e085' for cat in sorted_categories],  # Lighter blue and green colors
+        name='Actual Percentage',
+        orientation='h'  # Horizontal bars
+    ))
+    
+    # Adding the 100% bars (overlapping the actual percentage bars)
+    fig2.add_trace(go.Bar(
+        y=sorted_categories,
+        x=[100] * len(sorted_values),  # Each category gets a 100% value
+        text=['100%' for _ in sorted_values],  # Show 100% inside the bar
         textposition='outside',  # Position the text outside the bar
         textfont=dict(color="black", size=14),  # Set text color and size
-        marker_color=['#70a1ff' if cat != 'All Categories (100%)' else '#b0b0b0' for cat in sorted_categories],  # Lighter blue and light grey color for "All Categories"
-        name='Actual Percentage',
+        marker_color=['#d3d3d3' for _ in sorted_categories],  # Light grey color for 100% bars
+        name='100% Criteria',
         orientation='h'  # Horizontal bars
     ))
     
@@ -165,7 +172,7 @@ def show_completeness():
     fig2.update_layout(
         title="Completeness Breakdown by Criterion",
         title_font=dict(size=25, family="Arial, sans-serif", color="black"),
-        barmode='stack',  # Stack bars to show background and actual percentage together
+        barmode='overlay',  # Overlay bars to allow overlapping
         showlegend=False,  # Remove the legend selector
         xaxis=dict(
             showgrid=False,  # Remove gridlines
