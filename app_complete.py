@@ -365,8 +365,23 @@ def show_contactable():
 # Function for Disambiguation section
 def show_disambiguation():
     st.title("Profile Disambiguation Details ")
-    # Add the subtitles
-    st.subheader("Overmerged Metrics")
+    # Custom styling for subtitles (underlined and bigger font)
+    st.markdown("""
+    <style>
+        .subtitle-box {
+            background-color: black;
+            color: white;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 24px;  /* Bigger font size */
+            font-weight: bold;
+            text-decoration: underline;  /* Underline the text */
+        }
+    </style>
+    """, unsafe_allow_html=True)
+
+    # Add subtitles inside black boxes
+    st.markdown('<div class="subtitle-box">Overmerged Metrics</div>', unsafe_allow_html=True)
     # Convert 'release' to datetime and sort
     df_all_kpis['release'] = pd.to_datetime(df_all_kpis['release'])
     df_all_kpis.sort_values('release', inplace=True)
@@ -448,7 +463,7 @@ def show_disambiguation():
     # Display the plot
     st.plotly_chart(fig2, use_container_width=True)
     # Add the subtitles
-    st.subheader("Undermerged Metrics")
+    st.markdown('<div class="subtitle-box">Undermerged Metrics</div>', unsafe_allow_html=True)
     # --------------------------------
     # 4) OVERALL UNDERMERGED BLOCK
     # --------------------------------
