@@ -176,7 +176,7 @@ def show_completeness():
     
     # Update layout for better visualization
     fig2.update_layout(
-        title="Completeness Breakdown by Criterion",
+        title="Completeness by Criterion",
         title_font=dict(size=25, family="Arial, sans-serif", color="black"),
         barmode='overlay',  # Overlay bars to allow overlapping
         showlegend=False,  # Remove the legend selector
