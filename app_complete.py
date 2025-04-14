@@ -314,32 +314,32 @@ def show_contactable():
             yaxis=dict(title="# Authors"),
             showlegend=True
         )
-        # Display the plot
-                # Apply custom CSS to adjust font sizes and layout
+        
+        # Apply custom CSS to adjust font sizes and layout
         st.markdown("""
         <style>
-        .big-font {
-            font-size: 100px !important;
-            text-align: left;
-        }
-        .small-font {
-            font-size: 36px !important;
-            text-align: left;
-        }
-        .title-font {
-            font-size: 25px !important;
-            font-weight: bold;
-            text-align: left;
-        }
-        .numbers-container {
-            display: flex;
-            justify-content: left;
-            align-items: left;
-            gap: 30px;
-        }
+            .big-font {
+                font-size: 100px !important;
+                text-align: left;
+            }
+            .small-font {
+                font-size: 36px !important;
+                text-align: left;
+            }
+            .title-font {
+                font-size: 25px !important;
+                font-weight: bold;
+                text-align: left;
+            }
+            .numbers-container {
+                display: flex;
+                justify-content: left;
+                align-items: center;  /* Align items in the center vertically */
+                gap: 10px;  /* Reduced gap for better alignment */
+            }
         </style>
         """, unsafe_allow_html=True)
-
+        
         # Display Overall Contactable Percentage Title
         st.markdown('<div class="title-font">Overall Percentage Contactable</div>', unsafe_allow_html=True)
         
@@ -347,15 +347,16 @@ def show_contactable():
         color = "green" if pct_change_contactable >= 0 else "red"
         arrow_symbol = "▲" if pct_change_contactable >= 0 else "▼"
         
-        # Display numbers side by side in the same column
+        # Display numbers with triangle first in big font and percentage afterwards in smaller font
         st.markdown(f'''
             <div class="numbers-container">
-                <div class="big-font" style="color: {color};">
-                {arrow_symbol} {pct_change_contactable:.2f}%
-                <div class="small-font">{overall_contactable_percentage:.2f}%</div>
+                <div class="big-font">{arrow_symbol} {overall_contactable_percentage:.2f}%</div>
+                <div class="small-font" style="color: {color};">
+                    {pct_change_contactable:.2f}%
                 </div>
             </div>
         ''', unsafe_allow_html=True)
+
 
         #Display the plot bellow
         st.plotly_chart(fig, use_container_width=True)
