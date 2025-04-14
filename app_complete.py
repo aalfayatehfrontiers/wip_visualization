@@ -148,11 +148,7 @@ def show_completeness():
     fig2.add_trace(go.Bar(
         y=sorted_categories,
         x=[100] * len(sorted_values),  # Each category gets a 100% value
-        text=['100%' for _ in sorted_values],  # Show 100% inside the bar
-        textposition='outside',  # Position the text outside the bar
-        textfont=dict(color="black", size=14),  # Set text color and size
-        marker_color=['#d3d3d3' for _ in sorted_categories],  # Light grey color for 100% bars
-        name='100% Criteria',
+        marker_color=['#a3c9ff' if cat != 'All Criteria Met' else '#c1e8c1' for cat in sorted_categories],  # Lighter blue and green colors
         orientation='h',  # Horizontal bars
         showlegend=False  # This disables the legend for the 100% bars
     ))
