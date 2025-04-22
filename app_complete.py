@@ -407,7 +407,7 @@ def show_contactable():
         </style>
         """, unsafe_allow_html=True)
         
-        # Set up session state for controlling visibility
+        # Set up session state to track the info visibility toggle
         if "show_info" not in st.session_state:
             st.session_state.show_info = False  # Default state is collapsed (False)
         
@@ -417,16 +417,17 @@ def show_contactable():
             <div class="title-row">
                 <div class="title-font">
                     Percentage Change Contactable Authors
-                    <span class="info-icon" style="cursor: pointer; font-size: 20px; color: #1E90FF;" onclick="window.parent.postMessage({type: 'expand'}, '*');">
-                        ℹ️
-                    </span>
                 </div>
             </div>
             """,
             unsafe_allow_html=True
         )
         
-        # If the info icon is clicked, toggle the information display
+        # Check if the info icon is clicked and toggle the visibility of the info content
+        if st.button('ℹ️ Click for more details'):
+            st.session_state.show_info = not st.session_state.show_info  # Toggle the info visibility
+        
+        # Display the detailed information if it's set to show
         if st.session_state.show_info:
             st.markdown("""
                 <b>1. Definition of a Contactable Active Author</b><br>
@@ -446,13 +447,7 @@ def show_contactable():
                 <b>3. Reference Period</b><br>
                 The metrics are calculated based on the selected start and end months, with monthly average estimates for both the initial and final points in time.
             """, unsafe_allow_html=True)
-        
-        # Add a clickable info icon, that toggles the information display
-        if st.markdown(
-            '<span style="cursor: pointer; color: #1E90FF; font-size: 20px;" onclick="window.parent.postMessage({type: \'expand\'}, \'*\');">ℹ️</span>',
-            unsafe_allow_html=True
-        ):
-            st.session_state.show_info = not st.session_state.show_info
+
             
         arrow = "▲" if pct_change_contactable >= 0 else "▼"
         color = "green" if pct_change_contactable >= 0 else "red"
