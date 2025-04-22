@@ -411,13 +411,13 @@ def show_contactable():
         if "show_info" not in st.session_state:
             st.session_state.show_info = False  # Default state is collapsed (False)
         
-        # Main content of the app with the icon side by side with the title
+        # Main content of the app with the icon right next to the title
         col1, col2 = st.columns([6, 1])
         
         with col1:
             st.markdown(
                 """
-                <div class="title-font" style="font-size: 25px; font-weight: bold;">
+                <div class="title-font" style="font-size: 25px; font-weight: bold; display: inline-block;">
                     Percentage Change Contactable Authors
                 </div>
                 """,
@@ -425,8 +425,8 @@ def show_contactable():
             )
         
         with col2:
-            # Clickable ℹ️ icon in the second column
-            if st.button('ℹ️', key="info_button"):
+            # Clickable ℹ️ icon in the second column with no border or contour
+            if st.button('ℹ️', key="info_button", help="Click for more details", use_container_width=True):
                 st.session_state.show_info = not st.session_state.show_info  # Toggle visibility
         
         # Display the detailed information if it's set to show
