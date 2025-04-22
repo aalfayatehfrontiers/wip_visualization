@@ -378,21 +378,30 @@ def show_contactable():
         """, unsafe_allow_html=True)
         
         st.markdown("""
-        <div class="title-container">
-            <div class="title-font">Percentage Change Contactable Authors</div>
-            <div class="tooltip-container">
-                <span class="info-icon">ℹ️</span>
-                <span class="tooltip-text">
-                    Metric estimated taking into account active authors with a publication within the last 36 months.
+        <div class="title-row">
+            <div class="title-font">
+                Percentage Change Contactable Authors
+                <span class="tooltip-container">
+                    <span class="info-icon">ℹ️</span>
+                    <span class="tooltip-text">
+                        Metric estimated taking into account active authors with a publication within the last 36 months.
+                    </span>
                 </span>
             </div>
         </div>
         
         <style>
-            .title-container {
+            .title-row {
                 display: flex;
                 align-items: center;
-                justify-content: space-between;
+            }
+        
+            .title-font {
+                font-size: 25px !important;
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+                gap: 6px;
             }
         
             .tooltip-container {
@@ -422,6 +431,7 @@ def show_contactable():
                 transition: opacity 0.3s;
                 box-shadow: 0 2px 8px rgba(0,0,0,0.15);
                 font-size: 14px;
+                white-space: normal;
             }
         
             .tooltip-container:hover .tooltip-text {
@@ -430,6 +440,7 @@ def show_contactable():
             }
         </style>
         """, unsafe_allow_html=True)
+
 
 
         arrow = "▲" if pct_change_contactable >= 0 else "▼"
