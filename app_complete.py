@@ -430,17 +430,17 @@ def show_contactable():
         
                 .info-icon {
                     cursor: pointer;
-                    font-size: 18px;
+                    font-size: 16px;
                 }
         
                 .tooltip-text {
                     visibility: hidden;
-                    width: 220px;
+                    width: 220px; /* Adjusted width */
                     background-color: #f0f0f0;
                     color: #000;
                     text-align: left;
-                    border-radius: 6px;
-                    padding: 8px;
+                    border-radius: 4px;
+                    padding: 8px; /* Slightly larger padding */
                     position: absolute;
                     z-index: 1;
                     bottom: 125%;
@@ -448,8 +448,8 @@ def show_contactable():
                     transform: translateX(-50%);
                     opacity: 0;
                     transition: opacity 0.3s;
-                    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-                    font-size: 13px;
+                    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+                    font-size: 12px; /* Adjusted font size */
                     white-space: normal;
                     line-height: 1.4;
                 }
@@ -466,18 +466,18 @@ def show_contactable():
                     <span class="tooltip-container">
                         <span class="info-icon">ℹ️</span>
                         <span class="tooltip-text">
-                            <strong>1. Contactable Author:</strong><br>
+                            <b>1. Contactable Author</b><br>
                             • H-Index ≥ 1<br>
-                            • Affiliation listed<br>
-                            • Last year ≥ 2022<br>
+                            • Affiliated<br>
+                            • Year ≥ 2022<br>
                             • Verified email<br><br>
         
-                            <strong>2. Calculations:</strong><br>
-                            • Change: (end − start) / start × 100<br>
-                            • Overall: end / (end + non-contactable) × 100<br><br>
+                            <b>2. Calc:</b><br>
+                            • Δ% = (end − start) / start ×100<br>
+                            • % = end / (end + non) ×100<br><br>
         
-                            <strong>3. Period:</strong><br>
-                            Based on monthly start & end selection.
+                            <b>3. Period:</b><br>
+                            Based on monthly selection.
                         </span>
                     </span>
                 </div>
