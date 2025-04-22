@@ -325,33 +325,42 @@ def show_contactable():
         # Add total authors column
         df_filtered['total_authors'] = df_filtered['contactable_authors'] + df_filtered['non_contactable_authors']
     
-        # Plotting
-        fig = go.Figure()
-    
+        # Create a subplot with secondary y-axis
+        fig = make_subplots(specs=[[{"secondary_y": True}]])
+        
+        # Line chart for contactable authors (primary y-axis)
         fig.add_trace(go.Scatter(
             x=df_filtered['month'],
             y=df_filtered['contactable_authors'],
             mode='lines',
             name='Contactable Audience'
-        ))
-    
+        ), secondary_y=False)
+        
+        # Bar chart for total authors (secondary y-axis)
         fig.add_trace(go.Bar(
             x=df_filtered['month'],
             y=df_filtered['total_authors'],
             name='Total Authors',
             marker=dict(color='lightgray'),
             opacity=0.5
-        ))
-    
+        ), secondary_y=True)
+        
+        # Update layout with your original style
         fig.update_layout(
             title=dict(
                 text="Contactable Trend",
                 font=dict(size=25, weight='normal')
             ),
             xaxis_title="Month",
-            yaxis_title="⟨Y⟩ Authors",
+            yaxis_title="⟨Y⟩ Authors",  # Left axis (Contactable)
             barmode='overlay',
             showlegend=True
+        )
+        
+        # Update right y-axis label (optional: blank if not needed)
+        fig.update_yaxes(
+            title_text="",  # Right axis title can be empty or reused
+            secondary_y=True
         )
 
         # Format helper
