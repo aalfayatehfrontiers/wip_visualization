@@ -403,7 +403,7 @@ def show_contactable():
                     {arrow_symbol} {pct_change_contactable:.2f}%
                 </div>
                 <div class="subtitle-font">
-                    <strong>Current number of contactable authors</strong> is <strong>{contactable_end_formatted}</strong>, 
+                    <strong>Current number of contactable profiles</strong> is <strong>{contactable_end_formatted}</strong>, 
                     which represents <strong>{overall_contactable_percentage:.2f}%</strong> of all active authors.
                 </div>
             </div>
