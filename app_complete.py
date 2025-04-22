@@ -432,14 +432,14 @@ def show_contactable():
                     border: none;
                     color: inherit;
                     padding: 0;
-                    font-size: 10px;
+                    font-size: 5px;
                     cursor: pointer;
                 }
             </style>
         """, unsafe_allow_html=True)
         
         # Use columns to align title and button inline
-        col1, col2 = st.columns([0.95, 0.45])  # Adjust width ratio for alignment
+        col1, col2 = st.columns([0.95, 0.65])  # Adjust width ratio for alignment
         
         with col1:
             st.markdown('<div class="title-text">Percentage Change Contactable Authors</div>', unsafe_allow_html=True)
