@@ -407,40 +407,69 @@ def show_contactable():
         </style>
         """, unsafe_allow_html=True)
         
-        # Set up session state to track the info visibility toggle
+        # Set up session state to track info visibility
         if "show_info" not in st.session_state:
-            st.session_state.show_info = False  # Default state is collapsed (False)
+            st.session_state.show_info = False
         
-        # Create a two-column layout for the title and the button side-by-side
-        col1, col2 = st.columns([0.95, 0.05])  # Adjust widths for better alignment
+        # Custom CSS to make the button look like an icon with no border/background
+        st.markdown("""
+            <style>
+            .icon-button {
+                background: none;
+                border: none;
+                padding: 0;
+                font-size: 24px;
+                cursor: pointer;
+                color: inherit;
+            }
+            .title-row {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            </style>
+        """, unsafe_allow_html=True)
         
-        with col1:
-            st.markdown("### Percentage Change Contactable Authors")
+        # Create the title and clickable info icon on the same line
+        st.markdown(
+            f"""
+            <div class="title-row">
+                <div style="font-size: 25px; font-weight: bold;">Percentage Change Contactable Authors</div>
+                <form action="" method="post">
+                    <button class="icon-button" name="info_button" type="submit">ℹ️</button>
+                </form>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
         
-        with col2:
-            # A compact info icon styled as a button
-            if st.button("ℹ️", key="info_button", help="Click for more info"):
-                st.session_state.show_info = not st.session_state.show_info  # Toggle visibility
+        # Handle the button click manually
+        if st.session_state.get("info_button_submitted") is None:
+            st.session_state.info_button_submitted = False
         
-        # Display the detailed information if the button was clicked
+        # Simulate button click via form
+        if st.experimental_get_query_params().get("info_button"):
+            st.session_state.show_info = not st.session_state.show_info
+            st.session_state.info_button_submitted = True
+        
+        # Display additional info if toggled
         if st.session_state.show_info:
             st.markdown("""
                 <b>1. Definition of a Contactable Active Author</b><br>
                 A contactable active author is defined as a researcher who meets the following criteria:<br>
-                - <b>H-Index ≥ 1</b> to ensure academic impact.<br>
-                - <b>Affiliation</b> must be provided and listed in a recognized institution.<br>
-                - <b>Last authorship year ≥ 2022</b>, ensuring the author is actively publishing in the recent academic landscape.<br>
-                - A <b>verified email address</b> is required for author contactability, ensuring communication is possible.<br><br>
+                - <b>H-Index ≥ 1</b><br>
+                - <b>Affiliation listed</b><br>
+                - <b>Last authorship year ≥ 2022</b><br>
+                - <b>Verified email associated</b><br><br>
         
                 <b>2. Percentage Calculations</b><br>
-                The following formulas are used to calculate the percentages:<br>
                 • <b>Change Over Time:</b><br>
                 <code>(contactable<sub>end</sub> − contactable<sub>start</sub>) / contactable<sub>start</sub> × 100</code><br>
-                • <b>Overall Contactable Percentage:</b><br>
+                • <b>Overall Contactable %:</b><br>
                 <code>contactable<sub>end</sub> / (contactable<sub>end</sub> + non_contactable<sub>end</sub>) × 100</code><br><br>
         
                 <b>3. Reference Period</b><br>
-                The metrics are calculated based on the selected start and end months, using monthly average estimates for both points in time.
+                Based on selected start and end months using monthly average estimates.
             """, unsafe_allow_html=True)
             
         arrow = "▲" if pct_change_contactable >= 0 else "▼"
