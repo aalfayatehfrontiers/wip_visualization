@@ -233,12 +233,11 @@ def show_completeness():
         </div>
     """, unsafe_allow_html=True)
 
-
 # Function for Contactable section
 def show_contactable():
     st.title("Profile Contactable Details")
-    # st.write("This section contains Profile Contactable Details.")
-    
+
+    # Original Data
     data = {
         "release_date": [
             "2024-01-04", "2024-09-18", "2024-10-30", "2023-09-07", "2024-05-02", "2024-11-13", "2024-12-18", 
@@ -270,91 +269,80 @@ def show_contactable():
             5324936, 10519623, 9789095, 9242200, 7071370, 6481522, 10219663, 10667052, 8239720, 10299146, 10511032, 
             9684234, 10861782, 9794722, 9555361, 6358781, 7340930, 9372221, 6989028, 10528379, 10011427, 7524933, 
             10343548, 7768536, 9457266, 9838423, 9897369, 8385618, 5300196, 7911001, 10177334, 10873626
-        ],
-        "total_authors": [
-            10103276, 13112606, 13620001, 8907334, 11491918, 13786516, 14063278, 8774194, 8252552, 14443998, 
-            11297801, 8823364, 11670418, 10490423, 10951770, 10570300, 12404968, 10736185, 8624356, 13913763, 
-            13944813, 8009315, 9035141, 12066110, 14867359, 10625064, 15013725, 9134992, 11165748, 12937731, 
-            14573803, 10276575, 11416523, 11187116, 11814479, 13282036, 14294823, 10410861, 12120116, 14359095, 
-            12715389, 13370447, 14743077, 11611553, 7483383, 14059411, 12353543, 11758314, 9403555, 8788320, 
-            13548176, 14661357, 10693229, 13938618, 14016005, 12621411, 15111583, 12787977, 12092820, 8532345, 
-            9683448, 11896214, 9311865, 14245513, 13174146, 9873874, 13751765, 10177529, 11985848, 12852207, 
-            12996074, 10849461, 7454287, 10343702, 13453550, 15139914
         ]
     }
-    
-    # Creating a pandas DataFrame
-    df_authors_contactable = pd.DataFrame(data)
 
-    # Convert 'release_date' to datetime
-    df_authors_contactable['release_date'] = pd.to_datetime(df_authors_contactable['release_date'])
-    df_authors_contactable = df_authors_contactable.sort_values(by='release_date')
+    # DataFrame creation
+    df = pd.DataFrame(data)
+    df['release_date'] = pd.to_datetime(df['release_date'])
+    df['month'] = df['release_date'].dt.to_period('M').dt.to_timestamp()
 
-    # Extract unique dates from the 'release_date' column
-    unique_dates = pd.to_datetime(df_authors_contactable['release_date']).dt.date.unique()
+    # Group by month and aggregate
+    df_monthly = df.groupby('month').sum(numeric_only=True).reset_index()
 
-    # Sort dates
-    unique_dates.sort()
+    # Unique months
+    unique_months = df_monthly['month'].dt.date.unique()
+    start_month = st.selectbox("Select Start Month", options=unique_months, index=0)
+    end_month = st.selectbox("Select End Month", options=unique_months, index=len(unique_months) - 1)
 
-    # Display Start Date and End Date Selectors
-    start_date = st.selectbox("Select Start Release Date", options=unique_dates, index=0)
-    end_date = st.selectbox("Select End Release Date", options=unique_dates, index=len(unique_dates) - 1)
-
-    # Filter the DataFrame based on the selected start and end date range
-    df_filtered = df_authors_contactable[(
-        df_authors_contactable['release_date'].dt.date >= start_date) & 
-        (df_authors_contactable['release_date'].dt.date <= end_date)
-    ] 
+    # Filter data
+    df_filtered = df_monthly[
+        (df_monthly['month'].dt.date >= start_month) &
+        (df_monthly['month'].dt.date <= end_month)
+    ]
 
     if not df_filtered.empty:
-        # Calculate the overall contactable percentage at the end date
-        end_data = df_filtered[df_filtered['release_date'].dt.date == end_date].iloc[-1]
+        start_data = df_filtered[df_filtered['month'].dt.date == start_month].iloc[0]
+        end_data = df_filtered[df_filtered['month'].dt.date == end_month].iloc[-1]
+
+        contactable_start = start_data['contactable_authors']
         contactable_end = end_data['contactable_authors']
         non_contactable_end = end_data['non_contactable_authors']
-        
-        overall_contactable_percentage = (contactable_end / (contactable_end + non_contactable_end)) * 100
 
-        # Calculate the percentage change for contactable authors from start to end date
-        start_data = df_filtered[df_filtered['release_date'].dt.date == start_date].iloc[0]
-        contactable_start = start_data['contactable_authors']
+        overall_contactable_percentage = (contactable_end / (contactable_end + non_contactable_end)) * 100
         pct_change_contactable = ((contactable_end - contactable_start) / contactable_start) * 100
 
-        # Create the line plot
+        # Add total authors column
+        df_filtered['total_authors'] = df_filtered['contactable_authors'] + df_filtered['non_contactable_authors']
+
+        # Plotting
         fig = go.Figure()
+
         fig.add_trace(go.Scatter(
-            x=df_filtered['release_date'],
+            x=df_filtered['month'],
             y=df_filtered['contactable_authors'],
             mode='lines',
             name='Contactable Audience'
         ))
 
-        # Update layout with customized title
+        fig.add_trace(go.Bar(
+            x=df_filtered['month'],
+            y=df_filtered['total_authors'],
+            name='Total Authors',
+            marker=dict(color='lightgray'),
+            opacity=0.5
+        ))
+
         fig.update_layout(
             title=dict(
                 text="Contactable Trend",
-                font=dict(
-                    size=25,        # Set your desired font size
-                    weight='normal' # Set the font weight to normal to remove bold
-                )
+                font=dict(size=25, weight='normal')
             ),
-            xaxis=dict(
-                title="Release Date",
-                type="date"
-            ),
-            yaxis=dict(title="# Authors"),
+            xaxis_title="Month",
+            yaxis_title="# Authors",
+            barmode='overlay',
             showlegend=True
         )
-        
-        # Function to format the number with the required suffix
+
+        # Format helper
         def format_number(number):
             if number >= 1_000_000:
                 return f"{number / 1_000_000:.2f}M"
             elif number >= 1_000:
                 return f"{number / 1_000:.2f}K"
-            else:
-                return f"{number:.2f}"
-        
-        # Apply custom CSS to adjust font sizes and layout
+            return f"{number:.2f}"
+
+        # Styling
         st.markdown("""
         <style>
             .big-font {
@@ -365,16 +353,19 @@ def show_contactable():
                 font-size: 18px !important;
                 text-align: left;
             }
+            .title-container {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
             .title-font {
                 font-size: 25px !important;
                 font-weight: bold;
-                text-align: left;
             }
             .numbers-container {
                 display: flex;
-                flex-direction: column;  /* Stack vertically */
-                justify-content: left;
-                align-items: flex-start;  /* Align items to the left */
+                flex-direction: column;
+                align-items: flex-start;
                 gap: 10px;
             }
             .subtitle-font {
@@ -385,22 +376,22 @@ def show_contactable():
             }
         </style>
         """, unsafe_allow_html=True)
-        
-        # Display Change Contactable Percentage Title
-        st.markdown('<div class="title-font">Percentage Change Contactable Authors</div>', unsafe_allow_html=True)
-        
-        # Corrected f-string formatting for color and arrow symbols
+
+        col1, col2 = st.columns([0.95, 0.05])
+        with col1:
+            st.markdown('<div class="title-font">Percentage Change Contactable Authors</div>', unsafe_allow_html=True)
+        with col2:
+            st.markdown("ℹ️")
+            st.tooltip("Metric estimated taking into account active authors with a publication within the last 36 months")
+
+        arrow = "▲" if pct_change_contactable >= 0 else "▼"
         color = "green" if pct_change_contactable >= 0 else "red"
-        arrow_symbol = "▲" if pct_change_contactable >= 0 else "▼"
-        
-        # Format the contactable_end number
         contactable_end_formatted = format_number(contactable_end)
-        
-        # Display numbers with triangle first in big font and percentage change afterwards
+
         st.markdown(f'''
             <div class="numbers-container">
                 <div class="big-font" style="color: {color};">
-                    {arrow_symbol} {pct_change_contactable:.2f}%
+                    {arrow} {pct_change_contactable:.2f}%
                 </div>
                 <div class="subtitle-font">
                     <strong>Current number of contactable profiles</strong> is <strong>{contactable_end_formatted}</strong>, 
@@ -409,7 +400,6 @@ def show_contactable():
             </div>
         ''', unsafe_allow_html=True)
 
-        #Display the plot bellow
         st.plotly_chart(fig, use_container_width=True)
     else:
         st.warning("No data available for the selected date range.")
