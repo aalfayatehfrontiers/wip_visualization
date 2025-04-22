@@ -251,70 +251,90 @@ def show_contactable():
             "2025-04-03", "2024-08-21", "2024-06-19", "2023-08-17", "2023-12-04", "2024-06-05", "2023-11-16", 
             "2025-01-15", "2024-09-25", "2023-12-14", "2024-11-06", "2024-01-11", "2024-06-12", "2024-08-28", 
             "2024-09-11", "2024-03-14", "2023-06-01", "2024-01-25", "2024-10-16", "2025-04-09"
-        ],
-        "contactable_authors": [
-            2401045, 3133611, 3365920, 2177008, 2498479, 3444200, 3556451, 2174578, 2171952, 3938055, 2487745, 
-            2330906, 2513370, 2440823, 2470018, 2445955, 2567961, 2456602, 2173302, 3471915, 3800768, 2168703, 
-            2179020, 2555179, 4114358, 2450035, 4172468, 2316096, 2479308, 3061102, 3970325, 2429413, 2494133, 
-            2483220, 2521810, 3192414, 3888765, 2437831, 2556673, 3914019, 2962071, 3224521, 4021884, 2505263, 
-            2158447, 3539788, 2564448, 2516114, 2332185, 2306798, 3328513, 3994305, 2453509, 3639472, 3504973, 
-            2937177, 4249801, 2993255, 2537459, 2173564, 2342518, 2523993, 2322837, 3717134, 3162719, 2348941, 
-            3408217, 2408993, 2528582, 3013784, 3098705, 2463843, 2154091, 2432701, 3276216, 4266288
-        ],
-        "non_contactable_authors": [
-            7702231, 9978995, 10254081, 6730326, 8993439, 10342316, 10506827, 6599616, 6080600, 10505943, 8810056, 
-            6492458, 9157048, 8049600, 8481752, 8124345, 9837007, 8279583, 6451054, 10441848, 10144045, 5840612, 
-            6856121, 9510931, 10753001, 8175029, 10841257, 6818896, 8686440, 9876629, 10603478, 7847162, 8922390, 
-            8703896, 9292669, 10089622, 10406058, 7973030, 9563443, 10445076, 9753318, 10145926, 10721193, 9106290, 
-            5324936, 10519623, 9789095, 9242200, 7071370, 6481522, 10219663, 10667052, 8239720, 10299146, 10511032, 
-            9684234, 10861782, 9794722, 9555361, 6358781, 7340930, 9372221, 6989028, 10528379, 10011427, 7524933, 
-            10343548, 7768536, 9457266, 9838423, 9897369, 8385618, 5300196, 7911001, 10177334, 10873626
         ]
+        ,
+            "contactable_authors": [
+                2401045, 3133611, 3365920, 2177008, 2498479, 3444200, 3556451, 2174578, 2171952, 3938055, 2487745, 
+                2330906, 2513370, 2440823, 2470018, 2445955, 2567961, 2456602, 2173302, 3471915, 3800768, 2168703, 
+                2179020, 2555179, 4114358, 2450035, 4172468, 2316096, 2479308, 3061102, 3970325, 2429413, 2494133, 
+                2483220, 2521810, 3192414, 3888765, 2437831, 2556673, 3914019, 2962071, 3224521, 4021884, 2505263, 
+                2158447, 3539788, 2564448, 2516114, 2332185, 2306798, 3328513, 3994305, 2453509, 3639472, 3504973, 
+                2937177, 4249801, 2993255, 2537459, 2173564, 2342518, 2523993, 2322837, 3717134, 3162719, 2348941, 
+                3408217, 2408993, 2528582, 3013784, 3098705, 2463843, 2154091, 2432701, 3276216, 4266288
+            ],
+            "non_contactable_authors": [
+                7702231, 9978995, 10254081, 6730326, 8993439, 10342316, 10506827, 6599616, 6080600, 10505943, 8810056, 
+                6492458, 9157048, 8049600, 8481752, 8124345, 9837007, 8279583, 6451054, 10441848, 10144045, 5840612, 
+                6856121, 9510931, 10753001, 8175029, 10841257, 6818896, 8686440, 9876629, 10603478, 7847162, 8922390, 
+                8703896, 9292669, 10089622, 10406058, 7973030, 9563443, 10445076, 9753318, 10145926, 10721193, 9106290, 
+                5324936, 10519623, 9789095, 9242200, 7071370, 6481522, 10219663, 10667052, 8239720, 10299146, 10511032, 
+                9684234, 10861782, 9794722, 9555361, 6358781, 7340930, 9372221, 6989028, 10528379, 10011427, 7524933, 
+                10343548, 7768536, 9457266, 9838423, 9897369, 8385618, 5300196, 7911001, 10177334, 10873626
+            ],
+            "total_authors": [
+                10103276, 13112606, 13620001, 8907334, 11491918, 13786516, 14063278, 8774194, 8252552, 14443998, 
+                11297801, 8823364, 11670418, 10490423, 10951770, 10570300, 12404968, 10736185, 8624356, 13913763, 
+                13944813, 8009315, 9035141, 12066110, 14867359, 10625064, 15013725, 9134992, 11165748, 12937731, 
+                14573803, 10276575, 11416523, 11187116, 11814479, 13282036, 14294823, 10410861, 12120116, 14359095, 
+                12715389, 13370447, 14743077, 11611553, 7483383, 14059411, 12353543, 11758314, 9403555, 8788320, 
+                13548176, 14661357, 10693229, 13938618, 14016005, 12621411, 15111583, 12787977, 12092820, 8532345, 
+                9683448, 11896214, 9311865, 14245513, 13174146, 9873874, 13751765, 10177529, 11985848, 12852207, 
+                12996074, 10849461, 7454287, 10343702, 13453550, 15139914
+            ]
     }
-
+    
     # DataFrame creation
     df = pd.DataFrame(data)
     df['release_date'] = pd.to_datetime(df['release_date'])
     df['month'] = df['release_date'].dt.to_period('M').dt.to_timestamp()
-
-    # Group by month and aggregate
-    df_monthly = df.groupby('month').sum(numeric_only=True).reset_index()
-
-    # Unique months
-    unique_months = df_monthly['month'].dt.date.unique()
-    start_month = st.selectbox("Select Start Month", options=unique_months, index=0)
-    end_month = st.selectbox("Select End Month", options=unique_months, index=len(unique_months) - 1)
-
+    
+    # Group by month and calculate mean
+    df_monthly = df.groupby('month').mean(numeric_only=True).reset_index()
+    
+    # Create a formatted label for dropdown display
+    df_monthly['month_label'] = df_monthly['month'].dt.strftime('%b-%Y')  # E.g., Jan-2024
+    
+    # Create a mapping from label to actual datetime
+    month_label_to_date = dict(zip(df_monthly['month_label'], df_monthly['month']))
+    
+    # Dropdowns using labels
+    start_label = st.selectbox("Select Start Month", options=df_monthly['month_label'].tolist(), index=0)
+    end_label = st.selectbox("Select End Month", options=df_monthly['month_label'].tolist(), index=len(df_monthly) - 1)
+    
+    # Get actual dates from labels
+    start_month = month_label_to_date[start_label]
+    end_month = month_label_to_date[end_label]
+    
     # Filter data
     df_filtered = df_monthly[
-        (df_monthly['month'].dt.date >= start_month) &
-        (df_monthly['month'].dt.date <= end_month)
+        (df_monthly['month'] >= start_month) &
+        (df_monthly['month'] <= end_month)
     ]
-
+    
     if not df_filtered.empty:
-        start_data = df_filtered[df_filtered['month'].dt.date == start_month].iloc[0]
-        end_data = df_filtered[df_filtered['month'].dt.date == end_month].iloc[-1]
-
+        start_data = df_filtered[df_filtered['month'] == start_month].iloc[0]
+        end_data = df_filtered[df_filtered['month'] == end_month].iloc[-1]
+    
         contactable_start = start_data['contactable_authors']
         contactable_end = end_data['contactable_authors']
         non_contactable_end = end_data['non_contactable_authors']
-
+    
         overall_contactable_percentage = (contactable_end / (contactable_end + non_contactable_end)) * 100
         pct_change_contactable = ((contactable_end - contactable_start) / contactable_start) * 100
-
+    
         # Add total authors column
         df_filtered['total_authors'] = df_filtered['contactable_authors'] + df_filtered['non_contactable_authors']
-
+    
         # Plotting
         fig = go.Figure()
-
+    
         fig.add_trace(go.Scatter(
             x=df_filtered['month'],
             y=df_filtered['contactable_authors'],
             mode='lines',
             name='Contactable Audience'
         ))
-
+    
         fig.add_trace(go.Bar(
             x=df_filtered['month'],
             y=df_filtered['total_authors'],
@@ -322,14 +342,14 @@ def show_contactable():
             marker=dict(color='lightgray'),
             opacity=0.5
         ))
-
+    
         fig.update_layout(
             title=dict(
-                text="Contactable Trend",
+                text="Contactable Trend (Average per Month)",
                 font=dict(size=25, weight='normal')
             ),
             xaxis_title="Month",
-            yaxis_title="# Authors",
+            yaxis_title="# Authors (Average)",
             barmode='overlay',
             showlegend=True
         )
