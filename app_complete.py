@@ -345,11 +345,11 @@ def show_contactable():
     
         fig.update_layout(
             title=dict(
-                text="Contactable Trend (Average per Month)",
+                text="Contactable Trend",
                 font=dict(size=25, weight='normal')
             ),
             xaxis_title="Month",
-            yaxis_title="# Authors (Average)",
+            yaxis_title="⟨Y⟩ Authors",
             barmode='overlay',
             showlegend=True
         )
