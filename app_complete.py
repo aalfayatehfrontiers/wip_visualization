@@ -379,26 +379,17 @@ def show_contactable():
         
         with st.container():
             col1, col2 = st.columns([0.95, 0.05])
-        
+            
             with col1:
                 st.markdown('<div class="title-font">Percentage Change Contactable Authors</div>', unsafe_allow_html=True)
+            
             with col2:
-                show_tooltip = st.checkbox("ℹ️", key="info_toggle")
-        
-            if show_tooltip:
-                st.markdown("""
-                <div style="
-                    background-color: #f0f0f0;
-                    color: #000;
-                    padding: 10px;
-                    border-radius: 6px;
-                    font-size: 14px;
-                    width: 100%;
-                ">
-                    <strong>Info:</strong> Metric estimated taking into account active authors with a publication within the last 36 months.
-                </div>
-                """, unsafe_allow_html=True)
-
+                with st.expander("ℹ️", expanded=False):
+                    st.markdown("""
+                    <div style="font-size: 14px; color: #444;">
+                        Metric estimated taking into account active authors with a publication within the last 36 months.
+                    </div>
+                    """, unsafe_allow_html=True)
 
         arrow = "▲" if pct_change_contactable >= 0 else "▼"
         color = "green" if pct_change_contactable >= 0 else "red"
