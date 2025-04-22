@@ -345,6 +345,15 @@ def show_contactable():
             showlegend=True
         )
         
+        # Function to format the number with the required suffix
+        def format_number(number):
+            if number >= 1_000_000:
+                return f"{number / 1_000_000:.2f}M"
+            elif number >= 1_000:
+                return f"{number / 1_000:.2f}K"
+            else:
+                return f"{number:.2f}"
+        
         # Apply custom CSS to adjust font sizes and layout
         st.markdown("""
         <style>
@@ -363,9 +372,15 @@ def show_contactable():
             }
             .numbers-container {
                 display: flex;
+                flex-direction: column;  /* Stack vertically */
                 justify-content: left;
-                align-items: center;  /* Align items in the center vertically */
-                gap: 10px;  /* Reduced gap for better alignment */
+                align-items: flex-start;  /* Align items to the left */
+                gap: 10px;
+            }
+            .subtitle-font {
+                font-size: 18px !important;
+                font-weight: normal;
+                text-align: left;
             }
         </style>
         """, unsafe_allow_html=True)
@@ -377,12 +392,18 @@ def show_contactable():
         color = "green" if pct_change_contactable >= 0 else "red"
         arrow_symbol = "▲" if pct_change_contactable >= 0 else "▼"
         
-        # Display numbers with triangle first in big font and percentage afterwards in smaller font
+        # Format the contactable_end number
+        contactable_end_formatted = format_number(contactable_end)
+        
+        # Display numbers with triangle first in big font and percentage change afterwards
         st.markdown(f'''
             <div class="numbers-container">
-                <div class="big-font" style="color: {color};">{arrow_symbol} {pct_change_contactable:.2f}%</div>
-                <div class="small-font">
-                    {overall_contactable_percentage:.2f}%
+                <div class="big-font" style="color: {color};">
+                    {arrow_symbol} {pct_change_contactable:.2f}%
+                </div>
+                <div class="subtitle-font">
+                    <strong>Current number of contactable authors</strong> is <strong>{contactable_end_formatted}</strong>, 
+                    which represents <strong>{overall_contactable_percentage:.2f}%</strong> of all active authors.
                 </div>
             </div>
         ''', unsafe_allow_html=True)
