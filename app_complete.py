@@ -377,19 +377,60 @@ def show_contactable():
         </style>
         """, unsafe_allow_html=True)
         
-        with st.container():
-            col1, col2 = st.columns([0.95, 0.05])
-            
-            with col1:
-                st.markdown('<div class="title-font">Percentage Change Contactable Authors</div>', unsafe_allow_html=True)
-            
-            with col2:
-                with st.expander("ℹ️", expanded=False):
-                    st.markdown("""
-                    <div style="font-size: 14px; color: #444;">
-                        Metric estimated taking into account active authors with a publication within the last 36 months.
-                    </div>
-                    """, unsafe_allow_html=True)
+        st.markdown("""
+        <div class="title-container">
+            <div class="title-font">Percentage Change Contactable Authors</div>
+            <div class="tooltip-container">
+                <span class="info-icon">ℹ️</span>
+                <span class="tooltip-text">
+                    Metric estimated taking into account active authors with a publication within the last 36 months.
+                </span>
+            </div>
+        </div>
+        
+        <style>
+            .title-container {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+        
+            .tooltip-container {
+                position: relative;
+                display: inline-block;
+            }
+        
+            .info-icon {
+                cursor: pointer;
+                font-size: 18px;
+            }
+        
+            .tooltip-text {
+                visibility: hidden;
+                width: 260px;
+                background-color: #f0f0f0;
+                color: #000;
+                text-align: left;
+                border-radius: 6px;
+                padding: 10px;
+                position: absolute;
+                z-index: 1;
+                bottom: 125%;
+                left: 50%;
+                transform: translateX(-50%);
+                opacity: 0;
+                transition: opacity 0.3s;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+                font-size: 14px;
+            }
+        
+            .tooltip-container:hover .tooltip-text {
+                visibility: visible;
+                opacity: 1;
+            }
+        </style>
+        """, unsafe_allow_html=True)
+
 
         arrow = "▲" if pct_change_contactable >= 0 else "▼"
         color = "green" if pct_change_contactable >= 0 else "red"
