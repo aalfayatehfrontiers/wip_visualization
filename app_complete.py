@@ -448,7 +448,7 @@ def show_contactable():
             st.session_state.info_button_submitted = False
         
         # Simulate button click via form
-        if st.query_params().get("info_button"):
+        if st.query_params.get("info_button"):
             st.session_state.show_info = not st.session_state.show_info
             st.session_state.info_button_submitted = True
         
