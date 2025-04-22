@@ -406,20 +406,19 @@ def show_contactable():
             }
         </style>
         """, unsafe_allow_html=True)
-
+        
         # Set up session state to track the info visibility toggle
         if "show_info" not in st.session_state:
             st.session_state.show_info = False  # Default state is collapsed (False)
         
-        # Main content of the app with the icon right next to the title (no contour)
+        # Main content of the app
         st.markdown(
             """
             <div class="title-row" style="display: flex; align-items: center;">
                 <div class="title-font" style="font-size: 25px; font-weight: bold; display: inline;">
                     Percentage Change Contactable Authors
                 </div>
-                <button style="background: none; border: none; cursor: pointer; font-size: 15px;" 
-                        onclick="window.parent.streamlit_api.toggleInfo()">
+                <button style="background: none; border: none; cursor: pointer; font-size: 25px;">
                     ℹ️
                 </button>
             </div>
@@ -427,7 +426,7 @@ def show_contactable():
             unsafe_allow_html=True
         )
         
-        # Check if the info icon is clicked and toggle the visibility of the info content
+        # Add the clickable button
         if st.button('ℹ️', key="info_button"):
             st.session_state.show_info = not st.session_state.show_info  # Toggle the info visibility
         
