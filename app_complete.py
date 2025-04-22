@@ -408,36 +408,6 @@ def show_contactable():
         """, unsafe_allow_html=True)
         
         st.markdown("""
-        <div class="title-row">
-            <div class="title-font">
-                Percentage Change Contactable Authors
-                <span class="tooltip-container">
-                    <span class="info-icon">ℹ️</span>
-                    <span class="tooltip-text">
-                        <b>1. What is a contactable active author?</b><br>
-                        These profiles meet the following criteria:<br>
-                        &nbsp;&nbsp;&nbsp;&bull; <b>H-Index</b> ≥ 1<br>
-                        &nbsp;&nbsp;&nbsp;&bull; Affiliation is listed<br>
-                        &nbsp;&nbsp;&nbsp;&bull; Last authorship year is ≥ <b>2022</b><br>
-                        Additionally, to be considered <b>contactable</b>, a <b>verified email</b> must be associated with the profile.
-                    
-                        <hr style="margin: 8px 0;">
-                    
-                        <b>2. How are the percentages calculated?</b><br>
-                        Change over time:<br>
-                        <code>((contactable<sub>end</sub> − contactable<sub>start</sub>) / contactable<sub>start</sub>) × 100</code><br><br>
-                        Overall contactable percentage:<br>
-                        <code>(contactable<sub>end</sub> / (contactable<sub>end</sub> + non_contactable<sub>end</sub>)) × 100</code>
-                    
-                        <hr style="margin: 8px 0;">
-                    
-                        <b>3. Reference period</b><br>
-                        Metrics are based on the <b>selected start and end months</b>, using monthly average estimates for both points in time.
-                    </span>
-                </span>
-            </div>
-        </div>
-        
         <style>
             .title-row {
                 display: flex;
@@ -464,7 +434,7 @@ def show_contactable():
         
             .tooltip-text {
                 visibility: hidden;
-                width: 260px;
+                width: 280px;
                 background-color: #f0f0f0;
                 color: #000;
                 text-align: left;
@@ -480,6 +450,7 @@ def show_contactable():
                 box-shadow: 0 2px 8px rgba(0,0,0,0.15);
                 font-size: 14px;
                 white-space: normal;
+                line-height: 1.5;
             }
         
             .tooltip-container:hover .tooltip-text {
@@ -487,9 +458,33 @@ def show_contactable():
                 opacity: 1;
             }
         </style>
+        
+        <div class="title-row">
+            <div class="title-font">
+                Percentage Change Contactable Authors
+                <span class="tooltip-container">
+                    <span class="info-icon">ℹ️</span>
+                    <span class="tooltip-text">
+                        <b>1. What is a contactable active author?</b><br>
+                        Authors who meet all of the following:<br>
+                        - H-Index ≥ 1<br>
+                        - Affiliation listed<br>
+                        - Last authorship year ≥ 2022<br>
+                        - Verified email address<br><br>
+        
+                        <b>2. Percentage calculations:</b><br>
+                        • Change over time:<br>
+                        (contactable_end - contactable_start) / contactable_start * 100<br>
+                        • Overall contactable %:<br>
+                        contactable_end / (contactable_end + non_contactable_end) * 100<br><br>
+        
+                        <b>3. Reference period:</b><br>
+                        Calculated using the selected start and end months based on monthly data.
+                    </span>
+                </span>
+            </div>
+        </div>
         """, unsafe_allow_html=True)
-
-
 
         arrow = "▲" if pct_change_contactable >= 0 else "▼"
         color = "green" if pct_change_contactable >= 0 else "red"
