@@ -414,7 +414,29 @@ def show_contactable():
                 <span class="tooltip-container">
                     <span class="info-icon">ℹ️</span>
                     <span class="tooltip-text">
-                        Metric estimated taking into account active authors with a publication within the last 36 months.
+                        <b>1. What is a contactable active author?</b><br>
+                        Profiles considered "active" meet all of the following criteria:<br>
+                        &nbsp;&nbsp;&nbsp;&bull; <b>H-Index</b> ≥ 1<br>
+                        &nbsp;&nbsp;&nbsp;&bull; Affiliated with an institution<br>
+                        &nbsp;&nbsp;&nbsp;&bull; Last publication year ≥ <b>2022</b><br>
+                        To be <b>contactable</b>, authors must also have a <b>verified email address</b> associated with their profile.
+                        
+                        <hr style="margin: 8px 0;">
+                        
+                        <b>2. How is the percentage change calculated?</b><br>
+                        Change in contactable authors over time is computed as:<br>
+                        <code style="font-size: 13px; white-space: normal;">
+                            pct_change_contactable = ((contactable<sub>end</sub> − contactable<sub>start</sub>) / contactable<sub>start</sub>) × 100
+                        </code><br><br>
+                        The overall share of contactable authors is given by:<br>
+                        <code style="font-size: 13px; white-space: normal;">
+                            overall_contactable_percentage = (contactable<sub>end</sub> / (contactable<sub>end</sub> + non_contactable<sub>end</sub>)) × 100
+                        </code>
+                        
+                        <hr style="margin: 8px 0;">
+                    
+                        <b>3. Reference period</b><br>
+                        All metrics are calculated based on the <b>selected start and end months</b>, using a <b>month-to-month comparison</b> between the first and last selected release dates.
                     </span>
                 </span>
             </div>
