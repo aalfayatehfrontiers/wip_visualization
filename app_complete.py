@@ -407,42 +407,48 @@ def show_contactable():
         </style>
         """, unsafe_allow_html=True)
         
-        # Initialize toggle state
+        # Initialize session state for toggle
         if "show_info" not in st.session_state:
             st.session_state.show_info = False
         
-        # Custom CSS to make the Streamlit button look like a clean inline icon
+        # Custom CSS for layout and styling
         st.markdown("""
             <style>
-                .title-row {
+                .title-container {
                     display: flex;
                     align-items: center;
-                    gap: 10px;
+                    justify-content: space-between;
                 }
                 .title-text {
                     font-size: 25px;
                     font-weight: bold;
+                }
+                .icon-button-container {
+                    margin: 0;
+                    padding: 0;
                 }
                 div.stButton > button {
                     background: none;
                     border: none;
                     color: inherit;
                     padding: 0;
-                    font-size: 24px;
+                    font-size: 22px;
+                    cursor: pointer;
                 }
             </style>
         """, unsafe_allow_html=True)
         
-        # Title and button in one line using HTML and Streamlit layout
-        st.markdown('<div class="title-row"><div class="title-text">Percentage Change Contactable Authors</div>', unsafe_allow_html=True)
+        # Use columns to align title and button inline
+        col1, col2 = st.columns([0.94, 0.06])  # Adjust width ratio for alignment
         
-        # Streamlit button styled as icon (still inside the same visual block)
-        if st.button("ℹ️", key="info_button", help="Click for more information"):
-            st.session_state.show_info = not st.session_state.show_info
+        with col1:
+            st.markdown('<div class="title-text">Percentage Change Contactable Authors</div>', unsafe_allow_html=True)
         
-        st.markdown('</div>', unsafe_allow_html=True)  # Close the .title-row div
+        with col2:
+            if st.button("ℹ️", key="info_button", help="Click for more information"):
+                st.session_state.show_info = not st.session_state.show_info
         
-        # Conditionally show the extra information
+        # Display toggle content
         if st.session_state.show_info:
             st.markdown("""
                 <b>1. Definition of a Contactable Active Author</b><br>
