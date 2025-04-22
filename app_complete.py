@@ -372,7 +372,7 @@ def show_contactable():
                 return f"{number / 1_000:.2f}K"
             return f"{number:.2f}"
 
-      st.markdown("""
+        st.markdown("""
         <div class="title-row">
             <div class="title-font">
                 Percentage Change Contactable Authors
