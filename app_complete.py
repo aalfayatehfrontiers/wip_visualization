@@ -407,52 +407,42 @@ def show_contactable():
         </style>
         """, unsafe_allow_html=True)
         
-        # Set up session state to track info visibility
+        # Initialize toggle state
         if "show_info" not in st.session_state:
             st.session_state.show_info = False
         
-        # Custom CSS to make the button look like an icon with no border/background
+        # Custom CSS to make the Streamlit button look like a clean inline icon
         st.markdown("""
             <style>
-            .icon-button {
-                background: none;
-                border: none;
-                padding: 0;
-                font-size: 24px;
-                cursor: pointer;
-                color: inherit;
-            }
-            .title-row {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-            }
+                .title-row {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                }
+                .title-text {
+                    font-size: 25px;
+                    font-weight: bold;
+                }
+                div.stButton > button {
+                    background: none;
+                    border: none;
+                    color: inherit;
+                    padding: 0;
+                    font-size: 24px;
+                }
             </style>
         """, unsafe_allow_html=True)
         
-        # Create the title and clickable info icon on the same line
-        st.markdown(
-            f"""
-            <div class="title-row">
-                <div style="font-size: 25px; font-weight: bold;">Percentage Change Contactable Authors</div>
-                <form action="" method="post">
-                    <button class="icon-button" name="info_button" type="submit">ℹ️</button>
-                </form>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
+        # Title and button in one line using HTML and Streamlit layout
+        st.markdown('<div class="title-row"><div class="title-text">Percentage Change Contactable Authors</div>', unsafe_allow_html=True)
         
-        # Handle the button click manually
-        if st.session_state.get("info_button_submitted") is None:
-            st.session_state.info_button_submitted = False
-        
-        # Simulate button click via form
-        if st.query_params.get("info_button"):
+        # Streamlit button styled as icon (still inside the same visual block)
+        if st.button("ℹ️", key="info_button", help="Click for more information"):
             st.session_state.show_info = not st.session_state.show_info
-            st.session_state.info_button_submitted = True
         
-        # Display additional info if toggled
+        st.markdown('</div>', unsafe_allow_html=True)  # Close the .title-row div
+        
+        # Conditionally show the extra information
         if st.session_state.show_info:
             st.markdown("""
                 <b>1. Definition of a Contactable Active Author</b><br>
