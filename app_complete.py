@@ -345,7 +345,6 @@ def show_contactable():
             ),
             xaxis=dict(
                 title="Release Date",
-                rangeslider=dict(visible=True),
                 type="date"
             ),
             yaxis=dict(title="# Authors"),
