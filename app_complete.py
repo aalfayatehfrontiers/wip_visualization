@@ -372,6 +372,41 @@ def show_contactable():
                 return f"{number / 1_000:.2f}K"
             return f"{number:.2f}"
 
+        # Styling
+        st.markdown("""
+        <style>
+            .big-font {
+                font-size: 48px !important;
+                text-align: left;
+            }
+            .small-font {
+                font-size: 18px !important;
+                text-align: left;
+            }
+            .title-container {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .title-font {
+                font-size: 25px !important;
+                font-weight: bold;
+            }
+            .numbers-container {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .subtitle-font {
+                font-size: 16px !important;
+                font-weight: normal;
+                color: gray;
+                text-align: left;
+            }
+        </style>
+        """, unsafe_allow_html=True)
+        
         st.markdown("""
         <div class="title-row">
             <div class="title-font">
@@ -435,6 +470,8 @@ def show_contactable():
             }
         </style>
         """, unsafe_allow_html=True)
+
+
 
         arrow = "▲" if pct_change_contactable >= 0 else "▼"
         color = "green" if pct_change_contactable >= 0 else "red"
