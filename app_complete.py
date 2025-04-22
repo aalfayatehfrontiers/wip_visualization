@@ -435,12 +435,12 @@ def show_contactable():
         
                 .tooltip-text {
                     visibility: hidden;
-                    width: 280px;
+                    width: 220px;
                     background-color: #f0f0f0;
                     color: #000;
                     text-align: left;
                     border-radius: 6px;
-                    padding: 10px;
+                    padding: 8px;
                     position: absolute;
                     z-index: 1;
                     bottom: 125%;
@@ -449,9 +449,9 @@ def show_contactable():
                     opacity: 0;
                     transition: opacity 0.3s;
                     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-                    font-size: 14px;
+                    font-size: 13px;
                     white-space: normal;
-                    line-height: 1.5;
+                    line-height: 1.4;
                 }
         
                 .tooltip-container:hover .tooltip-text {
@@ -466,18 +466,18 @@ def show_contactable():
                     <span class="tooltip-container">
                         <span class="info-icon">ℹ️</span>
                         <span class="tooltip-text">
-                            <strong>1. What is a contactable active author?</strong><br>
+                            <strong>1. Contactable Author:</strong><br>
                             • H-Index ≥ 1<br>
                             • Affiliation listed<br>
-                            • Last authorship year ≥ 2022<br>
-                            • Verified email associated<br><br>
+                            • Last year ≥ 2022<br>
+                            • Verified email<br><br>
         
-                            <strong>2. Percentage Calculations:</strong><br>
-                            • Change: (contactable<sub>end</sub> − contactable<sub>start</sub>) / contactable<sub>start</sub> × 100<br>
-                            • Overall: contactable<sub>end</sub> / (contactable<sub>end</sub> + non_contactable<sub>end</sub>) × 100<br><br>
+                            <strong>2. Calculations:</strong><br>
+                            • Change: (end − start) / start × 100<br>
+                            • Overall: end / (end + non-contactable) × 100<br><br>
         
-                            <strong>3. Reference Period:</strong><br>
-                            Based on selected start and end months using monthly averages.
+                            <strong>3. Period:</strong><br>
+                            Based on monthly start & end selection.
                         </span>
                     </span>
                 </div>
