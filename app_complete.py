@@ -411,14 +411,14 @@ def show_contactable():
         if "show_info" not in st.session_state:
             st.session_state.show_info = False  # Default state is collapsed (False)
         
-        # Main content of the app
+        # Main content of the app with the title and clickable button beside it
         st.markdown(
             """
             <div class="title-row" style="display: flex; align-items: center;">
-                <div class="title-font" style="font-size: 25px; font-weight: bold; display: inline;">
+                <div class="title-font" style="font-size: 25px; font-weight: bold; margin-right: 10px;">
                     Percentage Change Contactable Authors
                 </div>
-                <button style="background: none; border: none; cursor: pointer; font-size: 25px;">
+                <button id="info-button" style="background: none; border: none; cursor: pointer; font-size: 25px;">
                     ℹ️
                 </button>
             </div>
@@ -426,7 +426,7 @@ def show_contactable():
             unsafe_allow_html=True
         )
         
-        # Add the clickable button
+        # Add the clickable button for toggling the content
         if st.button('ℹ️', key="info_button"):
             st.session_state.show_info = not st.session_state.show_info  # Toggle the info visibility
         
