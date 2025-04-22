@@ -466,20 +466,18 @@ def show_contactable():
                     <span class="tooltip-container">
                         <span class="info-icon">ℹ️</span>
                         <span class="tooltip-text">
-                            <b>1. What is a contactable active author?</b><br>
-                            - H-Index ≥ 1<br>
-                            - Affiliation listed<br>
-                            - Last authorship year ≥ 2022<br>
-                            - Verified email associated<br><br>
+                            <strong>1. What is a contactable active author?</strong><br>
+                            • H-Index ≥ 1<br>
+                            • Affiliation listed<br>
+                            • Last authorship year ≥ 2022<br>
+                            • Verified email associated<br><br>
         
-                            <b>2. Percentage Calculations:</b><br>
-                            • Change over time:<br>
-                            (contactable_end − contactable_start) / contactable_start × 100<br>
-                            • Overall contactable %:<br>
-                            contactable_end / (contactable_end + non_contactable_end) × 100<br><br>
+                            <strong>2. Percentage Calculations:</strong><br>
+                            • Change: (contactable<sub>end</sub> − contactable<sub>start</sub>) / contactable<sub>start</sub> × 100<br>
+                            • Overall: contactable<sub>end</sub> / (contactable<sub>end</sub> + non_contactable<sub>end</sub>) × 100<br><br>
         
-                            <b>3. Reference Period:</b><br>
-                            Based on the selected start and end months using monthly averages.
+                            <strong>3. Reference Period:</strong><br>
+                            Based on selected start and end months using monthly averages.
                         </span>
                     </span>
                 </div>
