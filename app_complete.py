@@ -407,117 +407,40 @@ def show_contactable():
         </style>
         """, unsafe_allow_html=True)
         
+        # Main content of the app
         st.markdown(
             """
-            <style>
-                .title-row {
-                    display: flex;
-                    align-items: center;
-                }
-        
-                .title-font {
-                    font-size: 25px !important;
-                    font-weight: bold;
-                    display: flex;
-                    align-items: center;
-                    gap: 6px;
-                }
-        
-                .tooltip-container {
-                    position: relative;
-                    display: inline-block;
-                }
-        
-                .info-icon {
-                    cursor: pointer;
-                    font-size: 16px;
-                }
-        
-                /* The modal container */
-                .modal {
-                    display: none;
-                    position: fixed;
-                    z-index: 1;
-                    left: 0;
-                    top: 0;
-                    width: 100%;
-                    height: 100%;
-                    background-color: rgba(0, 0, 0, 0.5);
-                    overflow: auto;
-                    padding-top: 60px;
-                }
-        
-                /* Modal content */
-                .modal-content {
-                    background-color: #fefefe;
-                    margin: 5% auto;
-                    padding: 20px;
-                    border: 1px solid #888;
-                    width: 80%;
-                    max-width: 600px;
-                    border-radius: 8px;
-                    font-size: 14px;
-                    line-height: 1.6;
-                }
-        
-                /* Close button */
-                .close {
-                    color: #aaa;
-                    float: right;
-                    font-size: 28px;
-                    font-weight: bold;
-                }
-        
-                .close:hover,
-                .close:focus {
-                    color: black;
-                    text-decoration: none;
-                    cursor: pointer;
-                }
-            </style>
-        
             <div class="title-row">
                 <div class="title-font">
                     Percentage Change Contactable Authors
-                    <span class="tooltip-container">
-                        <span class="info-icon" onclick="showModal()">ℹ️</span>
-                    </span>
+                    <span class="info-icon">ℹ️</span>
                 </div>
             </div>
-        
-            <!-- Modal content -->
-            <div id="myModal" class="modal">
-                <div class="modal-content">
-                    <span class="close" onclick="closeModal()">&times;</span>
-                    <b>1. Contactable Author</b><br>
-                    • H-Index ≥ 1<br>
-                    • Affiliated<br>
-                    • Year ≥ 2022<br>
-                    • Verified email<br><br>
-        
-                    <b>2. Calc:</b><br>
-                    • Δ% = (end − start) / start ×100<br>
-                    • % = end / (end + non) ×100<br><br>
-        
-                    <b>3. Period:</b><br>
-                    Based on monthly selection.
-                </div>
-            </div>
-        
-            <script>
-                // Show the modal
-                function showModal() {
-                    document.getElementById("myModal").style.display = "block";
-                }
-        
-                // Close the modal
-                function closeModal() {
-                    document.getElementById("myModal").style.display = "none";
-                }
-            </script>
             """,
             unsafe_allow_html=True
         )
+        
+        # Create an expander to show detailed tooltip information when clicked
+        with st.expander("Click here for more details"):
+            st.markdown("""
+                <b>1. What is a contactable active author?</b><br>
+                These profiles meet the following criteria:<br>
+                - H-Index ≥ 1<br>
+                - Affiliation listed<br>
+                - Last authorship year ≥ 2022<br>
+                - Verified email associated<br><br>
+        
+                <b>2. Percentage Calculations:</b><br>
+                • Change over time:<br>
+                (contactable_end − contactable_start) / contactable_start × 100<br>
+                • Overall contactable percentage:<br>
+                contactable_end / (contactable_end + non_contactable_end) × 100<br><br>
+        
+                <b>3. Reference Period:</b><br>
+                Metrics are based on the selected start and end months, using monthly average estimates for both points in time.
+                """,
+                unsafe_allow_html=True
+            )
 
         arrow = "▲" if pct_change_contactable >= 0 else "▼"
         color = "green" if pct_change_contactable >= 0 else "red"
