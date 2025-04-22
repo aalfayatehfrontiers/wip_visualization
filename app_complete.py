@@ -407,7 +407,7 @@ def show_contactable():
         </style>
         """, unsafe_allow_html=True)
         
-        st.markdown("""
+        tooltip_html = '''
         <style>
             .title-row {
                 display: flex;
@@ -466,25 +466,27 @@ def show_contactable():
                     <span class="info-icon">ℹ️</span>
                     <span class="tooltip-text">
                         <b>1. What is a contactable active author?</b><br>
-                        Authors who meet all of the following:<br>
+                        Authors who meet all of the following criteria:<br>
                         - H-Index ≥ 1<br>
                         - Affiliation listed<br>
                         - Last authorship year ≥ 2022<br>
-                        - Verified email address<br><br>
+                        - Verified email associated<br><br>
         
-                        <b>2. Percentage calculations:</b><br>
+                        <b>2. Percentage Calculations:</b><br>
                         • Change over time:<br>
-                        (contactable_end - contactable_start) / contactable_start * 100<br>
-                        • Overall contactable %:<br>
-                        contactable_end / (contactable_end + non_contactable_end) * 100<br><br>
+                        (contactable_end - contactable_start) / contactable_start × 100<br>
+                        • Overall contactable percentage:<br>
+                        contactable_end / (contactable_end + non_contactable_end) × 100<br><br>
         
-                        <b>3. Reference period:</b><br>
-                        Calculated using the selected start and end months based on monthly data.
+                        <b>3. Reference Period:</b><br>
+                        Based on the selected start and end months using monthly averages.
                     </span>
                 </span>
             </div>
         </div>
-        """, unsafe_allow_html=True)
+        '''
+        
+        st.markdown(tooltip_html, unsafe_allow_html=True)
 
         arrow = "▲" if pct_change_contactable >= 0 else "▼"
         color = "green" if pct_change_contactable >= 0 else "red"
