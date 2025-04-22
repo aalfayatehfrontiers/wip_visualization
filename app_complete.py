@@ -433,30 +433,46 @@ def show_contactable():
                     font-size: 16px;
                 }
         
-                .tooltip-text {
-                    visibility: hidden;
-                    width: 220px; /* Adjusted width */
-                    background-color: #f0f0f0;
-                    color: #000;
-                    text-align: left;
-                    border-radius: 4px;
-                    padding: 8px; /* Slightly larger padding */
-                    position: absolute;
+                /* The modal container */
+                .modal {
+                    display: none;
+                    position: fixed;
                     z-index: 1;
-                    bottom: 125%;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    opacity: 0;
-                    transition: opacity 0.3s;
-                    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-                    font-size: 12px; /* Adjusted font size */
-                    white-space: normal;
-                    line-height: 1.4;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    overflow: auto;
+                    padding-top: 60px;
                 }
         
-                .tooltip-container:hover .tooltip-text {
-                    visibility: visible;
-                    opacity: 1;
+                /* Modal content */
+                .modal-content {
+                    background-color: #fefefe;
+                    margin: 5% auto;
+                    padding: 20px;
+                    border: 1px solid #888;
+                    width: 80%;
+                    max-width: 600px;
+                    border-radius: 8px;
+                    font-size: 14px;
+                    line-height: 1.6;
+                }
+        
+                /* Close button */
+                .close {
+                    color: #aaa;
+                    float: right;
+                    font-size: 28px;
+                    font-weight: bold;
+                }
+        
+                .close:hover,
+                .close:focus {
+                    color: black;
+                    text-decoration: none;
+                    cursor: pointer;
                 }
             </style>
         
@@ -464,24 +480,41 @@ def show_contactable():
                 <div class="title-font">
                     Percentage Change Contactable Authors
                     <span class="tooltip-container">
-                        <span class="info-icon">ℹ️</span>
-                        <span class="tooltip-text">
-                            <b>1. Contactable Author</b><br>
-                            • H-Index ≥ 1<br>
-                            • Affiliated<br>
-                            • Year ≥ 2022<br>
-                            • Verified email<br><br>
-        
-                            <b>2. Calc:</b><br>
-                            • Δ% = (end − start) / start ×100<br>
-                            • % = end / (end + non) ×100<br><br>
-        
-                            <b>3. Period:</b><br>
-                            Based on monthly selection.
-                        </span>
+                        <span class="info-icon" onclick="showModal()">ℹ️</span>
                     </span>
                 </div>
             </div>
+        
+            <!-- Modal content -->
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <b>1. Contactable Author</b><br>
+                    • H-Index ≥ 1<br>
+                    • Affiliated<br>
+                    • Year ≥ 2022<br>
+                    • Verified email<br><br>
+        
+                    <b>2. Calc:</b><br>
+                    • Δ% = (end − start) / start ×100<br>
+                    • % = end / (end + non) ×100<br><br>
+        
+                    <b>3. Period:</b><br>
+                    Based on monthly selection.
+                </div>
+            </div>
+        
+            <script>
+                // Show the modal
+                function showModal() {
+                    document.getElementById("myModal").style.display = "block";
+                }
+        
+                // Close the modal
+                function closeModal() {
+                    document.getElementById("myModal").style.display = "none";
+                }
+            </script>
             """,
             unsafe_allow_html=True
         )
