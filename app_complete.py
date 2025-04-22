@@ -372,41 +372,6 @@ def show_contactable():
                 return f"{number / 1_000:.2f}K"
             return f"{number:.2f}"
 
-        # Styling
-        st.markdown("""
-        <style>
-            .big-font {
-                font-size: 48px !important;
-                text-align: left;
-            }
-            .small-font {
-                font-size: 18px !important;
-                text-align: left;
-            }
-            .title-container {
-                display: flex;
-                align-items: center;
-                gap: 10px;
-            }
-            .title-font {
-                font-size: 25px !important;
-                font-weight: bold;
-            }
-            .numbers-container {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-            .subtitle-font {
-                font-size: 16px !important;
-                font-weight: normal;
-                color: gray;
-                text-align: left;
-            }
-        </style>
-        """, unsafe_allow_html=True)
-        
         st.markdown("""
         <div class="title-row">
             <div class="title-font">
@@ -414,7 +379,27 @@ def show_contactable():
                 <span class="tooltip-container">
                     <span class="info-icon">ℹ️</span>
                     <span class="tooltip-text">
-                        Metric estimated taking into account active authors with a publication within the last 36 months.
+                        <b>1. What is a contactable active author?</b><br>
+                        Profiles included meet the following criteria:<br>
+                        &nbsp;&nbsp;&nbsp;&bull; <b>H-Index</b> ≥ 1<br>
+                        &nbsp;&nbsp;&nbsp;&bull; Has an <b>affiliation</b><br>
+                        &nbsp;&nbsp;&nbsp;&bull; Most recent authorship year ≥ <b>2022</b><br>
+                        <i>Contactable authors</i> are those with a <b>verified email</b> on record.
+                        <hr style="margin: 8px 0;">
+                        
+                        <b>2. How is the percentage change calculated?</b><br>
+                        The formula for percentage change in contactable authors is:<br>
+                        <code style="white-space: normal; font-size: 13px;">
+                            pct_change_contactable = ((contactable<sub>end</sub> − contactable<sub>start</sub>) / contactable<sub>start</sub>) × 100
+                        </code><br><br>
+                        The overall percentage of contactable authors is calculated as:<br>
+                        <code style="white-space: normal; font-size: 13px;">
+                            overall_contactable_percentage = (contactable<sub>end</sub> / (contactable<sub>end</sub> + non_contactable<sub>end</sub>)) × 100
+                        </code>
+                        <hr style="margin: 8px 0;">
+                        
+                        <b>3. Date selection logic</b><br>
+                        These calculations are based on the <b>selected months</b> from the dropdowns and represent a <b>month-to-month estimation</b> from the start to the end period chosen.
                     </span>
                 </span>
             </div>
@@ -446,12 +431,12 @@ def show_contactable():
         
             .tooltip-text {
                 visibility: hidden;
-                width: 260px;
+                width: 340px;
                 background-color: #f0f0f0;
                 color: #000;
                 text-align: left;
                 border-radius: 6px;
-                padding: 10px;
+                padding: 12px 14px;
                 position: absolute;
                 z-index: 1;
                 bottom: 125%;
@@ -462,6 +447,7 @@ def show_contactable():
                 box-shadow: 0 2px 8px rgba(0,0,0,0.15);
                 font-size: 14px;
                 white-space: normal;
+                line-height: 1.5;
             }
         
             .tooltip-container:hover .tooltip-text {
@@ -470,8 +456,6 @@ def show_contactable():
             }
         </style>
         """, unsafe_allow_html=True)
-
-
 
         arrow = "▲" if pct_change_contactable >= 0 else "▼"
         color = "green" if pct_change_contactable >= 0 else "red"
