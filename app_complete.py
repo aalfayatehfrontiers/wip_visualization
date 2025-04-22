@@ -406,30 +406,58 @@ def show_contactable():
             }
         </style>
         """, unsafe_allow_html=True)
-        
+
         # Set up session state to track the info visibility toggle
         if "show_info" not in st.session_state:
             st.session_state.show_info = False  # Default state is collapsed (False)
         
-        # Main content of the app with the icon right next to the title
-        col1, col2 = st.columns([6, 1])
-        
-        with col1:
-            st.markdown(
-                """
-                <div class="title-font" style="font-size: 25px; font-weight: bold; display: inline-block;">
+        # Main content of the app with the icon right next to the title (no contour)
+        st.markdown(
+            """
+            <div class="title-row" style="display: flex; align-items: center;">
+                <div class="title-font" style="font-size: 25px; font-weight: bold; display: inline;">
                     Percentage Change Contactable Authors
                 </div>
-                """,
-                unsafe_allow_html=True
-            )
+                <button style="background: none; border: none; cursor: pointer; font-size: 25px;" 
+                        onclick="toggleInfo()">
+                    ℹ️
+                </button>
+            </div>
+            <script>
+                function toggleInfo() {
+                    var state = window.parent.document.querySelector('#info-state');
+                    state.value = state.value === 'true' ? 'false' : 'true';
+                    window.parent.postMessage({ type: 'TOGGLE_INFO' }, "*");
+                }
+            </script>
+            """,
+            unsafe_allow_html=True
+        )
         
-        with col2:
-            # Clickable ℹ️ icon in the second column with no border or contour
-            if st.button('ℹ️', key="info_button", help="Click for more details", use_container_width=True):
-                st.session_state.show_info = not st.session_state.show_info  # Toggle visibility
+        # Placeholder for the info state (this is hidden from the user)
+        info_state = st.empty()
         
-        # Display the detailed information if it's set to show
+        # Functionality to toggle the visibility of the content based on state
+        if info_state:
+            info_state.text_area("info-state", value="false", height=0)
+        
+        # Create a custom handler for toggling the state when the button is clicked
+        st.markdown(
+            """
+            <style>
+                /* Custom button styling for the info icon */
+                button {
+                    background: none;
+                    border: none;
+                    cursor: pointer;
+                    font-size: 20px;
+                }
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+        
+        # Show/hide detailed information based on the toggle state
         if st.session_state.show_info:
             st.markdown("""
                 <b>1. Definition of a Contactable Active Author</b><br>
