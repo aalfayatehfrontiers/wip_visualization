@@ -325,7 +325,7 @@ def show_contactable():
             x=df_filtered['release_date'],
             y=df_filtered['contactable_authors'],
             mode='lines',
-            name='Contactable Authors'
+            name='Contactable Audience'
         ))
 
         # Update layout with customized title
@@ -378,8 +378,9 @@ def show_contactable():
                 gap: 10px;
             }
             .subtitle-font {
-                font-size: 18px !important;
+                font-size: 16px !important;
                 font-weight: normal;
+                color: gray;
                 text-align: left;
             }
         </style>
