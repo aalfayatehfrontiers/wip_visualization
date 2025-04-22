@@ -327,12 +327,6 @@ def show_contactable():
             mode='lines',
             name='Contactable Authors'
         ))
-        fig.add_trace(go.Scatter(
-            x=df_filtered['release_date'],
-            y=df_filtered['non_contactable_authors'],
-            mode='lines',
-            name='Non-Contactable Authors'
-        ))
 
         # Update layout with customized title
         fig.update_layout(
