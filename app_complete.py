@@ -413,15 +413,20 @@ def show_contactable():
             <div class="title-row">
                 <div class="title-font">
                     Percentage Change Contactable Authors
-                    <span class="info-icon">ℹ️</span>
+                    <span class="info-icon">
+                        <button id="info-button" style="background: none; border: none; cursor: pointer; color: #1E90FF; font-size: 18px;">
+                            ℹ️
+                        </button>
+                    </span>
                 </div>
             </div>
             """,
             unsafe_allow_html=True
         )
         
-        # Create an expander to show detailed tooltip information when clicked
-        with st.expander("Click here for more details"):
+        # This is a workaround to display information when the button (ℹ️) is clicked.
+        # Create a button that will simulate a click for the expander to show details
+        if st.button("ℹ️ Click here for more details"):
             st.markdown("""
                 <b>1. Definition of a Contactable Active Author</b><br>
                 A contactable active author is defined as a researcher who meets the following criteria:<br>
@@ -429,19 +434,17 @@ def show_contactable():
                 - <b>Affiliation</b> must be provided and listed in a recognized institution.<br>
                 - <b>Last authorship year ≥ 2022</b>, ensuring the author is actively publishing in the recent academic landscape.<br>
                 - A <b>verified email address</b> is required for author contactability, ensuring communication is possible.<br><br>
-            
+        
                 <b>2. Percentage Calculations</b><br>
                 The following formulas are used to calculate the percentages:<br>
                 • <b>Change Over Time:</b> This metric represents the relative change in the number of contactable authors over the selected period:<br>
                 <code><i>(contactable<sub>end</sub> − contactable<sub>start</sub>) / contactable<sub>start</sub></i> × 100</code><br>
                 • <b>Overall Contactable Percentage:</b> This metric represents the proportion of contactable authors in relation to the total number of authors (both contactable and non-contactable):<br>
                 <code><i>contactable<sub>end</sub> / (contactable<sub>end</sub> + non_contactable<sub>end</sub>)</i> × 100</code><br><br>
-            
+        
                 <b>3. Reference Period</b><br>
                 The metrics are calculated based on the selected start and end months, with monthly average estimates for both the initial and final points in time.
-                """,
-                unsafe_allow_html=True
-            )
+            """, unsafe_allow_html=True)
             
         arrow = "▲" if pct_change_contactable >= 0 else "▼"
         color = "green" if pct_change_contactable >= 0 else "red"
