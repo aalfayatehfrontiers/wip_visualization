@@ -432,7 +432,7 @@ def show_contactable():
                     border: none;
                     color: inherit;
                     padding: 0;
-                    line-height: 1;
+                    line-height: 3;
                     font-size: 10px;
                     cursor: pointer;
                 }
