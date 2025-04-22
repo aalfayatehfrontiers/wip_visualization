@@ -407,86 +407,86 @@ def show_contactable():
         </style>
         """, unsafe_allow_html=True)
         
-        tooltip_html = '''
-        <style>
-            .title-row {
-                display: flex;
-                align-items: center;
-            }
+        st.markdown(
+            """
+            <style>
+                .title-row {
+                    display: flex;
+                    align-items: center;
+                }
         
-            .title-font {
-                font-size: 25px !important;
-                font-weight: bold;
-                display: flex;
-                align-items: center;
-                gap: 6px;
-            }
+                .title-font {
+                    font-size: 25px !important;
+                    font-weight: bold;
+                    display: flex;
+                    align-items: center;
+                    gap: 6px;
+                }
         
-            .tooltip-container {
-                position: relative;
-                display: inline-block;
-            }
+                .tooltip-container {
+                    position: relative;
+                    display: inline-block;
+                }
         
-            .info-icon {
-                cursor: pointer;
-                font-size: 18px;
-            }
+                .info-icon {
+                    cursor: pointer;
+                    font-size: 18px;
+                }
         
-            .tooltip-text {
-                visibility: hidden;
-                width: 280px;
-                background-color: #f0f0f0;
-                color: #000;
-                text-align: left;
-                border-radius: 6px;
-                padding: 10px;
-                position: absolute;
-                z-index: 1;
-                bottom: 125%;
-                left: 50%;
-                transform: translateX(-50%);
-                opacity: 0;
-                transition: opacity 0.3s;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-                font-size: 14px;
-                white-space: normal;
-                line-height: 1.5;
-            }
+                .tooltip-text {
+                    visibility: hidden;
+                    width: 280px;
+                    background-color: #f0f0f0;
+                    color: #000;
+                    text-align: left;
+                    border-radius: 6px;
+                    padding: 10px;
+                    position: absolute;
+                    z-index: 1;
+                    bottom: 125%;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    opacity: 0;
+                    transition: opacity 0.3s;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+                    font-size: 14px;
+                    white-space: normal;
+                    line-height: 1.5;
+                }
         
-            .tooltip-container:hover .tooltip-text {
-                visibility: visible;
-                opacity: 1;
-            }
-        </style>
+                .tooltip-container:hover .tooltip-text {
+                    visibility: visible;
+                    opacity: 1;
+                }
+            </style>
         
-        <div class="title-row">
-            <div class="title-font">
-                Percentage Change Contactable Authors
-                <span class="tooltip-container">
-                    <span class="info-icon">ℹ️</span>
-                    <span class="tooltip-text">
-                        <b>1. What is a contactable active author?</b><br>
-                        Authors who meet all of the following criteria:<br>
-                        - H-Index ≥ 1<br>
-                        - Affiliation listed<br>
-                        - Last authorship year ≥ 2022<br>
-                        - Verified email associated<br><br>
+            <div class="title-row">
+                <div class="title-font">
+                    Percentage Change Contactable Authors
+                    <span class="tooltip-container">
+                        <span class="info-icon">ℹ️</span>
+                        <span class="tooltip-text">
+                            <b>1. What is a contactable active author?</b><br>
+                            - H-Index ≥ 1<br>
+                            - Affiliation listed<br>
+                            - Last authorship year ≥ 2022<br>
+                            - Verified email associated<br><br>
         
-                        <b>2. Percentage Calculations:</b><br>
-                        • Change over time:<br>
-                        (contactable_end - contactable_start) / contactable_start × 100<br>
-                        • Overall contactable percentage:<br>
-                        contactable_end / (contactable_end + non_contactable_end) × 100<br><br>
+                            <b>2. Percentage Calculations:</b><br>
+                            • Change over time:<br>
+                            (contactable_end − contactable_start) / contactable_start × 100<br>
+                            • Overall contactable %:<br>
+                            contactable_end / (contactable_end + non_contactable_end) × 100<br><br>
         
-                        <b>3. Reference Period:</b><br>
-                        Based on the selected start and end months using monthly averages.
+                            <b>3. Reference Period:</b><br>
+                            Based on the selected start and end months using monthly averages.
+                        </span>
                     </span>
-                </span>
+                </div>
             </div>
-        </div>
-        '''
-        
-        st.markdown(tooltip_html, unsafe_allow_html=True)
+            """,
+            unsafe_allow_html=True
+        )
 
         arrow = "▲" if pct_change_contactable >= 0 else "▼"
         color = "green" if pct_change_contactable >= 0 else "red"
