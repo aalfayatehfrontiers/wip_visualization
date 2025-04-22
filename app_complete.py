@@ -412,21 +412,24 @@ def show_contactable():
             st.session_state.show_info = False  # Default state is collapsed (False)
         
         # Main content of the app with the icon side by side with the title
-        st.markdown(
-            """
-            <div style="display: flex; align-items: center; gap: 10px;">
+        col1, col2 = st.columns([6, 1])
+        
+        with col1:
+            st.markdown(
+                """
                 <div class="title-font" style="font-size: 25px; font-weight: bold;">
                     Percentage Change Contactable Authors
                 </div>
-                <button id="info-button" style="background: none; border: none; cursor: pointer; font-size: 20px; color: #1E90FF;" onclick="toggle_info()">
-                    ℹ️
-                </button>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+                """,
+                unsafe_allow_html=True
+            )
         
-        # Toggle information visibility when the info icon is clicked
+        with col2:
+            # Clickable ℹ️ icon in the second column
+            if st.button('ℹ️', key="info_button"):
+                st.session_state.show_info = not st.session_state.show_info  # Toggle visibility
+        
+        # Display the detailed information if it's set to show
         if st.session_state.show_info:
             st.markdown("""
                 <b>1. Definition of a Contactable Active Author</b><br>
@@ -446,11 +449,6 @@ def show_contactable():
                 <b>3. Reference Period</b><br>
                 The metrics are calculated based on the selected start and end months, with monthly average estimates for both the initial and final points in time.
             """, unsafe_allow_html=True)
-        
-        # Function to handle the visibility toggle on click
-        def toggle_info():
-            st.session_state.show_info = not st.session_state.show_info
-
             
         arrow = "▲" if pct_change_contactable >= 0 else "▼"
         color = "green" if pct_change_contactable >= 0 else "red"
