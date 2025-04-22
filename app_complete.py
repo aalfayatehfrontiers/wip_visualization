@@ -411,26 +411,18 @@ def show_contactable():
         if "show_info" not in st.session_state:
             st.session_state.show_info = False  # Default state is collapsed (False)
         
-        # Main content of the app with the title and clickable button beside it
-        st.markdown(
-            """
-            <div class="title-row" style="display: flex; align-items: center;">
-                <div class="title-font" style="font-size: 25px; font-weight: bold; margin-right: 10px;">
-                    Percentage Change Contactable Authors
-                </div>
-                <button id="info-button" style="background: none; border: none; cursor: pointer; font-size: 25px;">
-                    ℹ️
-                </button>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+        # Create a two-column layout for the title and the button side-by-side
+        col1, col2 = st.columns([0.95, 0.05])  # Adjust widths for better alignment
         
-        # Add the clickable button for toggling the content
-        if st.button('ℹ️', key="info_button"):
-            st.session_state.show_info = not st.session_state.show_info  # Toggle the info visibility
+        with col1:
+            st.markdown("### Percentage Change Contactable Authors")
         
-        # Display the detailed information if it's set to show
+        with col2:
+            # A compact info icon styled as a button
+            if st.button("ℹ️", key="info_button", help="Click for more info"):
+                st.session_state.show_info = not st.session_state.show_info  # Toggle visibility
+        
+        # Display the detailed information if the button was clicked
         if st.session_state.show_info:
             st.markdown("""
                 <b>1. Definition of a Contactable Active Author</b><br>
@@ -442,13 +434,13 @@ def show_contactable():
         
                 <b>2. Percentage Calculations</b><br>
                 The following formulas are used to calculate the percentages:<br>
-                • <b>Change Over Time:</b> This metric represents the relative change in the number of contactable authors over the selected period:<br>
-                <code><i>(contactable<sub>end</sub> − contactable<sub>start</sub>) / contactable<sub>start</sub></i> × 100</code><br>
-                • <b>Overall Contactable Percentage:</b> This metric represents the proportion of contactable authors in relation to the total number of authors (both contactable and non-contactable):<br>
-                <code><i>contactable<sub>end</sub> / (contactable<sub>end</sub> + non_contactable<sub>end</sub>)</i> × 100</code><br><br>
+                • <b>Change Over Time:</b><br>
+                <code>(contactable<sub>end</sub> − contactable<sub>start</sub>) / contactable<sub>start</sub> × 100</code><br>
+                • <b>Overall Contactable Percentage:</b><br>
+                <code>contactable<sub>end</sub> / (contactable<sub>end</sub> + non_contactable<sub>end</sub>) × 100</code><br><br>
         
                 <b>3. Reference Period</b><br>
-                The metrics are calculated based on the selected start and end months, with monthly average estimates for both the initial and final points in time.
+                The metrics are calculated based on the selected start and end months, using monthly average estimates for both points in time.
             """, unsafe_allow_html=True)
             
         arrow = "▲" if pct_change_contactable >= 0 else "▼"
