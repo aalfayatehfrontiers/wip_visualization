@@ -415,28 +415,24 @@ def show_contactable():
                     <span class="info-icon">ℹ️</span>
                     <span class="tooltip-text">
                         <b>1. What is a contactable active author?</b><br>
-                        Profiles considered "active" meet all of the following criteria:<br>
+                        These profiles meet the following criteria:<br>
                         &nbsp;&nbsp;&nbsp;&bull; <b>H-Index</b> ≥ 1<br>
-                        &nbsp;&nbsp;&nbsp;&bull; Affiliated with an institution<br>
-                        &nbsp;&nbsp;&nbsp;&bull; Last publication year ≥ <b>2022</b><br>
-                        To be <b>contactable</b>, authors must also have a <b>verified email address</b> associated with their profile.
-                        
+                        &nbsp;&nbsp;&nbsp;&bull; Affiliation is listed<br>
+                        &nbsp;&nbsp;&nbsp;&bull; Last authorship year is ≥ <b>2022</b><br>
+                        Additionally, to be considered <b>contactable</b>, a <b>verified email</b> must be associated with the profile.
+                    
                         <hr style="margin: 8px 0;">
-                        
-                        <b>2. How is the percentage change calculated?</b><br>
-                        Change in contactable authors over time is computed as:<br>
-                        <code style="font-size: 13px; white-space: normal;">
-                            pct_change_contactable = ((contactable<sub>end</sub> − contactable<sub>start</sub>) / contactable<sub>start</sub>) × 100
-                        </code><br><br>
-                        The overall share of contactable authors is given by:<br>
-                        <code style="font-size: 13px; white-space: normal;">
-                            overall_contactable_percentage = (contactable<sub>end</sub> / (contactable<sub>end</sub> + non_contactable<sub>end</sub>)) × 100
-                        </code>
-                        
+                    
+                        <b>2. How are the percentages calculated?</b><br>
+                        Change over time:<br>
+                        <code>((contactable<sub>end</sub> − contactable<sub>start</sub>) / contactable<sub>start</sub>) × 100</code><br><br>
+                        Overall contactable percentage:<br>
+                        <code>(contactable<sub>end</sub> / (contactable<sub>end</sub> + non_contactable<sub>end</sub>)) × 100</code>
+                    
                         <hr style="margin: 8px 0;">
                     
                         <b>3. Reference period</b><br>
-                        All metrics are calculated based on the <b>selected start and end months</b>, using a <b>month-to-month comparison</b> between the first and last selected release dates.
+                        Metrics are based on the <b>selected start and end months</b>, using monthly average estimates for both points in time.
                     </span>
                 </span>
             </div>
