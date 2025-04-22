@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 from io import StringIO
+from plotly.subplots import make_subplots
 
 # Data as a multiline string
 data = """
