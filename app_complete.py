@@ -372,7 +372,19 @@ def show_contactable():
                 return f"{number / 1_000:.2f}K"
             return f"{number:.2f}"
 
-        st.markdown("""
+      st.markdown("""
+        <div class="title-row">
+            <div class="title-font">
+                Percentage Change Contactable Authors
+                <span class="tooltip-container">
+                    <span class="info-icon">ℹ️</span>
+                    <span class="tooltip-text">
+                        Metric estimated taking into account active authors with a publication within the last 36 months.
+                    </span>
+                </span>
+            </div>
+        </div>
+        
         <style>
             .title-row {
                 display: flex;
@@ -399,12 +411,12 @@ def show_contactable():
         
             .tooltip-text {
                 visibility: hidden;
-                width: 340px;
+                width: 260px;
                 background-color: #f0f0f0;
                 color: #000;
                 text-align: left;
                 border-radius: 6px;
-                padding: 12px 14px;
+                padding: 10px;
                 position: absolute;
                 z-index: 1;
                 bottom: 125%;
@@ -415,7 +427,6 @@ def show_contactable():
                 box-shadow: 0 2px 8px rgba(0,0,0,0.15);
                 font-size: 14px;
                 white-space: normal;
-                line-height: 1.5;
             }
         
             .tooltip-container:hover .tooltip-text {
@@ -423,34 +434,6 @@ def show_contactable():
                 opacity: 1;
             }
         </style>
-        
-        <div class="title-row">
-            <div class="title-font">
-                Percentage Change Contactable Authors
-                <span class="tooltip-container">
-                    <span class="info-icon">ℹ️</span>
-                    <span class="tooltip-text">
-                        <b>1. What is a contactable active author?</b><br>
-                        Profiles included meet the following criteria:<br>
-                        &nbsp;&nbsp;&nbsp;&bull; <b>H-Index</b> ≥ 1<br>
-                        &nbsp;&nbsp;&nbsp;&bull; Has an <b>affiliation</b><br>
-                        &nbsp;&nbsp;&nbsp;&bull; Most recent authorship year ≥ <b>2022</b><br>
-                        <i>Contactable authors</i> are those with a <b>verified email</b> on record.
-                        <hr style="margin: 8px 0;">
-        
-                        <b>2. How is the percentage change calculated?</b><br>
-                        Percentage change formula:<br>
-                        <code>((contactable<sub>end</sub> − contactable<sub>start</sub>) / contactable<sub>start</sub>) × 100</code><br><br>
-                        Overall percentage:<br>
-                        <code>(contactable<sub>end</sub> / (contactable<sub>end</sub> + non_contactable<sub>end</sub>)) × 100</code>
-                        <hr style="margin: 8px 0;">
-        
-                        <b>3. Date selection logic</b><br>
-                        Calculations are based on <b>selected start and end months</b> using a <b>monthly estimation</b> from initial to final release.
-                    </span>
-                </span>
-            </div>
-        </div>
         """, unsafe_allow_html=True)
 
         arrow = "▲" if pct_change_contactable >= 0 else "▼"
