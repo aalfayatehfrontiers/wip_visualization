@@ -418,46 +418,20 @@ def show_contactable():
                 <div class="title-font" style="font-size: 25px; font-weight: bold; display: inline;">
                     Percentage Change Contactable Authors
                 </div>
-                <button style="background: none; border: none; cursor: pointer; font-size: 25px;" 
-                        onclick="toggleInfo()">
+                <button style="background: none; border: none; cursor: pointer; font-size: 15px;" 
+                        onclick="window.parent.streamlit_api.toggleInfo()">
                     ℹ️
                 </button>
             </div>
-            <script>
-                function toggleInfo() {
-                    var state = window.parent.document.querySelector('#info-state');
-                    state.value = state.value === 'true' ? 'false' : 'true';
-                    window.parent.postMessage({ type: 'TOGGLE_INFO' }, "*");
-                }
-            </script>
             """,
             unsafe_allow_html=True
         )
         
-        # Placeholder for the info state (this is hidden from the user)
-        info_state = st.empty()
+        # Check if the info icon is clicked and toggle the visibility of the info content
+        if st.button('ℹ️', key="info_button"):
+            st.session_state.show_info = not st.session_state.show_info  # Toggle the info visibility
         
-        # Functionality to toggle the visibility of the content based on state
-        if info_state:
-            info_state.text_area("info-state", value="false", height=0)
-        
-        # Create a custom handler for toggling the state when the button is clicked
-        st.markdown(
-            """
-            <style>
-                /* Custom button styling for the info icon */
-                button {
-                    background: none;
-                    border: none;
-                    cursor: pointer;
-                    font-size: 20px;
-                }
-            </style>
-            """,
-            unsafe_allow_html=True
-        )
-        
-        # Show/hide detailed information based on the toggle state
+        # Display the detailed information if it's set to show
         if st.session_state.show_info:
             st.markdown("""
                 <b>1. Definition of a Contactable Active Author</b><br>
