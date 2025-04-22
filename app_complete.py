@@ -432,7 +432,7 @@ def show_contactable():
                     border: none;
                     color: inherit;
                     padding: 0;
-                    font-size: 5px;
+                    font-size: 10px;
                     cursor: pointer;
                 }
             </style>
