@@ -377,45 +377,28 @@ def show_contactable():
         </style>
         """, unsafe_allow_html=True)
         
-        # Info title with tooltip using HTML
-        st.markdown("""
-        <div class="title-container">
-            <div class="title-font">Percentage Change Contactable Authors</div>
-            <div style="position: relative; display: inline-block;">
-                <span style="cursor: pointer; font-size: 18px;">ℹ️</span>
+        with st.container():
+            col1, col2 = st.columns([0.95, 0.05])
+        
+            with col1:
+                st.markdown('<div class="title-font">Percentage Change Contactable Authors</div>', unsafe_allow_html=True)
+            with col2:
+                show_tooltip = st.checkbox("ℹ️", key="info_toggle")
+        
+            if show_tooltip:
+                st.markdown("""
                 <div style="
-                    visibility: hidden;
                     background-color: #f0f0f0;
                     color: #000;
-                    text-align: left;
-                    border-radius: 6px;
                     padding: 10px;
-                    position: absolute;
-                    z-index: 1;
-                    width: 250px;
-                    bottom: 125%;
-                    left: 50%;
-                    margin-left: -125px;
-                    opacity: 0;
-                    transition: opacity 0.3s;
-                " class="tooltip-text">
-                    Metric estimated taking into account active authors with a publication within the last 36 months
+                    border-radius: 6px;
+                    font-size: 14px;
+                    width: 100%;
+                ">
+                    <strong>Info:</strong> Metric estimated taking into account active authors with a publication within the last 36 months.
                 </div>
-            </div>
-        </div>
-        
-        <style>
-            .title-container {
-                display: flex;
-                align-items: center;
-                gap: 10px;
-            }
-            .title-container div:hover .tooltip-text {
-                visibility: visible;
-                opacity: 1;
-            }
-        </style>
-        """, unsafe_allow_html=True)
+                """, unsafe_allow_html=True)
+
 
         arrow = "▲" if pct_change_contactable >= 0 else "▼"
         color = "green" if pct_change_contactable >= 0 else "red"
