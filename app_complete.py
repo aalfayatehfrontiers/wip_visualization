@@ -407,26 +407,33 @@ def show_contactable():
         </style>
         """, unsafe_allow_html=True)
         
+        # Set up session state for controlling visibility
+        if "show_info" not in st.session_state:
+            st.session_state.show_info = False  # Default state is collapsed (False)
+        
         # Main content of the app
         st.markdown(
             """
             <div class="title-row">
                 <div class="title-font">
                     Percentage Change Contactable Authors
-                    <span class="info-icon">
-                        <button id="info-button" style="background: none; border: none; cursor: pointer; color: #1E90FF; font-size: 18px;">
-                            ℹ️
-                        </button>
-                    </span>
+                    <button id="info-button" 
+                            style="background: none; border: none; cursor: pointer; color: #1E90FF; font-size: 18px;" 
+                            onclick="window.parent.postMessage({type: 'expand'}, '*');">
+                        ℹ️
+                    </button>
                 </div>
             </div>
             """,
             unsafe_allow_html=True
         )
         
-        # This is a workaround to display information when the button (ℹ️) is clicked.
-        # Create a button that will simulate a click for the expander to show details
-        if st.button("ℹ️ Click here for more details"):
+        # Toggle information based on button click
+        if st.button("ℹ️", key="info-toggle"):
+            st.session_state.show_info = not st.session_state.show_info
+        
+        # Display detailed information when `show_info` is True
+        if st.session_state.show_info:
             st.markdown("""
                 <b>1. Definition of a Contactable Active Author</b><br>
                 A contactable active author is defined as a researcher who meets the following criteria:<br>
