@@ -453,23 +453,27 @@ def show_contactable():
         # Display toggle content
         if st.session_state.show_info:
             st.info("""
-                    **1. Definition of a Contactable Active Author**  
-                    A contactable active author is defined as a researcher who meets the following criteria:  
-                    - **H-Index ≥ 1**: Demonstrates academic productivity and impact.  
-                    - **Affiliation listed**: The researcher must be associated with a recognized institution.  
-                    - **Last authorship year ≥ 2022**: Ensures the author is currently active in research.  
-                    - **Verified email associated**: Confirms the author can be reached directly.
-                    
-                    **2. Percentage Calculations**  
-                    • **Change Over Time %**:  
-                    \((contactable_{end} - contactable_{start}) / contactable_{start} × 100\)
-                    
-                    • **Overall Contactable %**:  
-                    \((contactable_{end}) / (contactable_{end} + non_contactable_{end}) × 100\)
-                    
-                    **3. Reference Period**  
-                    The metrics are based on selected start and end months. Monthly averages are used for both time points.
-                        """)
+        **1. Definition of a Contactable Active Author**  
+        A contactable active author is defined as a researcher who meets the following criteria:  
+        - **H-Index ≥ 1**: Demonstrates academic productivity and impact.  
+        - **Affiliation listed**: The researcher must be associated with a recognized institution.  
+        - **Last authorship year ≥ 2022**: Ensures the author is currently active in research.  
+        - **Verified email associated**: Confirms the author can be reached directly.
+        
+        **2. Percentage Calculations**  
+        """)
+            # Use LaTeX for math display
+            st.latex(r"""
+            \text{Change Over Time (\%)} = \left( \frac{\text{Contactable}_{\text{end}} - \text{Contactable}_{\text{start}}}{\text{Contactable}_{\text{start}}} \right) \times 100
+            """)
+            st.latex(r"""
+            \text{Overall Contactable (\%)} = \left( \frac{\text{Contactable}_{\text{end}}}{\text{Contactable}_{\text{end}} + \text{Non-Contactable}_{\text{end}}} \right) \times 100
+            """)
+        
+            st.info("""
+        **3. Reference Period**  
+        The metrics are based on the selected start and end months. Monthly data is averaged to estimate the number of authors at both points in time.
+        """)
             
         arrow = "▲" if pct_change_contactable >= 0 else "▼"
         color = "green" if pct_change_contactable >= 0 else "red"
