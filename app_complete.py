@@ -420,7 +420,7 @@ def show_contactable():
                     justify-content: space-between;
                 }
                 .title-text {
-                    font-size: 30px;
+                    font-size: 25px;
                     font-weight: bold;
                 }
                 .icon-button-container {
@@ -435,7 +435,7 @@ def show_contactable():
                     line-height: 3;
                     font-size: 10px;
                     cursor: pointer;
-                    margin-left: 1px;  /* Bring the button closer to the title */
+                    margin-left: 20px;  /* Bring the button closer to the title */
                 }
             </style>
         """, unsafe_allow_html=True)
