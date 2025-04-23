@@ -450,30 +450,37 @@ def show_contactable():
             if st.button("ℹ️", key="info_button", help="Click for more information"):
                 st.session_state.show_info = not st.session_state.show_info
         
-        # Display toggle content
+        # Display toggle content in a custom-styled box
         if st.session_state.show_info:
-            st.info("""
-        **1. Definition of a Contactable Active Author**  
-        A contactable active author is defined as a researcher who meets the following criteria:  
-        - **H-Index ≥ 1**: Demonstrates academic productivity and impact.  
-        - **Affiliation listed**: The researcher must be associated with a recognized institution.  
-        - **Last authorship year ≥ 2022**: Ensures the author is currently active in research.  
-        - **Verified email associated**: Confirms the author can be reached directly.
+            st.markdown("""
+            <div style="
+                background-color: #f0f2f6;
+                border-left: 5px solid #91caff;
+                padding: 15px 20px;
+                border-radius: 5px;
+                margin-top: 10px;
+            ">
+                <b>1. Definition of a Contactable Active Author</b><br>
+                A contactable active author is defined as a researcher who meets all of the following criteria:<br>
+                - <b>H-Index ≥ 1</b>: Demonstrates academic productivity and relevance.<br>
+                - <b>Affiliation listed</b>: The researcher is affiliated with a recognized institution.<br>
+                - <b>Last authorship year ≥ 2022</b>: Indicates recent research activity.<br>
+                - <b>Verified email associated</b>: Ensures the author can be contacted directly.<br><br>
         
-        **2. Percentage Calculations**  
-        """)
-            # Use LaTeX for math display
-            st.latex(r"""
-            \text{Change Over Time (\%)} = \left( \frac{\text{Contactable}_{\text{end}} - \text{Contactable}_{\text{start}}}{\text{Contactable}_{\text{start}}} \right) \times 100
-            """)
-            st.latex(r"""
-            \text{Overall Contactable (\%)} = \left( \frac{\text{Contactable}_{\text{end}}}{\text{Contactable}_{\text{end}} + \text{Non-Contactable}_{\text{end}}} \right) \times 100
-            """)
+                <b>2. Percentage Calculations</b><br>
+                <b>• Change Over Time (%):</b><br>
+                <div style="padding-left: 10px;">
+                    $$\\text{Change Over Time (\\%)} = \\left( \\frac{\\text{Contactable}_{end} - \\text{Contactable}_{start}}{\\text{Contactable}_{start}} \\right) \\times 100$$
+                </div><br>
+                <b>• Overall Contactable Percentage (%):</b><br>
+                <div style="padding-left: 10px;">
+                    $$\\text{Overall Contactable (\\%)} = \\left( \\frac{\\text{Contactable}_{end}}{\\text{Contactable}_{end} + \\text{NonContactable}_{end}} \\right) \\times 100$$
+                </div><br>
         
-            st.info("""
-        **3. Reference Period**  
-        The metrics are based on the selected start and end months. Monthly data is averaged to estimate the number of authors at both points in time.
-        """)
+                <b>3. Reference Period</b><br>
+                These metrics are calculated using the selected start and end months. Monthly data is averaged to estimate the number of contactable authors at each time point.
+            </div>
+            """, unsafe_allow_html=True)
             
         arrow = "▲" if pct_change_contactable >= 0 else "▼"
         color = "green" if pct_change_contactable >= 0 else "red"
