@@ -464,10 +464,10 @@ def show_contactable():
             **2. Percentage Calculations**
             
             • **Change Over Time (%)**  
-            \\( \\frac{\\text{Contactable}_{end} - \\text{Contactable}_{start}}{\\text{Contactable}_{start}} \\times 100 \\)
+            $$ \\text{Change Over Time (\%)} = \\frac{\\text{Contactable}_{\\text{end}} - \\text{Contactable}_{\\text{start}}}{\\text{Contactable}_{\\text{start}}} \\times 100 $$
             
             • **Overall Contactable Percentage (%)**  
-            \\( \\frac{\\text{Contactable}_{end}}{\\text{Contactable}_{end} + \\text{NonContactable}_{end}} \\times 100 \\)
+            $$ \\text{Overall Contactable (\%)} = \\frac{\\text{Contactable}_{\\text{end}}}{\\text{Contactable}_{\\text{end}} + \\text{NonContactable}_{\\text{end}}} \\times 100 $$
             
             **3. Reference Period**  
             Metrics are based on the selected start and end months. Monthly data is averaged to estimate the number of contactable authors at each time point.
