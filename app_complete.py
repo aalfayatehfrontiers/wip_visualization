@@ -411,6 +411,7 @@ def show_contactable():
         if "show_info" not in st.session_state:
             st.session_state.show_info = False
         
+        # Custom CSS for layout and styling
         st.markdown("""
             <style>
                 .title-row {
@@ -436,11 +437,19 @@ def show_contactable():
         st.markdown("""
             <div class="title-row">
                 <div class="title-text">Percentage Change Contactable Authors</div>
-                <button class="icon-button" onclick="window.location.reload();">ℹ️</button>
+                <button class="icon-button" onclick="window.location.href=window.location.href">ℹ️</button>
             </div>
         """, unsafe_allow_html=True)
         
-        # Display toggle content
+        # Now toggle the state directly when the icon button is clicked
+        if "info_button_clicked" not in st.session_state:
+            st.session_state.info_button_clicked = False
+        
+        # Update the session state when the button is clicked
+        if st.session_state.info_button_clicked:
+            st.session_state.show_info = not st.session_state.show_info
+        
+        # Display additional information if toggled
         if st.session_state.show_info:
             st.markdown("""
                 <b>1. Definition of a Contactable Active Author</b><br>
