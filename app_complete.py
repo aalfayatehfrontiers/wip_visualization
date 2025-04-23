@@ -437,21 +437,11 @@ def show_contactable():
                     cursor: pointer;
                     margin-left: 5px;  /* Bring the button closer to the title */
                 }
-        
-                /* Styling for the toggle content with contour and soft background */
-                .toggle-content {
-                    border: 1px solid #d1d1d1;  /* Light gray border (contour) */
-                    background-color: #f9f9f9;  /* Soft background color */
-                    border-radius: 5px;  /* Rounded corners */
-                    padding: 15px;  /* Padding around the content */
-                    margin-top: 10px;  /* Space between the title and the toggle content */
-                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  /* Subtle shadow for depth */
-                }
             </style>
         """, unsafe_allow_html=True)
         
         # Use columns to align title and button inline
-        col1, col2 = st.columns([0.99, 0.05])  # Adjust width ratio for alignment
+        col1, col2 = st.columns([0.99, 0.50])  # Adjust width ratio for alignment
         
         with col1:
             st.markdown('<div class="title-text">Percentage Change Contactable Authors</div>', unsafe_allow_html=True)
@@ -460,26 +450,24 @@ def show_contactable():
             if st.button("ℹ️", key="info_button", help="Click for more information"):
                 st.session_state.show_info = not st.session_state.show_info
         
-        # Display toggle content with contour and soft background if toggled
+        # Display toggle content
         if st.session_state.show_info:
             st.markdown("""
-                <div class="toggle-content">
-                    <b>1. Definition of a Contactable Active Author</b><br>
-                    A contactable active author is defined as a researcher who meets the following criteria:<br>
-                    - <b>H-Index ≥ 1</b><br>
-                    - <b>Affiliation listed</b><br>
-                    - <b>Last authorship year ≥ 2022</b><br>
-                    - <b>Verified email associated</b><br><br>
+                <b>1. Definition of a Contactable Active Author</b><br>
+                A contactable active author is defined as a researcher who meets the following criteria:<br>
+                - <b>H-Index ≥ 1</b><br>
+                - <b>Affiliation listed</b><br>
+                - <b>Last authorship year ≥ 2022</b><br>
+                - <b>Verified email associated</b><br><br>
         
-                    <b>2. Percentage Calculations</b><br>
-                    • <b>Change Over Time:</b><br>
-                    <code>(contactable<sub>end</sub> − contactable<sub>start</sub>) / contactable<sub>start</sub> × 100</code><br>
-                    • <b>Overall Contactable %:</b><br>
-                    <code>contactable<sub>end</sub> / (contactable<sub>end</sub> + non_contactable<sub>end</sub>) × 100</code><br><br>
+                <b>2. Percentage Calculations</b><br>
+                • <b>Change Over Time:</b><br>
+                <code>(contactable<sub>end</sub> − contactable<sub>start</sub>) / contactable<sub>start</sub> × 100</code><br>
+                • <b>Overall Contactable %:</b><br>
+                <code>contactable<sub>end</sub> / (contactable<sub>end</sub> + non_contactable<sub>end</sub>) × 100</code><br><br>
         
-                    <b>3. Reference Period</b><br>
-                    Based on selected start and end months using monthly average estimates.
-                </div>
+                <b>3. Reference Period</b><br>
+                Based on selected start and end months using monthly average estimates.
             """, unsafe_allow_html=True)
             
         arrow = "▲" if pct_change_contactable >= 0 else "▼"
