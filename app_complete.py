@@ -453,16 +453,14 @@ def show_contactable():
         # Display toggle content in a custom-styled box
         if st.session_state.show_info:
             st.info("""
-            **1) Definition**
-            
+            **1) Definition** 
             A contactable active author is defined as a researcher who meets all of the following criteria:
-            - **H-Index ≥ 1**: Indicates academic productivity.
+            - **H-Index ≥ 1**: Indicates academic productivity and impact on the research field.
             - **Affiliation listed**: Linked to a recognized institution.
             - **Last year as author ≥ 2022**: Demonstrates recent research activity.
-            - **Verified email associated**: Ensures the author can be contacted directly.
+            - **Verified email associated**: Ensures the author can be contacted directly to a real email address.
             
-            **2) Percentage Calculations**
-            
+            **2) Percentage Calculations**      
             • **Change Over Time (%)**  
             *(Contactableₑₙᵈ − Contactableₛₜₐᵣₜ) / Contactableₛₜₐᵣₜ × 100*
             
