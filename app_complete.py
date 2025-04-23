@@ -435,7 +435,7 @@ def show_contactable():
                     line-height: 3;
                     font-size: 10px;
                     cursor: pointer;
-                    margin-left: 20px;  /* Bring the button closer to the title */
+                    margin-left: 5px;  /* Bring the button closer to the title */
                 }
             </style>
         """, unsafe_allow_html=True)
