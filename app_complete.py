@@ -427,7 +427,7 @@ def show_contactable():
                     background: none;
                     border: none;
                     color: inherit;
-                    font-size: 16px;  /* Make button smaller */
+                    font-size: 20px;  /* Make button smaller */
                     cursor: pointer;
                 }
             </style>
@@ -437,17 +437,14 @@ def show_contactable():
         st.markdown("""
             <div class="title-row">
                 <div class="title-text">Percentage Change Contactable Authors</div>
-                <button class="icon-button" onclick="window.location.href=window.location.href">ℹ️</button>
+                <button class="icon-button" id="info_button">ℹ️</button>
             </div>
         """, unsafe_allow_html=True)
         
-        # Now toggle the state directly when the icon button is clicked
-        if "info_button_clicked" not in st.session_state:
-            st.session_state.info_button_clicked = False
-        
-        # Update the session state when the button is clicked
-        if st.session_state.info_button_clicked:
-            st.session_state.show_info = not st.session_state.show_info
+        # Add the button and handle click event using session state
+        clicked = st.button("ℹ️", key="info_button", help="Click for more information")
+        if clicked:
+            st.session_state.show_info = not st.session_state.show_info  # Toggle the info visibility
         
         # Display additional information if toggled
         if st.session_state.show_info:
