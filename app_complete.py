@@ -453,15 +453,15 @@ def show_contactable():
         # Display toggle content in a custom-styled box
         if st.session_state.show_info:
             st.info("""
-            **1. Definition of a Contactable Active Author**
+            **1) Definition**
             
             A contactable active author is defined as a researcher who meets all of the following criteria:
             - **H-Index ≥ 1**: Indicates academic productivity.
             - **Affiliation listed**: Linked to a recognized institution.
-            - **Last authorship year ≥ 2022**: Demonstrates recent research activity.
+            - **Last year as author ≥ 2022**: Demonstrates recent research activity.
             - **Verified email associated**: Ensures the author can be contacted directly.
             
-            **2. Percentage Calculations**
+            **2) Percentage Calculations**
             
             • **Change Over Time (%)**  
             *(Contactableₑₙᵈ − Contactableₛₜₐᵣₜ) / Contactableₛₜₐᵣₜ × 100*
@@ -469,7 +469,7 @@ def show_contactable():
             • **Overall Contactable Percentage (%)**  
             *Contactableₑₙᵈ / (Contactableₑₙᵈ + NonContactableₑₙᵈ) × 100*
             
-            **3. Reference Period**  
+            **3) Reference Period**  
             Metrics are based on the selected start and end months. Monthly data is averaged to estimate the number of contactable authors at each time point.
             """)
 
