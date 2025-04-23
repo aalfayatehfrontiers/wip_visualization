@@ -376,7 +376,7 @@ def show_contactable():
         st.markdown("""
         <style>
             .big-font {
-                font-size: 40px !important;
+                font-size: 35px !important;
                 text-align: left;
             }
             .small-font {
