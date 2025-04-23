@@ -415,35 +415,38 @@ def show_contactable():
         st.markdown("""
             <style>
                 .title-row {
-                    display: inline-flex;
+                    display: flex;
                     align-items: center;
+                    gap: 8px;  /* Space between title and button */
                 }
                 .title-text {
                     font-size: 25px;
                     font-weight: bold;
-                    margin-right: 5px;  /* Adjust space between title and button */
                 }
                 .icon-button {
                     background: none;
                     border: none;
                     color: inherit;
-                    font-size: 20px;  /* Make button smaller */
+                    font-size: 20px;
                     cursor: pointer;
                 }
             </style>
         """, unsafe_allow_html=True)
         
-        # Title and button side by side
+        # HTML structure for title and clickable button
         st.markdown("""
             <div class="title-row">
                 <div class="title-text">Percentage Change Contactable Authors</div>
-                <button class="icon-button" id="info_button">ℹ️</button>
+                <button class="icon-button" onclick="window.location.href='#';">ℹ️</button>
             </div>
         """, unsafe_allow_html=True)
         
-        # Add the button and handle click event using session state
-        clicked = st.button("ℹ️", key="info_button", help="Click for more information")
-        if clicked:
+        # Check if the icon button is clicked using session state
+        if "show_info" not in st.session_state:
+            st.session_state.show_info = False
+        
+        # Add a clickable button for toggling the content
+        if st.button("ℹ️", key="info_button", help="Click for more information"):
             st.session_state.show_info = not st.session_state.show_info  # Toggle the info visibility
         
         # Display additional information if toggled
