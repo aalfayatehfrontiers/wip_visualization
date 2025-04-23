@@ -452,6 +452,7 @@ def show_contactable():
         
         # Display toggle content in a custom-styled box
         if st.session_state.show_info:
+            # Styled information box
             st.markdown("""
             <div style="
                 background-color: #f0f2f6;
@@ -466,22 +467,44 @@ def show_contactable():
                 - <b>Affiliation listed</b>: The researcher is affiliated with a recognized institution.<br>
                 - <b>Last authorship year ≥ 2022</b>: Indicates recent research activity.<br>
                 - <b>Verified email associated</b>: Ensures the author can be contacted directly.<br><br>
-        
+            
                 <b>2. Percentage Calculations</b><br>
-                <b>• Change Over Time (%):</b><br>
-                <div style="padding-left: 10px;">
-                    $$\\text{Change Over Time (\\%)} = \\left( \\frac{\\text{Contactable}_{end} - \\text{Contactable}_{start}}{\\text{Contactable}_{start}} \\right) \\times 100$$
-                </div><br>
-                <b>• Overall Contactable Percentage (%):</b><br>
-                <div style="padding-left: 10px;">
-                    $$\\text{Overall Contactable (\\%)} = \\left( \\frac{\\text{Contactable}_{end}}{\\text{Contactable}_{end} + \\text{NonContactable}_{end}} \\right) \\times 100$$
-                </div><br>
-        
+                <b>• Change Over Time (%):</b>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            # LaTeX math formula (outside styled HTML)
+            st.latex(r"""
+            \text{Change Over Time (\%)} = \left( \frac{\text{Contactable}_{end} - \text{Contactable}_{start}}{\text{Contactable}_{start}} \right) \times 100
+            """)
+            
+            st.markdown("""
+            <div style="
+                background-color: #f0f2f6;
+                border-left: 5px solid #91caff;
+                padding: 0px 20px 10px 20px;
+                border-radius: 0px 0px 5px 5px;
+            ">
+                <b>• Overall Contactable Percentage (%):</b>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            st.latex(r"""
+            \text{Overall Contactable (\%)} = \left( \frac{\text{Contactable}_{end}}{\text{Contactable}_{end} + \text{NonContactable}_{end}} \right) \times 100
+            """)
+            
+            st.markdown("""
+            <div style="
+                background-color: #f0f2f6;
+                border-left: 5px solid #91caff;
+                padding: 0px 20px 15px 20px;
+                border-radius: 0px 0px 5px 5px;
+            ">
                 <b>3. Reference Period</b><br>
                 These metrics are calculated using the selected start and end months. Monthly data is averaged to estimate the number of contactable authors at each time point.
             </div>
             """, unsafe_allow_html=True)
-            
+
         arrow = "▲" if pct_change_contactable >= 0 else "▼"
         color = "green" if pct_change_contactable >= 0 else "red"
         contactable_end_formatted = format_number(contactable_end)
