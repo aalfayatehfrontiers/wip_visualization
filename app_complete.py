@@ -136,7 +136,7 @@ def show_completeness():
     email_pct = end_data[end_data.index.str[10] == '1'].sum() / end_row['number_base_authors'] * 100
     all_criteria_pct = end_row['percentage_complete_authors'] * 100
     
-    categories = ['Name', 'Affiliation', 'H-Index >= 1', 'Valid Email', 'All Criteria Met']
+    categories = ['Having FullName', 'Having Affiliation', 'Having H-Index >= 1', 'Having Valid Email', 'All Criteria Met']
     values = [name_pct, affiliation_pct, hindex_pct, email_pct, all_criteria_pct]
     
     # Sort the categories and values by the percentage value in descending order
@@ -165,7 +165,7 @@ def show_completeness():
         y=sorted_categories,
         x=sorted_values,  # The actual percentage values (proportional to 100%)
         text=[f"{v:.2f}%" for v in sorted_values],  # Show percentage inside the bar
-        textposition='outside',  # Position the text inside the bar
+        textposition='inside',  # Position the text inside the bar
         textfont=dict(color="black", size=14),  # Set text color and size
         marker_color=['#5e8eff' if cat != 'All Criteria Met' else '#6ebd6e' for cat in sorted_categories],  # Darker blue and green colors
         name='Actual Percentage',
