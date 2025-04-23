@@ -414,42 +414,43 @@ def show_contactable():
         # Custom CSS for layout and styling
         st.markdown("""
             <style>
-                .title-row {
+                .title-container {
                     display: flex;
                     align-items: center;
-                    gap: 8px;  /* Space between title and button */
+                    justify-content: space-between;
                 }
                 .title-text {
                     font-size: 25px;
                     font-weight: bold;
                 }
-                .icon-button {
+                .icon-button-container {
+                    margin: 0;
+                    padding: 0;
+                }
+                div.stButton > button {
                     background: none;
                     border: none;
                     color: inherit;
-                    font-size: 20px;
+                    padding: 0;
+                    line-height: 3;
+                    font-size: 10px;
                     cursor: pointer;
+                    margin-left: 5px;  /* Bring the button closer to the title */
                 }
             </style>
         """, unsafe_allow_html=True)
         
-        # HTML structure for title and clickable button
-        st.markdown("""
-            <div class="title-row">
-                <div class="title-text">Percentage Change Contactable Authors</div>
-                <button class="icon-button" onclick="window.location.href='#';">ℹ️</button>
-            </div>
-        """, unsafe_allow_html=True)
+        # Use columns to align title and button inline
+        col1, col2 = st.columns([0.99, 0.50])  # Adjust width ratio for alignment
         
-        # Check if the icon button is clicked using session state
-        if "show_info" not in st.session_state:
-            st.session_state.show_info = False
+        with col1:
+            st.markdown('<div class="title-text">Percentage Change Contactable Authors</div>', unsafe_allow_html=True)
         
-        # Add a clickable button for toggling the content
-        if st.button("ℹ️", key="info_button", help="Click for more information"):
-            st.session_state.show_info = not st.session_state.show_info  # Toggle the info visibility
+        with col2:
+            if st.button("ℹ️", key="info_button", help="Click for more information"):
+                st.session_state.show_info = not st.session_state.show_info
         
-        # Display additional information if toggled
+        # Display toggle content
         if st.session_state.show_info:
             st.markdown("""
                 <b>1. Definition of a Contactable Active Author</b><br>
