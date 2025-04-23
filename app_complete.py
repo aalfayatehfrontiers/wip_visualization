@@ -454,20 +454,23 @@ def show_contactable():
         if st.session_state.show_info:
             st.markdown("""
                 <b>1. Definition of a Contactable Active Author</b><br>
-                A contactable active author is defined as a researcher who meets the following criteria:<br>
-                - <b>H-Index ≥ 1</b><br>
-                - <b>Affiliation listed</b><br>
-                - <b>Last authorship year ≥ 2022</b><br>
-                - <b>Verified email associated</b><br><br>
-        
+                A contactable active author is defined as a researcher who fulfills all of the following criteria, indicating both academic relevance and reachability:<br>
+                - <b>H-Index ≥ 1</b>: Ensures a minimum level of scholarly impact.<br>
+                - <b>Affiliation listed</b>: The author must be associated with a recognized institution.<br>
+                - <b>Last authorship year ≥ 2022</b>: Indicates the author is currently active in research and publishing.<br>
+                - <b>Verified email associated</b>: Confirms the author can be directly contacted for collaboration or communication.<br><br>
+            
                 <b>2. Percentage Calculations</b><br>
                 • <b>Change Over Time:</b><br>
-                <code>(contactable<sub>end</sub> − contactable<sub>start</sub>) / contactable<sub>start</sub> × 100</code><br>
+                Represents the relative change in the number of contactable authors between the start and end of the selected period:<br>
+                <code>(contactable<sub>end</sub> − contactable<sub>start</sub>) / contactable<sub>start</sub> × 100</code><br><br>
+            
                 • <b>Overall Contactable %:</b><br>
+                Denotes the proportion of contactable authors relative to the total number of authors (contactable and non-contactable):<br>
                 <code>contactable<sub>end</sub> / (contactable<sub>end</sub> + non_contactable<sub>end</sub>) × 100</code><br><br>
-        
+            
                 <b>3. Reference Period</b><br>
-                Based on selected start and end months using monthly average estimates.
+                The calculations are based on the selected start and end months. Monthly data is averaged to estimate the number of authors at both time points.
             """, unsafe_allow_html=True)
             
         arrow = "▲" if pct_change_contactable >= 0 else "▼"
