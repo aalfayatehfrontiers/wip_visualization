@@ -461,7 +461,7 @@ def show_contactable():
                 - <b>Verified email associated</b>: Confirms the author can be directly contacted for collaboration or communication.<br><br>
             
                 <b>2. Percentage Calculations</b><br>
-                • <b>Change Over Time:</b><br>
+                • <b>Change Over Time %:</b><br>
                 Represents the relative change in the number of contactable authors between the start and end of the selected period:<br>
                 <code>(contactable<sub>end</sub> − contactable<sub>start</sub>) / contactable<sub>start</sub> × 100</code><br><br>
             
