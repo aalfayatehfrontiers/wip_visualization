@@ -411,44 +411,34 @@ def show_contactable():
         if "show_info" not in st.session_state:
             st.session_state.show_info = False
         
-        # Custom CSS for layout and styling
         st.markdown("""
             <style>
-                .title-container {
-                    display: flex;
+                .title-row {
+                    display: inline-flex;
                     align-items: center;
-                    justify-content: space-between;
                 }
                 .title-text {
                     font-size: 25px;
                     font-weight: bold;
+                    margin-right: 5px;  /* Adjust space between title and button */
                 }
-                .icon-button-container {
-                    margin: 0;
-                    padding: 0;
-                }
-                div.stButton > button {
+                .icon-button {
                     background: none;
                     border: none;
                     color: inherit;
-                    padding: 0;
-                    line-height: 3;
-                    font-size: 10px;
+                    font-size: 16px;  /* Make button smaller */
                     cursor: pointer;
-                    margin-left: 5px;  /* Bring the button closer to the title */
                 }
             </style>
         """, unsafe_allow_html=True)
         
-        # Use columns to align title and button inline
-        col1, col2 = st.columns([0.95, 0.05])  # Adjust width ratio for alignment
-        
-        with col1:
-            st.markdown('<div class="title-text">Percentage Change Contactable Authors</div>', unsafe_allow_html=True)
-        
-        with col2:
-            if st.button("ℹ️", key="info_button", help="Click for more information"):
-                st.session_state.show_info = not st.session_state.show_info
+        # Title and button side by side
+        st.markdown("""
+            <div class="title-row">
+                <div class="title-text">Percentage Change Contactable Authors</div>
+                <button class="icon-button" onclick="window.location.reload();">ℹ️</button>
+            </div>
+        """, unsafe_allow_html=True)
         
         # Display toggle content
         if st.session_state.show_info:
