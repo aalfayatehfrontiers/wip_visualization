@@ -1018,6 +1018,15 @@ def show_disambiguation():
     # 1) OVERALL OVERMERGED BLOCK
     # --------------------------------
     # Initialize session state for toggle
+            
+    # Format helper
+    def format_number(number):
+        if number >= 1_000_000:
+            return f"{number / 1_000_000:.2f}M"
+        elif number >= 1_000:
+            return f"{number / 1_000:.2f}K"
+        return f"{number:.2f}"
+        
     if "show_info_om_all" not in st.session_state:
         st.session_state.show_info_om_all = False
         
