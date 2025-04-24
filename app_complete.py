@@ -359,7 +359,7 @@ def show_contactable():
         fig.add_hline(
             y=35,
             line_dash="dash",
-            line_color="#A7C7E7",
+            line_color="#5A9BCF",
             annotation_text="{Target-KPI}",
             annotation_position="top right",
             annotation_font=dict(
