@@ -364,7 +364,7 @@ def show_contactable():
             annotation_text="{Target-KPI}",
             annotation_position="top right",
             annotation_font=dict(
-            size=18,
+            size=14,
             color="#1E3A8A"  # Change this to the color you want for the annotation text)
             ))
         
