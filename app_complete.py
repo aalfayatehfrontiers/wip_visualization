@@ -359,13 +359,13 @@ def show_contactable():
         fig.add_hline(
             y=35,
             line_dash="dash",  # Solid line (can use gradient in the line_color)
-            line_color="#5A9BCF",  # Soft blue with opacity (gradient effect)
+            line_color="#1E3A8A",  # Soft blue with opacity (gradient effect)
             line_width=0.5,  # Thicker line to make it more visible
             annotation_text="{Target-KPI}",
             annotation_position="top right",
             annotation_font=dict(
-            size=12,
-            color="#5A9BCF"  # Change this to the color you want for the annotation text)
+            size=18,
+            color="#1E3A8A"  # Change this to the color you want for the annotation text)
             ))
         
         # Update layout with your original style
