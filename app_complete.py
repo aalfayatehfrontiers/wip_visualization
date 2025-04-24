@@ -373,7 +373,7 @@ def show_completeness():
             - **All Criteria Met**: If an author profile is present in all buckets mentioned above, then it is covering all criterias compared to all active profiles.
         
             **2) Reference Period**  
-            Metrics are based on the selected end month. Monthly data is averaged to estimate the number of authors per each bucket and time point.
+            Metrics are based on the selected end month. Monthly data is averaged to estimate the number of authors per each bucket in the selected end month.
         """)
     
     # Show the plot
@@ -525,6 +525,62 @@ def show_completeness():
     # --------------------------------
     # 5) BUCKETS DETAILED DISPLAY
     # --------------------------------
+
+        # Initialize session state for toggle
+    if "show_info_detailed" not in st.session_state:
+        st.session_state.show_info_detailed = False
+        
+    # Custom CSS for layout and styling
+    st.markdown("""
+        <style>
+            .title-container {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .title-text {
+                font-size: 25px;
+                font-weight: bold;
+            }
+            .icon-button-container {
+                margin: 0;
+                padding: 0;
+            }
+            div.stButton > button {
+                background: none;
+                border: none;
+                color: inherit;
+                padding: 0;
+                line-height: 3;
+                font-size: 10px;
+                cursor: pointer;
+                margin-left: 5px;  /* Bring the button closer to the title */
+            }
+        </style>
+    """, unsafe_allow_html=True)
+        
+    # Use columns to align title and button inline
+    col1_detailed, col2_detailed = st.columns([0.99, 0.50])  # Adjust width ratio for alignment
+        
+    with col1_detailed:
+        st.markdown('<h3 style="font-size: 25px; font-family: Arial, sans-serif; color: black;">Detailed Completeness By Criterion Distribution</h3>', unsafe_allow_html=True)
+
+    with col2_detailed:
+        if st.button("ℹ️", key="info_button_detailed", help="Click for more information"):
+            st.session_state.show_info_detailed = not st.session_state.show_info_detailed
+        
+    # Display toggle content in a custom-styled box
+    if st.session_state.show_info_detailed:
+        st.info("""
+            **1) Detailed Logic**  
+            This detailed distribution for each bucket representation is showing where authors specifically belongs to.
+            Profiles can only be present in **one specific bucket**, if an author is missing their affiliation and valid email then,
+            it computes for the percentage calculation in its bucket referenced to all active authors. The total buckets sum up 100 but only those
+            **above 1% percent are displayed.**
+        
+            **2) Reference Period**  
+            Metrics are based on the selected end month. Monthly data is averaged to estimate the number of authors per each bucket for the end month selected.
+        """)
 
 def pct_change_relative_to_first(series):
     base = series.iloc[0]
