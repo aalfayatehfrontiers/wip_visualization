@@ -338,7 +338,7 @@ def show_contactable():
         # Line chart for contactable authors (primary y-axis)
         fig.add_trace(go.Scatter(
             x=df_filtered['month'],
-            y=df_filtered['contactable_authors'],
+            y=df_filtered['percentage_change_author_contactable'],
             mode='lines',
             name='Contactable Audience'
         ), secondary_y=False)
