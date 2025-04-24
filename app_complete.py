@@ -131,7 +131,7 @@ def show_completeness():
     col1, col2 = st.columns([0.99, 0.50])  # Adjust width ratio for alignment
         
     with col1:
-        st.markdown('<h3 style="font-size: 25px; font-family: Arial, sans-serif; color: black;">Overall Completeness</h3>', unsafe_allow_html=True)
+        st.markdown('<h3 style="font-size: 25px; font-family: Arial, sans-serif; color: black;">Overall Completeness Metrics</h3>', unsafe_allow_html=True)
 
         st.markdown(f'''
                 <div style="display: flex; align-items: baseline; gap: 10px;">
@@ -354,7 +354,7 @@ def show_completeness():
     col1_buckets, col2_buckets = st.columns([0.99, 0.50])  # Adjust width ratio for alignment
         
     with col1_buckets:
-        st.markdown('<h3 style="font-size: 25px; font-family: Arial, sans-serif; color: black;">Completeness by Criterion</h3>', unsafe_allow_html=True)
+        st.markdown('<h3 style="font-size: 25px; font-family: Arial, sans-serif; color: black;">Completeness by Criterion Distribution</h3>', unsafe_allow_html=True)
 
     with col2_buckets:
         if st.button("ℹ️", key="info_button_buckets", help="Click for more information"):
@@ -420,7 +420,7 @@ def show_completeness():
     col1_score, col2_score = st.columns([0.99, 0.50])  # Adjust width ratio for alignment
         
     with col1_score:
-        st.markdown('<h3 style="font-size: 25px; font-family: Arial, sans-serif; color: black;">Average Completeness Score</h3>', unsafe_allow_html=True)
+        st.markdown('<h3 style="font-size: 25px; font-family: Arial, sans-serif; color: black;">Average Completeness Score Calculation</h3>', unsafe_allow_html=True)
         st.markdown(f'''
             <div style="display: flex; align-items: baseline; gap: 10px;">
                 <div style="font-size: 48px;">{end_row['score_complete_avg']:.2f}/4</div>
