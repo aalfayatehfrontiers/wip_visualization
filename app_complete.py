@@ -1006,21 +1006,6 @@ def show_disambiguation():
         return
 
     # Extract rows for selected start and end dates
-    end_data = df_filtered[df_filtered['month'] == end_month].iloc[-1]
-    start_data = df_filtered[df_filtered['month'] == start_month].iloc[0]
-
-    om_potential_end_formated = end_data['number_potential_om']
-    om_potential_retract_end_formated = end_data['number_potential_om_wretractions']
-    #om_potential_end_formated = 1
-    #om_potential_retract_end_formated = 1
-
-    #om_potential_end_formated = format_number(om_potential_end)
-    #om_potential_retract_end_formated = format_number(om_potential_retract_end)
-    # --------------------------------
-    # 1) OVERALL OVERMERGED BLOCK
-    # --------------------------------
-    # Initialize session state for toggle
-            
     # Format helper
     def format_number(number):
         if number >= 1_000_000:
@@ -1028,6 +1013,19 @@ def show_disambiguation():
         elif number >= 1_000:
             return f"{number / 1_000:.2f}K"
         return f"{number:.2f}"
+    end_data = df_filtered[df_filtered['month'] == end_month].iloc[-1]
+    start_data = df_filtered[df_filtered['month'] == start_month].iloc[0]
+
+    om_potential_end= end_data['number_potential_om']
+    om_potential_retract_end = end_data['number_potential_om_wretractions']
+
+    om_potential_end_formated = format_number(om_potential_end)
+    om_potential_retract_end_formated = format_number(om_potential_retract_end)
+    
+    # --------------------------------
+    # 1) OVERALL OVERMERGED BLOCK
+    # --------------------------------
+    # Initialize session state for toggle
 
     if "show_info_om_all" not in st.session_state:
         st.session_state.show_info_om_all = False
@@ -1105,14 +1103,16 @@ def show_disambiguation():
 
     with col1_om_all:
         st.markdown('<h3 style="font-size: 30px; font-family: Arial, sans-serif; color: black;">OM Profiles with Retractions</h3>', unsafe_allow_html=True)
-
+        
         st.markdown(f'''
-            <div style="display: flex; align-items: baseline; gap: 10px;">
-                <div style="font-size: 48px;">{overmerged_pct:.2f}%</div>
-                <div style="font-size: 18px; color: {color};">{arrow} {pct_change:.2f}%</div>
+            <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 5px;">
+                <div style="display: flex; align-items: baseline; gap: 10px;">
+                    <div style="font-size: 48px;">{overmerged_pct:.2f}%</div>
+                    <div style="font-size: 18px; color: {color};">{arrow} {pct_change:.2f}%</div>
+                </div>
                 <div class="subtitle-font">
                     <strong>Current number of overall overmerged profiles</strong> is <strong>{om_potential_end_formated}</strong>, 
-                    from those authors, a total of <strong>{om_potential_retract_end_formated:.2f}%</strong> have retractions.
+                    from those authors, a total of <strong>{om_potential_retract_end_formated:.2f}</strong> have retractions.
                 </div>
             </div>
         ''', unsafe_allow_html=True)
@@ -1242,6 +1242,7 @@ def show_disambiguation():
 
     # Display the plot
     st.plotly_chart(fig4, use_container_width=True)
+
 
 # Create a sidebar with navigation
 st.sidebar.title("Navigate")
