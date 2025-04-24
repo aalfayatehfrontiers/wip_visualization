@@ -665,6 +665,7 @@ def show_completeness():
         # yaxis_title='Author Profile Description',  # Change Y-axis title
         showlegend=False,
         xaxis=dict(showticklabels=False, showgrid=False, showline=False),  # Hide X-axis
+        margin=dict(l=50, r=50, t=50, b=50)  # Add margins for spacing
     )
 
     # Display the plot
