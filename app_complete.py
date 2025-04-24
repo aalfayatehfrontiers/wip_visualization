@@ -382,7 +382,82 @@ def show_completeness():
     # --------------------------------
     # 4) AVERAGE SCORE LINE PLOT
     # --------------------------------
-    fig3 = go.Figure()
+    
+    # Initialize session state for toggle
+    if "show_info_score" not in st.session_state:
+        st.session_state.show_info_score = False
+        
+    # Custom CSS for layout and styling
+    st.markdown("""
+        <style>
+            .title-container {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .title-text {
+                font-size: 25px;
+                font-weight: bold;
+            }
+            .icon-button-container {
+                margin: 0;
+                padding: 0;
+            }
+            div.stButton > button {
+                background: none;
+                border: none;
+                color: inherit;
+                padding: 0;
+                line-height: 3;
+                font-size: 10px;
+                cursor: pointer;
+                margin-left: 5px;  /* Bring the button closer to the title */
+            }
+        </style>
+    """, unsafe_allow_html=True)
+        
+    # Use columns to align title and button inline
+    col1_score, col2_score = st.columns([0.99, 0.50])  # Adjust width ratio for alignment
+        
+    with col1_score:
+        st.markdown('<h3 style="font-size: 25px; font-family: Arial, sans-serif; color: black;">Average Completeness Score</h3>', unsafe_allow_html=True)
+        st.markdown(f'''
+                <div style="display: flex; align-items: baseline; gap: 10px;">
+                    <div style="font-size: 48px;">{end_row['score_complete_avg']:.2f}%</div>
+                </div>
+                <div style="font-size: 16px; color: gray;">Target 2.5 out of 4 by Q4</div>
+        ''', unsafe_allow_html=True)
+    with col2_score:
+        if st.button("ℹ️", key="info_button_score", help="Click for more information"):
+            st.session_state.show_info_score = not st.session_state.show_info_score
+        
+    # Display toggle content in a custom-styled box
+    if st.session_state.show_info_score:
+        st.info("""
+            **1) Definition**  
+            The average completeness score is a global metric to measure the overall averaged profile in AiraK based on its completeness.
+            For each author profile, the following computation metric is applied:
+        
+            - **Having FullName**: add 1 point to the estimation.
+            - **Having H-Index ≥ 1**: add 1 point to the estimation.
+            - **Having Affiliation listed**: add 1 point to the estimation.
+            - **Having Valid Email**: add 1 point to the estimation.
+            - **Maximum score**: a complete author profile will show a score of 4.
+        
+            **2) Calculations**  
+            Formulas used to extract global metric:
+        
+            - **Overall Completeness Score Formula**  
+              *∑(FullNameₑₙᵈ + H-Indexₑₙᵈ + Affiliationₑₙᵈ + ValidEmailₑₙᵈ) / TotalActiveₑₙᵈ*
+        
+            **3) Reference Period**  
+            Metrics are based on the selected end month. Monthly data is averaged to estimate the number of complete authors at each time point.
+        """)
+
+    # Create a subplot with secondary y-axis
+    fig3 = make_subplots(specs=[[{"secondary_y": True}]])
+
+    # Line chart for average completeness score authors (primary y-axis)
     fig3.add_trace(go.Scatter(
         x=df_filtered['month'],
         y=df_filtered['score_complete_avg'],
@@ -390,19 +465,62 @@ def show_completeness():
         name='Avg Score',
         line=dict(color='purple', width=3)
     ))
+
+    # Bar chart for total overall authors (secondary y-axis)
+    fig3.add_trace(go.Bar(
+            x=df_filtered['month'],
+            y=df_filtered['number_base_authors'],
+            name='Overall Audience',
+            marker=dict(color='lightpurple'),
+            opacity=0.65
+            ), secondary_y=True)    
+
+    fig3.add_hline(
+        y=2.5,
+        line_dash="dash",  # Solid line (can use gradient in the line_color)
+        line_color="#C8A2C8",  # Soft blue with opacity (gradient effect)
+        line_width=0.5,  # Thicker line to make it more visible
+        annotation_text="{Target-KPI}",
+        annotation_position="top right",
+        annotation_font=dict(
+        size=14,
+        color="#C8A2C8"  # Change this to the color you want for the annotation text)
+        ))
+
+
+    # Update layout with your original style
     fig3.update_layout(
-        title="Average Completeness Score",
-        title_font=dict(size=25, family="Arial, sans-serif", color="black"),
-        xaxis_title="Month"
+            title=dict(
+                text="Historical Avg Score Trend",
+                font=dict(size=25, weight='normal')
+            ),
+            xaxis_title="Month",
+            yaxis_title="⟨Y⟩ Completeness Score",  # Left axis (Completeness)
+            barmode='overlay',
+            showlegend=True
     )
+        
+    # Update right y-axis label (optional: blank if not needed)
+    fig3.update_yaxes(
+            title_text="Total Active Authors",  # Right axis title can be empty or reused
+            secondary_y=True
+        )
+    # Display the plot
     st.plotly_chart(fig3, use_container_width=True)
-    # Display latest value with custom styling
-    # Display latest value with custom styling and lighter purple background
-    st.markdown(f"""
-        <div style="background-color: #f0f0f0; color: purple; padding: 20px; border-radius: 10px; font-size: 25px;">
-            Current Average Completeness Score: <strong>{end_row['score_complete_avg']:.2f}/4</strong>
-        </div>
-    """, unsafe_allow_html=True)
+    with st.expander("Historical Detailed Analysis Trend"):
+        st.markdown("""
+                    <div style="background-color: #f0f0f0; color: purple; padding: 20px; border-radius: 10px; font-size: 25px;">
+                    - An increase was observed during the first releases in January 2025 due to a dimensions base set change, where multiple researcher profiles were cleaned up.  
+                    - Decreased trends were observed at multiple time points due to massive ingest of new author profiles that weren’t processed immediately by the disambiguation framework.
+                    </div>
+                    """)
+
+
+    # --------------------------------
+    # 5) BUCKETS DETAILED DISPLAY
+    # --------------------------------
+
+
 
 def pct_change_relative_to_first(series):
     base = series.iloc[0]
