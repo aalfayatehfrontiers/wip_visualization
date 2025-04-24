@@ -180,7 +180,7 @@ def show_completeness():
     # Line chart for overall percentage complete authors (primary y-axis)
     fig1.add_trace(go.Scatter(
         x=df_filtered['month'],
-        y=df_filtered['percentage_complete_authors'],
+        y=df_filtered['percentage_complete_authors'] * 100,
         mode='lines',
         name='Overall Complete Audience',
         line=dict(color='royalblue', width=3)
