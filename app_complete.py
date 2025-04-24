@@ -354,7 +354,18 @@ def show_contactable():
             name='Total Authors',
             marker=dict(color='lightgray'),
             opacity=0.5
-        ), secondary_y=True)
+            ), secondary_y=True)
+        
+        fig.add_hline(
+            y=35,
+            line_dash="dash",
+            line_color="#90EE90",
+            annotation_text="Target",
+            annotation_position="top right",
+            annotation_font=dict(
+            size=12,
+            color="green"  # Change this to the color you want for the annotation text)
+            ))
         
         # Update layout with your original style
         fig.update_layout(
