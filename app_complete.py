@@ -652,8 +652,9 @@ def show_completeness():
 
     # Update layout
     fig4.update_layout(
-        yaxis_title='Author Profile Description',  # Change Y-axis title
-        showlegend=False
+        # yaxis_title='Author Profile Description',  # Change Y-axis title
+        showlegend=False,
+        xaxis=dict(showticklabels=False, showgrid=False, showline=False),  # Hide X-axis
     )
 
     # Display the plot
