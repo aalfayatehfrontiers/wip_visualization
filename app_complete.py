@@ -422,10 +422,10 @@ def show_completeness():
     with col1_score:
         st.markdown('<h3 style="font-size: 25px; font-family: Arial, sans-serif; color: black;">Average Completeness Score</h3>', unsafe_allow_html=True)
         st.markdown(f'''
-                <div style="display: flex; align-items: baseline; gap: 10px;">
-                    <div style="font-size: 48px;">{end_row['score_complete_avg']:.2f/4}</div>
-                </div>
-                <div style="font-size: 16px; color: gray;">Target 2.5 out of 4 by Q4</div>
+            <div style="display: flex; align-items: baseline; gap: 10px;">
+                <div style="font-size: 48px;">{end_row['score_complete_avg']:.2f}/4</div>
+            </div>
+            <div style="font-size: 16px; color: gray;">Target 2.5 out of 4 by Q4</div>
         ''', unsafe_allow_html=True)
     with col2_score:
         if st.button("ℹ️", key="info_button_score", help="Click for more information"):
