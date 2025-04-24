@@ -150,25 +150,29 @@ def show_completeness():
         st.info("""
             **1) Definition**  
             A complete active author is defined as a researcher who meets all of the following criteria:
-
-            • **FullName**: Complete name for the researcher profile is provided. 
-            • **H-Index ≥ 1**: Indicates academic productivity and impact on the research field.  
-            • **Affiliation listed**: Linked to a recognized institution.  
-            • **Last year as author ≥ 2022**: Demonstrates recent research activity. It makes the author being active.
-            • **Not invalid email associated**: Ensures the author has a valid email associated to the AiraK profile.  
+        
+            - **FullName**: Complete name for the researcher profile is provided.
+            - **H-Index ≥ 1**: Indicates academic productivity and impact on the research field.
+            - **Affiliation listed**: Linked to a recognized institution.
+            - **Last year as author ≥ 2022**: Demonstrates recent research activity. It makes the author active.
+            - **Not invalid email associated**: Ensures the author has a valid email associated with the AiraK profile.
         
             **2) Percentage Calculations**  
             Formulas used to extract performance metrics:
         
-            • **Overall Completeness Percentage Formula**  
-            *(Completeₑₙᵈ − Completeₛₜₐᵣₜ) / Completeₛₜₐᵣₜ × 100*  
+            - **Overall Completeness Percentage Formula**  
+              \[
+              \frac{{\text{{Complete}}_{\text{{end}}} - \text{{Complete}}_{\text{{start}}}}}{{\text{{Complete}}_{\text{{start}}}}} \times 100
+              \]
         
-            • **Change Over Time Formula **
-            *Completeₑₙᵈ / TotalActiveₑₙᵈ × 100*
+            - **Change Over Time Formula**  
+              \[
+              \frac{{\text{{Complete}}_{\text{{end}}}}}{{\text{{TotalActive}}_{\text{{end}}}}} \times 100
+              \]
         
             **3) Reference Period**  
             Metrics are based on the selected start and end months. Monthly data is averaged to estimate the number of complete authors at each time point.
-            """)
+        """)
 
 
     # --------------------------------
