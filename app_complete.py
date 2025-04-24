@@ -131,7 +131,7 @@ def show_completeness():
     col1, col2 = st.columns([0.99, 0.50])  # Adjust width ratio for alignment
         
     with col1:
-        st.markdown('<h3 style="font-size: 25px; font-family: Arial, sans-serif; color: black;">Overall Completeness Metrics</h3>', unsafe_allow_html=True)
+        st.markdown('<h3 style="font-size: 27px; font-family: Arial, sans-serif; color: black;">Overall Completeness Metrics</h3>', unsafe_allow_html=True)
 
         st.markdown(f'''
                 <div style="display: flex; align-items: baseline; gap: 10px;">
