@@ -453,20 +453,23 @@ def show_contactable():
         # Display toggle content in a custom-styled box
         if st.session_state.show_info:
             st.info("""
-            **1) Definition** 
+            **1) Definition**  
             A contactable active author is defined as a researcher who meets all of the following criteria:
-            - **H-Index ≥ 1**: Indicates academic productivity and impact on the research field.
-            - **Affiliation listed**: Linked to a recognized institution.
-            - **Last year as author ≥ 2022**: Demonstrates recent research activity.
-            - **Verified email associated**: Ensures the author can be contacted directly to a real email address.
-            
-            **2) Percentage Calculations**      
-            • **Change Over Time (%)**  
-            *(Contactableₑₙᵈ − Contactableₛₜₐᵣₜ) / Contactableₛₜₐᵣₜ × 100*
-            
-            • **Overall Contactable Percentage (%)**  
+        
+            • **H-Index ≥ 1**: Indicates academic productivity and impact on the research field.  
+            • **Affiliation listed**: Linked to a recognized institution.  
+            • **Last year as author ≥ 2022**: Demonstrates recent research activity.  
+            • **Verified email associated**: Ensures the author can be contacted directly via a real email address.  
+        
+            **2) Percentage Calculations**  
+            Formulas used to extract performance metrics:
+        
+            • **Change Over Time Formula**  
+            *(Contactableₑₙᵈ − Contactableₛₜₐᵣₜ) / Contactableₛₜₐᵣₜ × 100*  
+        
+            • **Overall Contactable Percentage Formula**  
             *Contactableₑₙᵈ / (Contactableₑₙᵈ + NonContactableₑₙᵈ) × 100*
-            
+        
             **3) Reference Period**  
             Metrics are based on the selected start and end months. Monthly data is averaged to estimate the number of contactable authors at each time point.
             """)
@@ -490,7 +493,7 @@ def show_contactable():
         st.plotly_chart(fig, use_container_width=True)
     else:
         st.warning("No data available for the selected date range.")
-        
+
 # Function for Disambiguation section
 def show_disambiguation():
     st.title("Profile Disambiguation Details ")
