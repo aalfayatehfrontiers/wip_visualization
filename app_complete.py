@@ -1009,11 +1009,13 @@ def show_disambiguation():
     end_data = df_filtered[df_filtered['month'] == end_month].iloc[-1]
     start_data = df_filtered[df_filtered['month'] == start_month].iloc[0]
 
-    om_potential_end = end_data['number_potential_om']
-    om_potential_retract_end = end_data['number_potential_om_wretractions']
+    #om_potential_end = end_data['number_potential_om']
+    #om_potential_retract_end = end_data['number_potential_om_wretractions']
+    om_potential_end_formated = 1
+    om_potential_retract_end_formated = 1
 
-    om_potential_end_formated = format_number(om_potential_end)
-    om_potential_retract_end_formated = format_number(om_potential_retract_end)
+    #om_potential_end_formated = format_number(om_potential_end)
+    #om_potential_retract_end_formated = format_number(om_potential_retract_end)
     # --------------------------------
     # 1) OVERALL OVERMERGED BLOCK
     # --------------------------------
@@ -1026,7 +1028,7 @@ def show_disambiguation():
         elif number >= 1_000:
             return f"{number / 1_000:.2f}K"
         return f"{number:.2f}"
-        
+
     if "show_info_om_all" not in st.session_state:
         st.session_state.show_info_om_all = False
         
