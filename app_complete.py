@@ -182,7 +182,7 @@ def show_completeness():
         x=df_filtered['month'],
         y=df_filtered['percentage_complete_authors'] * 100,
         mode='lines',
-        name='Overall Complete Audience',
+        name='Overall Complete Authors',
         line=dict(color='royalblue', width=3)
     ))
 
