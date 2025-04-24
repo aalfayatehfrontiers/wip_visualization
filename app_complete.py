@@ -603,6 +603,7 @@ def show_completeness():
     }
 
     # Select only the columns that start with 'bucket_'
+    end_data = end_data.to_frame().T
     bucket_columns = [col for col in end_data.columns if col.startswith('bucket_')]
 
     # Rename only the selected columns based on the column_rename_map
