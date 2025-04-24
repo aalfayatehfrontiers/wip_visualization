@@ -359,12 +359,12 @@ def show_contactable():
         fig.add_hline(
             y=35,
             line_dash="dash",
-            line_color="#90EE90",
-            annotation_text="Target",
+            line_color="#ADD8E6",
+            annotation_text="{Target-KPI}",
             annotation_position="top right",
             annotation_font=dict(
             size=12,
-            color="green"  # Change this to the color you want for the annotation text)
+            color="#0000FF"  # Change this to the color you want for the annotation text)
             ))
         
         # Update layout with your original style
