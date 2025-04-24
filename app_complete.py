@@ -357,7 +357,7 @@ def show_completeness():
         st.markdown('<h3 style="font-size: 25px; font-family: Arial, sans-serif; color: black;">Completeness by Criterion</h3>', unsafe_allow_html=True)
 
     with col2_buckets:
-        if st.button("ℹ️", key="info_button", help="Click for more information"):
+        if st.button("ℹ️", key="info_button_buckets", help="Click for more information"):
             st.session_state.show_info_buckets = not st.session_state.show_info_buckets
         
     # Display toggle content in a custom-styled box
