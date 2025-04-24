@@ -563,7 +563,7 @@ def show_completeness():
     col1_detailed, col2_detailed = st.columns([0.99, 0.50])  # Adjust width ratio for alignment
         
     with col1_detailed:
-        st.markdown('<h3 style="font-size: 25px; font-family: Arial, sans-serif; color: black;">Detailed Completeness By Criterion Distribution</h3>', unsafe_allow_html=True)
+        st.markdown('<h3 style="font-size: 25px; font-family: Arial, sans-serif; color: black;">Detailed Completeness By Criterion</h3>', unsafe_allow_html=True)
 
     with col2_detailed:
         if st.button("ℹ️", key="info_button_detailed", help="Click for more information"):
@@ -581,6 +581,67 @@ def show_completeness():
             **2) Reference Period**  
             Metrics are based on the selected end month. Monthly data is averaged to estimate the number of authors per each bucket for the end month selected.
         """)
+
+    # Create a dictionary with the manually provided tags for each bucket column
+    column_rename_map = {
+        "bucket_0000": "Empty Profile",
+        "bucket_0001": "Missing FullName, Affiliation and HIndex < 1",
+        "bucket_0010": "Missing FullName, Affiliation, Email",
+        "bucket_0011": "Missing FullName, Affiliation",
+        "bucket_0100": "Missing FullName, Email and HIndex < 1",
+        "bucket_0101": "Missing FullName and HIndex < 1",
+        "bucket_0110": "Missing FullName, Email",
+        "bucket_0111": "Missing FullName",
+        "bucket_1000": "Missing Affiliation, Email and HIndex < 1",
+        "bucket_1001": "Missing Affiliation and HIndex < 1",
+        "bucket_1010": "Missing Affiliation, Email",
+        "bucket_1011": "Missing Affiliation",
+        "bucket_1100": "Missing Email and HIndex < 1",
+        "bucket_1101": "HIndex < 1",
+        "bucket_1110": "Missing Email",
+        "bucket_1111": "Complete Profile"
+    }
+
+    # Select only the columns that start with 'bucket_'
+    bucket_columns = [col for col in end_data.columns if col.startswith('bucket_')]
+
+    # Rename only the selected columns based on the column_rename_map
+    end_data.rename(columns={col: column_rename_map[col] for col in bucket_columns}, inplace=True)
+
+    # Obtain percentages
+    end_data_bucket_detailed = end_data / end_row['number_base_authors'] * 100
+    
+    # Filter out the columns that have values above 1
+    filtered_data_detailed = end_data_bucket_detailed.loc[:, end_data_bucket_detailed.max() > 1]
+
+    # Prepare data for the bar plot
+    sorted_categories_detailed = filtered_data_detailed.columns
+    sorted_values_detailed = filtered_data_detailed.max()  # Get the maximum value per column
+
+    # Add the actual percentage bars
+    fig4 = go.Figure()
+
+    # Add a bar trace with customized settings
+    fig4.add_trace(go.Bar(
+        y=sorted_categories_detailed,
+        x=sorted_values_detailed,  # The actual percentage values (proportional to 100%)
+        text=[f"{v:.2f}%" for v in sorted_values_detailed],  # Show percentage inside the bar
+        textposition='inside',  # Position the text inside the bar
+        textfont=dict(color="black", size=14),  # Set text color and size
+        marker_color=['#6ebd6e' if cat == 'Complete Profile' else '#ff4d4d' for cat in sorted_categories_detailed],  # Green for 'Complete Profile' and Red for others
+        name='Actual Percentage',
+        orientation='h'  # Horizontal bars
+    ))
+
+    # Update layout
+    fig4.update_layout(
+        xaxis_title='Percentage (%)',
+        yaxis_title='Categories',
+        showlegend=False
+    )
+
+    # Display the plot
+    st.plotly_chart(fig4, use_container_width=True)
 
 def pct_change_relative_to_first(series):
     base = series.iloc[0]
