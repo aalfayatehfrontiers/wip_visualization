@@ -52,19 +52,30 @@ df_all_kpis = pd.read_csv(StringIO(data))
 def show_completeness():
     st.title("Profile Completeness Details")
 
-    # Convert 'release' to datetime and sort
     df_all_kpis['release'] = pd.to_datetime(df_all_kpis['release'])
-    df_all_kpis.sort_values('release', inplace=True)
-
-    # Sidebar date range selection
-    unique_releases = df_all_kpis['release'].dt.date.unique()
-    start_date = st.selectbox("Select Start Release Date", options=unique_releases, index=0)
-    end_date = st.selectbox("Select End Release Date", options=unique_releases, index=len(unique_releases) - 1)
-
+    df_all_kpis['month'] = df_all_kpis['release'].dt.to_period('M').dt.to_timestamp()
+    
+    # Group by month and calculate mean
+    df_monthly = df_all_kpis.groupby('month').mean(numeric_only=True).reset_index()
+    
+    # Create a formatted label for dropdown display
+    df_monthly['month_label'] = df_monthly['month'].dt.strftime('%b-%Y')  # E.g., Jan-2024
+    
+    # Create a mapping from label to actual datetime
+    month_label_to_date = dict(zip(df_monthly['month_label'], df_monthly['month']))
+    
+    # Dropdowns using labels
+    start_label = st.selectbox("Select Start Month", options=df_monthly['month_label'].tolist(), index=0)
+    end_label = st.selectbox("Select End Month", options=df_monthly['month_label'].tolist(), index=len(df_monthly) - 1)
+    
+    # Get actual dates from labels
+    start_month = month_label_to_date[start_label]
+    end_month = month_label_to_date[end_label]
+    
     # Filter data
-    df_filtered = df_all_kpis[
-        (df_all_kpis['release'].dt.date >= start_date) &
-        (df_all_kpis['release'].dt.date <= end_date)
+    df_filtered = df_monthly[
+        (df_monthly['month'] >= start_month) &
+        (df_monthly['month'] <= end_month)
     ].copy()
 
     if df_filtered.empty:
@@ -72,8 +83,8 @@ def show_completeness():
         return
 
     # Extract rows for selected start and end dates
-    end_row = df_filtered[df_filtered['release'].dt.date == end_date].iloc[-1]
-    start_row = df_filtered[df_filtered['release'].dt.date == start_date].iloc[0]
+    end_row = df_filtered[df_filtered['month'] == end_month].iloc[-1]
+    start_row = df_filtered[df_filtered['month'] == start_month].iloc[0]
 
     # --------------------------------
     # 1) OVERALL COMPLETENESS BLOCK
@@ -83,42 +94,143 @@ def show_completeness():
     color = "green" if pct_change >= 0 else "red"
     arrow = "▲" if pct_change >= 0 else "▼"
 
-    st.markdown('<h3 style="font-size: 25px; font-family: Arial, sans-serif; color: black;">Overall Completeness</h3>', unsafe_allow_html=True)
-    st.markdown(f'''
-        <div style="display: flex; align-items: baseline; gap: 10px;">
-            <div style="font-size: 48px;">{completeness_pct:.2f}%</div>
-            <div style="font-size: 18px; color: {color};">{arrow} {pct_change:.2f}%</div>
-        </div>
-        <div style="font-size: 16px; color: gray;">Target 20% by Q4</div>
-    ''', unsafe_allow_html=True)
+    # Initialize session state for toggle
+    if "show_info" not in st.session_state:
+        st.session_state.show_info = False
+        
+    # Custom CSS for layout and styling
+    st.markdown("""
+        <style>
+            .title-container {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .title-text {
+                font-size: 25px;
+                font-weight: bold;
+            }
+            .icon-button-container {
+                margin: 0;
+                padding: 0;
+            }
+            div.stButton > button {
+                background: none;
+                border: none;
+                color: inherit;
+                padding: 0;
+                line-height: 3;
+                font-size: 10px;
+                cursor: pointer;
+                margin-left: 5px;  /* Bring the button closer to the title */
+            }
+        </style>
+    """, unsafe_allow_html=True)
+        
+    # Use columns to align title and button inline
+    col1, col2 = st.columns([0.99, 0.50])  # Adjust width ratio for alignment
+        
+    with col1:
+        st.markdown('<h3 style="font-size: 25px; font-family: Arial, sans-serif; color: black;">Overall Completeness</h3>', unsafe_allow_html=True)
+
+        st.markdown(f'''
+                <div style="display: flex; align-items: baseline; gap: 10px;">
+                    <div style="font-size: 48px;">{completeness_pct:.2f}%</div>
+                    <div style="font-size: 18px; color: {color};">{arrow} {pct_change:.2f}%</div>
+                </div>
+                <div style="font-size: 16px; color: gray;">Target 20% by Q4</div>
+        ''', unsafe_allow_html=True)
+        
+    with col2:
+        if st.button("ℹ️", key="info_button", help="Click for more information"):
+            st.session_state.show_info = not st.session_state.show_info
+        
+    # Display toggle content in a custom-styled box
+    if st.session_state.show_info:
+        st.info("""
+            **1) Definition**  
+            A complete active author is defined as a researcher who meets all of the following criteria:
+
+            • **FullName**: Complete name for the researcher profile is provided. 
+            • **H-Index ≥ 1**: Indicates academic productivity and impact on the research field.  
+            • **Affiliation listed**: Linked to a recognized institution.  
+            • **Last year as author ≥ 2022**: Demonstrates recent research activity. It makes the author being active.
+            • **Not invalid email associated**: Ensures the author has a valid email associated to the AiraK profile.  
+        
+            **2) Percentage Calculations**  
+            Formulas used to extract performance metrics:
+        
+            • **Overall Completeness Percentage Formula**  
+            *(Completeₑₙᵈ − Completeₛₜₐᵣₜ) / Completeₛₜₐᵣₜ × 100*  
+        
+            • **Change Over Time Formula **
+            *Completeₑₙᵈ / TotalActiveₑₙᵈ × 100*
+        
+            **3) Reference Period**  
+            Metrics are based on the selected start and end months. Monthly data is averaged to estimate the number of complete authors at each time point.
+            """)
+
 
     # --------------------------------
     # 2) COMPLETENESS TREND LINE PLOT
     # --------------------------------
-    fig1 = go.Figure()
+    # Create a subplot with secondary y-axis
+    fig1 = make_subplots(specs=[[{"secondary_y": True}]])
+
+    # Line chart for overall percentage complete authors (primary y-axis)
     fig1.add_trace(go.Scatter(
-        x=df_filtered['release'],
-        y=df_filtered['number_complete_authors'],
+        x=df_filtered['month'],
+        y=df_filtered['percentage_complete_authors'],
         mode='lines',
-        name='Complete Authors',
+        name='Overall Complete Audience',
         line=dict(color='royalblue', width=3)
     ))
+
+    # Bar chart for total authors (secondary y-axis)
+    fig1.add_trace(go.Bar(
+            x=df_filtered['month'],
+            y=df_filtered['number_complete_authors'],
+            name='Total Complete Audience',
+            marker=dict(color='lightblue'),
+            opacity=0.65
+            ), secondary_y=True)    
+
     fig1.add_hline(
-        y=5_000_000,
-        line_dash="dash",
-        line_color="green",
-        annotation_text="Target",
+        y=20,
+        line_dash="dash",  # Solid line (can use gradient in the line_color)
+        line_color="#1E3A8A",  # Soft blue with opacity (gradient effect)
+        line_width=0.5,  # Thicker line to make it more visible
+        annotation_text="{Target-KPI}",
         annotation_position="top right",
         annotation_font=dict(
-        size=12,
-        color="green"  # Change this to the color you want for the annotation text)
-    ))
+        size=14,
+        color="#1E3A8A"  # Change this to the color you want for the annotation text)
+        ))
+
     fig1.update_layout(
         title="Completeness Trend",
         xaxis_title="Release Date",
         yaxis_title="# Authors",
         title_font=dict(size=25, family="Arial, sans-serif", color="black"),
     )
+
+    # Update layout with your original style
+    fig1.update_layout(
+            title=dict(
+                text="Contactable Trend",
+                font=dict(size=25, weight='normal')
+            ),
+            xaxis_title="Month",
+            yaxis_title="%Overall ⟨Y⟩ Authors Complete",  # Left axis (Contactable)
+            barmode='overlay',
+            showlegend=True
+    )
+        
+    # Update right y-axis label (optional: blank if not needed)
+    fig1.update_yaxes(
+            title_text="Complete Authors",  # Right axis title can be empty or reused
+            secondary_y=True
+        )
     # Display the plot
     st.plotly_chart(fig1, use_container_width=True)
 
@@ -214,7 +326,7 @@ def show_completeness():
     # --------------------------------
     fig3 = go.Figure()
     fig3.add_trace(go.Scatter(
-        x=df_filtered['release'],
+        x=df_filtered['month'],
         y=df_filtered['score_complete_avg'],
         mode='lines+markers',
         name='Avg Score',
@@ -223,7 +335,7 @@ def show_completeness():
     fig3.update_layout(
         title="Average Completeness Score",
         title_font=dict(size=25, family="Arial, sans-serif", color="black"),
-        xaxis_title="Release Date"
+        xaxis_title="Month"
     )
     st.plotly_chart(fig3, use_container_width=True)
     # Display latest value with custom styling
