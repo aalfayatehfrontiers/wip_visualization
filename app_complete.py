@@ -629,7 +629,17 @@ def show_completeness():
         'Missing Email': '#FF6F61',  # Soft Red
         'Missing Email and HIndex < 1': '#FFA07A',  # Soft Orange
         'Missing Affiliation, Email': '#FFA07A',   # Soft Orange
+        'Missing FullName, Affiliation, Email': '#FF6F61',  # Hard Red
+        'Missing FullName, Affiliation': '#FFA07A',  # Soft Orange OK
+        'Missing FullName, Email and HIndex < 1': '#FF6F61',  # Soft Red OK
+        'Missing FullName and HIndex < 1': '#FFA07A',  # Soft Orange OK
+        'Missing FullName, Email': '#FF6F61',  # Hard Red
+        'Missing FullName': '#FFA07A',  # Soft Orange OK
         'Missing Affiliation, Email and HIndex < 1': '#FF6F61',  # Hard Red
+        'Missing Affiliation and HIndex < 1': '#FFA07A',  # Soft Orange OK
+        'Missing Affiliation': '#FFA07A',  # Soft Orange OK
+        'HIndex < 1': '#FFA07A',  # Soft Orange OK
+        'Missing FullName, Affiliation and HIndex < 1': '#FF6F61',  # Hard Red
     }
 
     # Create a list of colors for each category in the same order as sorted_categories_detailed
