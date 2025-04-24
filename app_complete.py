@@ -353,14 +353,14 @@ def show_contactable():
                 font=dict(size=25, weight='normal')
             ),
             xaxis_title="Month",
-            yaxis_title="⟨Y⟩ Authors",  # Left axis (Contactable)
+            yaxis_title="⟨Y⟩ Authors Contactable",  # Left axis (Contactable)
             barmode='overlay',
             showlegend=True
         )
         
         # Update right y-axis label (optional: blank if not needed)
         fig.update_yaxes(
-            title_text="",  # Right axis title can be empty or reused
+            title_text="Total Authors",  # Right axis title can be empty or reused
             secondary_y=True
         )
 
