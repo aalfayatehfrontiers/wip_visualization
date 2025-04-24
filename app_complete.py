@@ -4,6 +4,10 @@ import plotly.graph_objects as go
 from io import StringIO
 from plotly.subplots import make_subplots
 
+def pct_change_relative_to_first(series):
+    base = series.iloc[0]
+    return ((series - base) / base) * 100
+
 # Data as a multiline string
 data = """
 bucket_0000,bucket_0001,bucket_0010,bucket_0011,bucket_0100,bucket_0101,bucket_0110,bucket_0111,bucket_1000,bucket_1001,bucket_1010,bucket_1011,bucket_1100,bucket_1101,bucket_1110,bucket_1111,release,number_base_authors,number_complete_authors,number_contactable_authors,percentage_complete_authors,percentage_contactable_authors,number_potential_om,number_potential_om_wretractions,number_potential_um,number_potential_um_fx,score_complete_avg,completeness_score_percentage,score_contactable_avg,contactable_score_percentage,kpi_undermerge,kpi_overmerge,kpi_overmerge_ret
@@ -324,7 +328,7 @@ def show_contactable():
         pct_change_contactable = ((contactable_end - contactable_start) / contactable_start) * 100
     
         # Calculate percentage change in contactable authors month-over-month
-        df_filtered['percentage_change_author_contactable'] = df_filtered['contactable_authors'].pct_change() * 100
+        df_filtered['percentage_change_author_contactable'] = pct_change_relative_to_first(df_filtered['contactable_authors'])
 
         # Drop first row with NaN (no prior month to compare)
         df_filtered = df_filtered.dropna(subset=['percentage_change_author_contactable'])
