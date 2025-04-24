@@ -310,7 +310,7 @@ def show_contactable():
     df_filtered = df_monthly[
         (df_monthly['month'] >= start_month) &
         (df_monthly['month'] <= end_month)
-    ]
+    ].copy()
     
     if not df_filtered.empty:
         start_data = df_filtered[df_filtered['month'] == start_month].iloc[0]
@@ -323,7 +323,13 @@ def show_contactable():
         overall_contactable_percentage = (contactable_end / (contactable_end + non_contactable_end)) * 100
         pct_change_contactable = ((contactable_end - contactable_start) / contactable_start) * 100
     
-        # Add total authors column
+        # Calculate percentage change in contactable authors month-over-month
+        df_filtered['percentage_change_author_contactable'] = df_filtered['contactable_authors'].pct_change() * 100
+
+        # Drop first row with NaN (no prior month to compare)
+        df_filtered = df_filtered.dropna(subset=['percentage_change_author_contactable'])
+
+        # Total authors (for bar chart)
         df_filtered['total_authors'] = df_filtered['contactable_authors'] + df_filtered['non_contactable_authors']
     
         # Create a subplot with secondary y-axis
@@ -353,7 +359,7 @@ def show_contactable():
                 font=dict(size=25, weight='normal')
             ),
             xaxis_title="Month",
-            yaxis_title="⟨Y⟩ Authors Contactable",  # Left axis (Contactable)
+            yaxis_title="%Change ⟨Y⟩ Authors Contactable",  # Left axis (Contactable)
             barmode='overlay',
             showlegend=True
         )
