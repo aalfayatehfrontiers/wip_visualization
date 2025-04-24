@@ -289,8 +289,8 @@ def show_completeness():
     
     # Update layout for better visualization
     fig2.update_layout(
-        title="Completeness by Criterion",
-        title_font=dict(size=25, family="Arial, sans-serif", color="black"),
+        # title="Completeness by Criterion",
+        # title_font=dict(size=25, family="Arial, sans-serif", color="black"),
         barmode='overlay',  # Overlay bars to allow overlapping
         showlegend=False,  # Remove the legend selector
         xaxis=dict(
@@ -317,6 +317,64 @@ def show_completeness():
     
     # Apply conditional colors to y-axis tick labels
     # fig2.layout.yaxis.tickfont.color = tick_colors
+    # Initialize session state for toggle
+    if "show_info_buckets" not in st.session_state:
+        st.session_state.show_info_buckets = False
+        
+    # Custom CSS for layout and styling
+    st.markdown("""
+        <style>
+            .title-container {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .title-text {
+                font-size: 25px;
+                font-weight: bold;
+            }
+            .icon-button-container {
+                margin: 0;
+                padding: 0;
+            }
+            div.stButton > button {
+                background: none;
+                border: none;
+                color: inherit;
+                padding: 0;
+                line-height: 3;
+                font-size: 10px;
+                cursor: pointer;
+                margin-left: 5px;  /* Bring the button closer to the title */
+            }
+        </style>
+    """, unsafe_allow_html=True)
+        
+    # Use columns to align title and button inline
+    col1_buckets, col2_buckets = st.columns([0.99, 0.50])  # Adjust width ratio for alignment
+        
+    with col1_buckets:
+        st.markdown('<h3 style="font-size: 25px; font-family: Arial, sans-serif; color: black;">Completeness by Criterion</h3>', unsafe_allow_html=True)
+
+    with col2_buckets:
+        if st.button("ℹ️", key="info_button", help="Click for more information"):
+            st.session_state.show_info_buckets = not st.session_state.show_info_buckets
+        
+    # Display toggle content in a custom-styled box
+    if st.session_state.show_info_buckets:
+        st.info("""
+            **1) Buckets Logic**  
+            Buckets percentages displayed by criterion are estimated independently based on the variable that is fulfilled in each criteria:
+        
+            - **Having FullName**: Author profiles with full name complete and available compared to all active profiles.
+            - **Having H-Index ≥ 1**: Author profiles with H-Index above the threshold defined compared to all active profiles.
+            - **Having Affiliation**: Author profiles with affiliation listed compared to all active profiles.
+            - **Having Valid Email**: Author profiles with valid email available compared to all active profiles.
+            - **All Criteria Met**: If an author profile is present in all buckets mentioned above, then it is covering all criterias compared to all active profiles.
+        
+            **2) Reference Period**  
+            Metrics are based on the selected end month. Monthly data is averaged to estimate the number of authors per each bucket and time point.
+        """)
     
     # Show the plot
     st.plotly_chart(fig2, use_container_width=True)
