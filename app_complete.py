@@ -423,7 +423,7 @@ def show_completeness():
         st.markdown('<h3 style="font-size: 25px; font-family: Arial, sans-serif; color: black;">Average Completeness Score</h3>', unsafe_allow_html=True)
         st.markdown(f'''
                 <div style="display: flex; align-items: baseline; gap: 10px;">
-                    <div style="font-size: 48px;">{end_row['score_complete_avg']:.2f}%</div>
+                    <div style="font-size: 48px;">{end_row['score_complete_avg']:.2f}</div>
                 </div>
                 <div style="font-size: 16px; color: gray;">Target 2.5 out of 4 by Q4</div>
         ''', unsafe_allow_html=True)
@@ -471,7 +471,7 @@ def show_completeness():
             x=df_filtered['month'],
             y=df_filtered['number_base_authors'],
             name='Overall Audience',
-            marker=dict(color='lightpurple'),
+            marker=dict(color='#BFA2DB'),
             opacity=0.65
             ), secondary_y=True)    
 
@@ -519,7 +519,6 @@ def show_completeness():
     # --------------------------------
     # 5) BUCKETS DETAILED DISPLAY
     # --------------------------------
-
 
 
 def pct_change_relative_to_first(series):
