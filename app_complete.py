@@ -423,7 +423,7 @@ def show_completeness():
         st.markdown('<h3 style="font-size: 25px; font-family: Arial, sans-serif; color: black;">Average Completeness Score</h3>', unsafe_allow_html=True)
         st.markdown(f'''
                 <div style="display: flex; align-items: baseline; gap: 10px;">
-                    <div style="font-size: 48px;">{end_row['score_complete_avg']:.2f}</div>
+                    <div style="font-size: 48px;">{end_row['score_complete_avg']:.2f/4}</div>
                 </div>
                 <div style="font-size: 16px; color: gray;">Target 2.5 out of 4 by Q4</div>
         ''', unsafe_allow_html=True)
@@ -478,13 +478,13 @@ def show_completeness():
     fig3.add_hline(
         y=2.5,
         line_dash="dash",  # Solid line (can use gradient in the line_color)
-        line_color="#C8A2C8",  # Soft blue with opacity (gradient effect)
+        line_color="purple",  # Soft blue with opacity (gradient effect)
         line_width=0.5,  # Thicker line to make it more visible
         annotation_text="{Target-KPI}",
         annotation_position="top right",
         annotation_font=dict(
         size=14,
-        color="#C8A2C8"  # Change this to the color you want for the annotation text)
+        color="purple"  # Change this to the color you want for the annotation text)
         ))
 
 
@@ -507,19 +507,24 @@ def show_completeness():
         )
     # Display the plot
     st.plotly_chart(fig3, use_container_width=True)
-    with st.expander("Historical Detailed Analysis Trend"):
+
+    # Styled expander title using bold markdown
+    expander_title = "🔍 **:gray[Historical Detailed Analysis Trend]**"
+
+    with st.expander(expander_title):
         st.markdown("""
-                    <div style="background-color: #f0f0f0; color: purple; padding: 20px; border-radius: 10px; font-size: 25px;">
-                    - An increase was observed during the first releases in January 2025 due to a dimensions base set change, where multiple researcher profiles were cleaned up.  
-                    - Decreased trends were observed at multiple time points due to massive ingest of new author profiles that weren’t processed immediately by the disambiguation framework.
-                    </div>
-                    """)
+        <div style="background-color: #f0f0f0; color: #4B0082; padding: 20px; border-radius: 10px;">
+            <ul style="font-size: 16px; color: black;">
+                <li>An increase was observed during the first releases in January 2025 due to a dimensions base set change, where multiple researcher profiles were cleaned up.</li>
+                <li>Decreased trends were observed at multiple time points due to massive ingest of new author profiles that weren’t processed immediately by the disambiguation framework.</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
 
 
     # --------------------------------
     # 5) BUCKETS DETAILED DISPLAY
     # --------------------------------
-
 
 def pct_change_relative_to_first(series):
     base = series.iloc[0]
