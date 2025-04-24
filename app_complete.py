@@ -1009,10 +1009,10 @@ def show_disambiguation():
     end_data = df_filtered[df_filtered['month'] == end_month].iloc[-1]
     start_data = df_filtered[df_filtered['month'] == start_month].iloc[0]
 
-    #om_potential_end = end_data['number_potential_om']
-    #om_potential_retract_end = end_data['number_potential_om_wretractions']
-    om_potential_end_formated = 1
-    om_potential_retract_end_formated = 1
+    om_potential_end_formated = end_data['number_potential_om']
+    om_potential_retract_end_formated = end_data['number_potential_om_wretractions']
+    #om_potential_end_formated = 1
+    #om_potential_retract_end_formated = 1
 
     #om_potential_end_formated = format_number(om_potential_end)
     #om_potential_retract_end_formated = format_number(om_potential_retract_end)
@@ -1031,7 +1031,41 @@ def show_disambiguation():
 
     if "show_info_om_all" not in st.session_state:
         st.session_state.show_info_om_all = False
-        
+        # Styling
+        st.markdown("""
+        <style>
+            .big-font {
+                font-size: 35px !important;
+                text-align: left;
+            }
+            .small-font {
+                font-size: 18px !important;
+                text-align: left;
+            }
+            .title-container {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .title-font {
+                font-size: 25px !important;
+                font-weight: bold;
+            }
+            .numbers-container {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .subtitle-font {
+                font-size: 16px !important;
+                font-weight: normal;
+                color: gray;
+                text-align: left;
+            }
+        </style>
+        """, unsafe_allow_html=True)
+
     # Custom CSS for layout and styling
     st.markdown("""
         <style>
@@ -1070,7 +1104,7 @@ def show_disambiguation():
     arrow = "▲" if pct_change >= 0 else "▼"
 
     with col1_om_all:
-        st.markdown('<h3 style="font-size: 30px; font-family: Arial, sans-serif; color: black;">Overall OM Profiles with Retractions</h3>', unsafe_allow_html=True)
+        st.markdown('<h3 style="font-size: 30px; font-family: Arial, sans-serif; color: black;">OM Profiles with Retractions</h3>', unsafe_allow_html=True)
 
         st.markdown(f'''
             <div style="display: flex; align-items: baseline; gap: 10px;">
