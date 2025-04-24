@@ -620,16 +620,16 @@ def show_completeness():
     sorted_values_detailed = filtered_data_detailed.max()  # Get the maximum value per column
 
     # If sorted_values_detailed and sorted_categories_detailed are pandas Series, make sure to sort them properly.
-    sorted_values_detailed, sorted_categories_detailed = zip(*sorted(zip(sorted_values_detailed, sorted_categories_detailed), reverse=True))
+    sorted_values_detailed, sorted_categories_detailed = zip(*sorted(zip(sorted_values_detailed, sorted_categories_detailed), reverse=False))
 
     # Define custom soft colors for each category
     category_colors = {
         'Complete Profile': '#A8D5BA',  # Soft Green
-        'Empty Profile': '#FF0000',  # Hard Red
+        'Empty Profile': '#FF6F61',  # Hard Red
         'Missing Email': '#FF6F61',  # Soft Red
         'Missing Email and HIndex < 1': '#FFA07A',  # Soft Orange
         'Missing Affiliation, Email': '#FFA07A',   # Soft Orange
-        'Missing Affiliation, Email and HIndex < 1': '#FF0000',  # Hard Red
+        'Missing Affiliation, Email and HIndex < 1': '#FF6F61',  # Hard Red
     }
 
     # Create a list of colors for each category in the same order as sorted_categories_detailed
@@ -652,7 +652,6 @@ def show_completeness():
 
     # Update layout
     fig4.update_layout(
-        xaxis_title='Percentage (%)',
         yaxis_title='Author Profile Description',  # Change Y-axis title
         showlegend=False
     )
