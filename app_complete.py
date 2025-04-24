@@ -131,7 +131,7 @@ def show_completeness():
     col1, col2 = st.columns([0.99, 0.50])  # Adjust width ratio for alignment
         
     with col1:
-        st.markdown('<h3 style="font-size: 28px; font-family: Arial, sans-serif; color: black;">Overall Completeness Metrics</h3>', unsafe_allow_html=True)
+        st.markdown('<h3 style="font-size: 30px; font-family: Arial, sans-serif; color: black;">Overall Completeness Metrics</h3>', unsafe_allow_html=True)
 
         st.markdown(f'''
                 <div style="display: flex; align-items: baseline; gap: 10px;">
@@ -354,7 +354,7 @@ def show_completeness():
     col1_buckets, col2_buckets = st.columns([0.99, 0.50])  # Adjust width ratio for alignment
         
     with col1_buckets:
-        st.markdown('<h3 style="font-size: 22px; font-family: Arial, sans-serif; color: black;">Completeness by Criterion Distribution</h3>', unsafe_allow_html=True)
+        st.markdown('<h3 style="font-size: 23px; font-family: Arial, sans-serif; color: black;">Completeness by Criterion Distribution</h3>', unsafe_allow_html=True)
 
     with col2_buckets:
         if st.button("ℹ️", key="info_button_buckets", help="Click for more information"):
