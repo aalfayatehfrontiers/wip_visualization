@@ -1130,7 +1130,7 @@ def show_disambiguation():
             **3) Reference Period**  
             Metrics are based on the selected start and end months. Monthly data is averaged to estimate the number of complete authors at each time point.
         """)
-        
+
     st.markdown(f'''
             <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 5px;">
                 <div style="display: flex; align-items: baseline; gap: 10px;">
@@ -1146,20 +1146,57 @@ def show_disambiguation():
     # --------------------------------
     # 2) OVERMERGED TREND LINE PLOT
     # --------------------------------
+    # Create the figure
     fig1 = go.Figure()
+
+    # Add the line plot for "OM with Retractions"
     fig1.add_trace(go.Scatter(
         x=df_filtered['month'],
         y=df_filtered['number_potential_om_wretractions'],
         mode='lines',
-        name='Overmerged with Retractions Authors',
+        name='OM with Retractions',
         line=dict(color='#5f9ea0', width=3)
     ))
+
+    # Add the bar plot for "OM with Retractions" with opacity
+    fig1.add_trace(go.Bar(
+        x=df_filtered['month'],
+        y=df_filtered['number_potential_om_wretractions'],
+        name='OM with Retractions (Bar)',
+        marker=dict(color='#5f9ea0', opacity=0.4),
+        showlegend=False
+    ))
+
+    # Add the line plot for "Overall OM"
+    fig1.add_trace(go.Scatter(
+        x=df_filtered['month'],
+        y=df_filtered['number_potential_om'],
+        mode='lines',
+        name='Overall OM',
+        line=dict(color='#88B8B2', width=3)
+    ))
+
+    # Add the bar plot for "Overall OM" with opacity
+    fig1.add_trace(go.Bar(
+        x=df_filtered['month'],
+        y=df_filtered['number_potential_om'],
+        name='Overall OM (Bar)',
+        marker=dict(color='#88B8B2', opacity=0.4),
+        showlegend=False
+    ))
+
+    # Update layout for the plot
     fig1.update_layout(
         title="Overmerged with Retractions Trend",
         xaxis_title="Month",
-        yaxis_title="# Authors",
+        yaxis_title="⟨Y⟩ OM Authors",
         title_font=dict(size=25, family="Arial, sans-serif", color="black"),
+        barmode='stack',  # Stack the bars on top of each other
+        xaxis=dict(tickangle=45),  # Rotate x-axis labels for better visibility
     )
+
+    # Display the plot
+    st.plotly_chart(fig1, use_container_width=True)
 
     # Display the plot
     st.plotly_chart(fig1, use_container_width=True)
@@ -1172,18 +1209,34 @@ def show_disambiguation():
         x=df_filtered['month'],
         y=df_filtered['number_potential_om_wretractions']/df_filtered['number_base_authors']* 100,
         mode='lines+markers',
-        name='% OM with Retractions Authors',
+        name='% OM With Retractions Authors',
         line=dict(color='#5f9ea0', width=1.5)
     ))
     fig2.update_layout(
-        title="% OM with Retractions Overtime",
-        xaxis_title="Release Date",
-        yaxis_title="Percentage (%)",
+        title="% OM With Retractions Overtime",
+        xaxis_title="Month",
+        yaxis_title="Percentage ⟨Y⟩ OM Authors",
         title_font=dict(size=25, family="Arial, sans-serif", color="black"),
+        yaxis=dict(
+        range=[0, 1]  # Set y-axis range from 0 to 100
+        )
     )
-
     # Display the plot
     st.plotly_chart(fig2, use_container_width=True)
+
+    # Styled expander title using bold markdown
+    expander_title = "🔍 **:gray[Historical Detailed Analysis Trend]**"
+
+    with st.expander(expander_title):
+        st.markdown("""
+        <div style="background-color: #f0f0f0; color: #4B0082; padding: 20px; border-radius: 10px;">
+            <ul style="font-size: 16px; color: black;">
+                <li>An overall **flat pattern** from historical data trend is observed due to a **proportional increase** in overmerged flagged authors with retractions and total active authors analyzed.</li>
+                <li>A **similar flat pattern** can be observed for the **overall percentage of overmerged profiles** as global metric</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+    
     # Add the subtitles
     st.markdown('<div class="subtitle-box">Undermerged Metrics</div>', unsafe_allow_html=True)
     # --------------------------------
@@ -1242,7 +1295,6 @@ def show_disambiguation():
 
     # Display the plot
     st.plotly_chart(fig4, use_container_width=True)
-
 
 # Create a sidebar with navigation
 st.sidebar.title("Navigate")
