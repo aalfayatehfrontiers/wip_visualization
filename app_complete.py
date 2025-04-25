@@ -1198,9 +1198,6 @@ def show_disambiguation():
     # Display the plot
     st.plotly_chart(fig1, use_container_width=True)
 
-    # Display the plot
-    st.plotly_chart(fig1, use_container_width=True)
-
     # --------------------------------
     # 3) OVERMERGED PERCENTAGE TREND LINE PLOT
     # --------------------------------
