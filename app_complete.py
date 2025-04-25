@@ -217,7 +217,7 @@ def show_completeness():
     # Update layout with your original style
     fig1.update_layout(
             title=dict(
-                text="Contactable Trend",
+                text="Completeness Trend",
                 font=dict(size=25, weight='normal')
             ),
             xaxis_title="Month",
