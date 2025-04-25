@@ -1310,13 +1310,13 @@ def show_disambiguation():
     # Use columns to align title and button inline
     col1_um_all, col2_um_all = st.columns([0.99, 0.50])  # Adjust width ratio for alignment
 
-    undermerged_ratio_fixed = (end_data['number_potential_um_fx']  / end_data['number_potential_um'])
+    undermerged_ratio_fixed = (end_data['number_potential_um_fx']  / end_data['number_potential_um'])*100
     pct_change_um = ((end_data['number_potential_um_fx'] - start_data['number_potential_um_fx']) / start_data['number_potential_um_fx']) * 100
     color = "green" if pct_change_um >= 0 else "red"
     arrow = "▲" if pct_change_um >= 0 else "▼"
 
     with col1_um_all:
-        st.markdown('<h3 style="font-size: 22px; font-family: Arial, sans-serif; color: black;">% Fixed UM profiles among all UM identified', unsafe_allow_html=True)
+        st.markdown('<h3 style="font-size: 20px; font-family: Arial, sans-serif; color: black;">% Fixed UM profiles among all UM identified', unsafe_allow_html=True)
         
         
     with col2_um_all:
@@ -1350,7 +1350,7 @@ def show_disambiguation():
                     <div style="font-size: 18px; color: {color};">{arrow} {pct_change_um:.2f}%</div>
                 </div>
                 <div class="subtitle-font">
-                    <strong>Target </strong> 75% <strong> by Q4<strong>.
+                    Target </strong> 75% <strong> by Q4.
                 </div>
             </div>
     ''', unsafe_allow_html=True)
@@ -1358,22 +1358,58 @@ def show_disambiguation():
     # --------------------------------
     # 5) UNDERMERGED FIXED TREND LINE PLOT
     # --------------------------------
+    
+    # Create the figure
     fig3 = go.Figure()
+
+    # Add the line plot for "OM with Retractions"
     fig3.add_trace(go.Scatter(
         x=df_filtered['month'],
         y=df_filtered['number_potential_um_fx'],
         mode='lines',
-        name='Undermerged fixed Authors',
+        name='UM Fixed',
+        line=dict(color='black', width=3)
+    ))
+
+    # Add the bar plot for "OM with Retractions" with opacity
+    fig3.add_trace(go.Bar(
+        x=df_filtered['month'],
+        y=df_filtered['number_potential_um_fx'],
+        name='UM Fixed (Bar)',
+        marker=dict(color='black', opacity=0.7),
+        showlegend=False
+    ))
+
+    # Add the line plot for "Overall OM"
+    fig3.add_trace(go.Scatter(
+        x=df_filtered['month'],
+        y=df_filtered['number_potential_um'],
+        mode='lines',
+        name='Overall UM',
         line=dict(color='#a6b4c1', width=3)
     ))
+
+    # Add the bar plot for "Overall OM" with opacity
+    fig3.add_trace(go.Bar(
+        x=df_filtered['month'],
+        y=df_filtered['number_potential_um'],
+        name='Overall UM (Bar)',
+        marker=dict(color='#a6b4c1', opacity=0.4),
+        showlegend=False
+    ))
+
+    # Update layout for the plot
     fig3.update_layout(
-        title="UM Authors Fixed Trend",
-        xaxis_title="Release Date",
-        yaxis_title="# Authors",
+        title="Undermerged Fixed Trend",
+        xaxis_title="Month",
+        yaxis_title="⟨Y⟩ UM Authors",
         title_font=dict(size=25, family="Arial, sans-serif", color="black"),
+        barmode='stack',  # Stack the bars on top of each other
+        xaxis=dict(tickangle=45),  # Rotate x-axis labels for better visibility
     )
+
     # Display the plot
-    st.plotly_chart(fig3, use_container_width=True)
+    st.plotly_chart(fig3, use_container_width=True)    
 
     # --------------------------------
     # 6) UNDERMERGED FIXED RATIO TREND LINE PLOT
@@ -1381,20 +1417,46 @@ def show_disambiguation():
     fig4 = go.Figure()
     fig4.add_trace(go.Scatter(
         x=df_filtered['month'],
-        y=df_filtered['number_potential_um_fx']  / df_filtered['number_potential_um'],
+        y=df_filtered['number_potential_um_fx']  / df_filtered['number_potential_um'] * 100,
         mode='lines+markers',
-        name='Ratio UM Authors Fixed',
+        name='UM Fixed',
         line=dict(color='#a6b4c1', width=1.5)
     ))
+    fig4.add_hline(
+        y=75,
+        line_dash="dash",  # Solid line (can use gradient in the line_color)
+        line_color="black",  # Soft blue with opacity (gradient effect)
+        line_width=0.5,  # Thicker line to make it more visible
+        annotation_text="{Target-KPI}",
+        annotation_position="top right",
+        annotation_font=dict(
+        size=14,
+        color="black"  # Change this to the color you want for the annotation text)
+    ))
+    
     fig4.update_layout(
-        title="Ratio UM Authors Fixed Overtime",
-        xaxis_title="Release Date",
-        yaxis_title="Ratio (um-fixed/um-potential)",
+        title="% UM Fixed Overtime",
+        xaxis_title="Month",
+        yaxis_title="% Overall ⟨Y⟩ UM Authors Fixed",
         title_font=dict(size=25, family="Arial, sans-serif", color="black"),
     )
 
     # Display the plot
     st.plotly_chart(fig4, use_container_width=True)
+
+    # Styled expander title using bold markdown
+    expander_title_um = "🔍 **:gray[Historical Detailed Analysis Trend]**"
+
+    with st.expander(expander_title_um):
+        st.markdown("""
+        <div style="background-color: #f0f0f0; color: #4B0082; padding: 20px; border-radius: 10px;">
+            <ul style="font-size: 16px; color: black;">
+                <li>Decrease trend observed during January 2025 of the percentage of undermerged authors fixed was related to the change
+                in dimensions base set, increasing the number of new authors with their correspoding publication that were not processed
+                by the disambiguation framework inmediately.</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
 
 # Create a sidebar with navigation
 st.sidebar.title("Navigate")
