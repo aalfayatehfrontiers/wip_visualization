@@ -160,10 +160,10 @@ def show_completeness():
             **2) Percentage Calculations**  
             Formulas used to extract performance metrics:
         
-            - **Overall Completeness Percentage Formula**  
+            - **Change Over Time Formula**  
               *(Completeₑₙᵈ − Completeₛₜₐᵣₜ) / Completeₛₜₐᵣₜ × 100*
         
-            - **Change Over Time Formula**  
+            - **Overall Completeness Percentage Formula**  
               *Completeₑₙᵈ / TotalActiveₑₙᵈ × 100*
         
             **3) Reference Period**  
