@@ -1350,7 +1350,7 @@ def show_disambiguation():
                     <div style="font-size: 18px; color: {color};">{arrow} {pct_change_um:.2f}%</div>
                 </div>
                 <div class="subtitle-font">
-                    Target </strong> 75% <strong> by Q4.
+                    Target <strong>75%</strong> by Q4.
                 </div>
             </div>
     ''', unsafe_allow_html=True)
@@ -1433,7 +1433,7 @@ def show_disambiguation():
         size=14,
         color="black"  # Change this to the color you want for the annotation text)
     ))
-    
+
     fig4.update_layout(
         title="% UM Fixed Overtime",
         xaxis_title="Month",
