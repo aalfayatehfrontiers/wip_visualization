@@ -1211,7 +1211,7 @@ def show_disambiguation():
     fig2.update_layout(
         title="% OM With Retractions Overtime",
         xaxis_title="Month",
-        yaxis_title="Percentage ⟨Y⟩ OM Authors",
+        yaxis_title="% Overall ⟨Y⟩ OM Authors with Retractions",
         title_font=dict(size=25, family="Arial, sans-serif", color="black"),
         yaxis=dict(
         range=[0, 0.1]  # Set y-axis range from 0 to 100
@@ -1228,7 +1228,7 @@ def show_disambiguation():
         <div style="background-color: #f0f0f0; color: #4B0082; padding: 20px; border-radius: 10px;">
             <ul style="font-size: 16px; color: black;">
                 <li>An overall flat pattern from historical data trend is observed due to a proportional increase in overmerged flagged authors with retractions and total active authors analyzed.</li>
-                <li>A similar flat pattern can be observed for the overall percentage of overmerged profiles as global metric</li>
+                <li>A similar flat pattern can be observed for the overall percentage of overmerged profiles as global metric.</li>
             </ul>
         </div>
         """, unsafe_allow_html=True)
@@ -1238,19 +1238,123 @@ def show_disambiguation():
     # --------------------------------
     # 4) OVERALL UNDERMERGED BLOCK
     # --------------------------------
+    
+    # Initialize session state for toggle
+
+    if "show_info_um_all" not in st.session_state:
+        st.session_state.show_info_um_all = False
+        # Styling
+        st.markdown("""
+        <style>
+            .big-font {
+                font-size: 35px !important;
+                text-align: left;
+            }
+            .small-font {
+                font-size: 18px !important;
+                text-align: left;
+            }
+            .title-container {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .title-font {
+                font-size: 25px !important;
+                font-weight: bold;
+            }
+            .numbers-container {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .subtitle-font {
+                font-size: 16px !important;
+                font-weight: normal;
+                color: gray;
+                text-align: left;
+            }
+        </style>
+        """, unsafe_allow_html=True)
+
+    # Custom CSS for layout and styling
+    st.markdown("""
+        <style>
+            .title-container {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .title-text {
+                font-size: 25px;
+                font-weight: bold;
+            }
+            .icon-button-container {
+                margin: 0;
+                padding: 0;
+            }
+            div.stButton > button {
+                background: none;
+                border: none;
+                color: inherit;
+                padding: 0;
+                line-height: 3;
+                font-size: 10px;
+                cursor: pointer;
+                margin-left: 5px;  /* Bring the button closer to the title */
+            }
+        </style>
+    """, unsafe_allow_html=True)
+        
+    # Use columns to align title and button inline
+    col1_um_all, col2_um_all = st.columns([0.99, 0.50])  # Adjust width ratio for alignment
+
     undermerged_ratio_fixed = (end_data['number_potential_um_fx']  / end_data['number_potential_um'])
     pct_change_um = ((end_data['number_potential_um_fx'] - start_data['number_potential_um_fx']) / start_data['number_potential_um_fx']) * 100
     color = "green" if pct_change_um >= 0 else "red"
     arrow = "▲" if pct_change_um >= 0 else "▼"
 
-    st.markdown('<h3 style="font-size: 25px; font-family: Arial, sans-serif; color: black;">Overall Ratio UM Profiles Fixed </h3>', unsafe_allow_html=True)
-    st.markdown(f'''
-        <div style="display: flex; align-items: baseline; gap: 10px;">
-            <div style="font-size: 48px;">{undermerged_ratio_fixed:.2f}</div>
-            <div style="font-size: 18px; color: {color};">{arrow} {pct_change_um:.2f}%</div>
-        </div>
-    ''', unsafe_allow_html=True)    
+    with col1_um_all:
+        st.markdown('<h3 style="font-size: 22px; font-family: Arial, sans-serif; color: black;">% Fixed UM profiles among all UM identified', unsafe_allow_html=True)
+        
+        
+    with col2_um_all:
+        if st.button("ℹ️", key="info_button_um_all", help="Click for more information"):
+            st.session_state.show_info_um_all = not st.session_state.show_info_um_all
+        
+    # Display toggle content in a custom-styled box
+    if st.session_state.show_info_um_all:
+        st.info("""
+            **1) Definition**  
+            An undermerged profile is flagged when the disambiguation logics detect that 2 AiraK profiles are such similar, that they should
+            be merge together. An undermerge profile is considered to be **fixed once** it is merged to the **target profile identified**.
+        
+            **2) Percentage Calculations**  
+            Formulas used to extract undermerge disambiguation metrics:
+        
+            - **Overall UM Fixed Percentage Formula**  
+              *UMfixedₑₙᵈ / UMidentifiedₑₙᵈ × 100*
+        
+            - **Change Over Time Formula**  
+              *(UMfixedₑₙᵈ − UMfixedₛₜₐᵣₜ) / UMfixedₛₜₐᵣₜ × 100*
+        
+            **3) Reference Period**  
+            Metrics are based on the selected start and end months. Monthly data is averaged to estimate the number of undermerged fixed authors at each time point.
+        """)
 
+    st.markdown(f'''
+            <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 5px;">
+                <div style="display: flex; align-items: baseline; gap: 10px;">
+                    <div style="font-size: 48px;">{undermerged_ratio_fixed:.2f}%</div>
+                    <div style="font-size: 18px; color: {color};">{arrow} {pct_change_um:.2f}%</div>
+                </div>
+                <div class="subtitle-font">
+                    <strong>Target </strong> 75% <strong> by Q4<strong>.
+                </div>
+            </div>
+    ''', unsafe_allow_html=True)
+    
     # --------------------------------
     # 5) UNDERMERGED FIXED TREND LINE PLOT
     # --------------------------------
