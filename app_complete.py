@@ -1104,18 +1104,6 @@ def show_disambiguation():
     with col1_om_all:
         st.markdown('<h3 style="font-size: 30px; font-family: Arial, sans-serif; color: black;">OM Profiles with Retractions</h3>', unsafe_allow_html=True)
         
-        st.markdown(f'''
-            <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 5px;">
-                <div style="display: flex; align-items: baseline; gap: 10px;">
-                    <div style="font-size: 48px;">{overmerged_pct:.2f}%</div>
-                    <div style="font-size: 18px; color: {color};">{arrow} {pct_change:.2f}%</div>
-                </div>
-                <div class="subtitle-font">
-                    <strong>Current number of overall overmerged profiles</strong> is <strong>{om_potential_end_formated}</strong>, 
-                    from those authors, a total of <strong>{om_potential_retract_end_formated}</strong> have retractions.
-                </div>
-            </div>
-        ''', unsafe_allow_html=True)
         
     with col2_om_all:
         if st.button("ℹ️", key="info_button_om_all", help="Click for more information"):
@@ -1142,7 +1130,19 @@ def show_disambiguation():
             **3) Reference Period**  
             Metrics are based on the selected start and end months. Monthly data is averaged to estimate the number of complete authors at each time point.
         """)
-
+        
+    st.markdown(f'''
+            <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 5px;">
+                <div style="display: flex; align-items: baseline; gap: 10px;">
+                    <div style="font-size: 48px;">{overmerged_pct:.2f}%</div>
+                    <div style="font-size: 18px; color: {color};">{arrow} {pct_change:.2f}%</div>
+                </div>
+                <div class="subtitle-font">
+                    <strong>Current number of overall overmerged profiles</strong> is <strong>{om_potential_end_formated}</strong>, 
+                    from those authors, a total of <strong>{om_potential_retract_end_formated}</strong> have retractions.
+                </div>
+            </div>
+    ''', unsafe_allow_html=True)
     # --------------------------------
     # 2) OVERMERGED TREND LINE PLOT
     # --------------------------------
