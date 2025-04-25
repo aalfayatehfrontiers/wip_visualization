@@ -971,9 +971,6 @@ def show_disambiguation():
         }
     </style>
     """, unsafe_allow_html=True)
-
-    # Add subtitles inside black boxes
-    st.markdown('<div class="subtitle-box">Overmerged Metrics</div>', unsafe_allow_html=True)
     
     df_all_kpis['release'] = pd.to_datetime(df_all_kpis['release'])
     df_all_kpis['month'] = df_all_kpis['release'].dt.to_period('M').dt.to_timestamp()
@@ -991,6 +988,8 @@ def show_disambiguation():
     start_label = st.selectbox("Select Start Month", options=df_monthly['month_label'].tolist(), index=0)
     end_label = st.selectbox("Select End Month", options=df_monthly['month_label'].tolist(), index=len(df_monthly) - 1)
     
+    # Add subtitles inside black boxes
+    st.markdown('<div class="subtitle-box">Overmerged Metrics</div>', unsafe_allow_html=True)    
     # Get actual dates from labels
     start_month = month_label_to_date[start_label]
     end_month = month_label_to_date[end_label]
@@ -1155,7 +1154,7 @@ def show_disambiguation():
         y=df_filtered['number_potential_om_wretractions'],
         mode='lines',
         name='OM with Retractions',
-        line=dict(color='#5f9ea0', width=3)
+        line=dict(color='#B5B300', width=3)
     ))
 
     # Add the bar plot for "OM with Retractions" with opacity
@@ -1163,7 +1162,7 @@ def show_disambiguation():
         x=df_filtered['month'],
         y=df_filtered['number_potential_om_wretractions'],
         name='OM with Retractions (Bar)',
-        marker=dict(color='#5f9ea0', opacity=0.4),
+        marker=dict(color='#B5B300', opacity=0.7),
         showlegend=False
     ))
 
@@ -1215,7 +1214,7 @@ def show_disambiguation():
         yaxis_title="Percentage ⟨Y⟩ OM Authors",
         title_font=dict(size=25, family="Arial, sans-serif", color="black"),
         yaxis=dict(
-        range=[0, 1]  # Set y-axis range from 0 to 100
+        range=[0, 0.1]  # Set y-axis range from 0 to 100
         )
     )
     # Display the plot
@@ -1228,8 +1227,8 @@ def show_disambiguation():
         st.markdown("""
         <div style="background-color: #f0f0f0; color: #4B0082; padding: 20px; border-radius: 10px;">
             <ul style="font-size: 16px; color: black;">
-                <li>An overall **flat pattern** from historical data trend is observed due to a **proportional increase** in overmerged flagged authors with retractions and total active authors analyzed.</li>
-                <li>A **similar flat pattern** can be observed for the **overall percentage of overmerged profiles** as global metric</li>
+                <li>An overall flat pattern from historical data trend is observed due to a proportional increase in overmerged flagged authors with retractions and total active authors analyzed.</li>
+                <li>A similar flat pattern can be observed for the overall percentage of overmerged profiles as global metric</li>
             </ul>
         </div>
         """, unsafe_allow_html=True)
