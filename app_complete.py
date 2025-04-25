@@ -1112,7 +1112,7 @@ def show_disambiguation():
                 </div>
                 <div class="subtitle-font">
                     <strong>Current number of overall overmerged profiles</strong> is <strong>{om_potential_end_formated}</strong>, 
-                    from those authors, a total of <strong>{om_potential_retract_end_formated:.2f}</strong> have retractions.
+                    from those authors, a total of <strong>{om_potential_retract_end_formated}</strong> have retractions.
                 </div>
             </div>
         ''', unsafe_allow_html=True)
