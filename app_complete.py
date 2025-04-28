@@ -60,15 +60,9 @@ def show_completeness():
     
     # Create a formatted label for dropdown display
     df_monthly['month_label'] = df_monthly['month'].dt.strftime('%b-%Y')  # E.g., Jan-2024
-
-    # Extract month label and numerical value (percentage_complete_authors) for hover text
-    df_filtered['percentage_complete_authors_text'] = (df_filtered['percentage_complete_authors'] * 100).round(2).astype(str) + '%'  # Add % symbol and round to 2 decimal places
     
     # Create a mapping from label to actual datetime
     month_label_to_date = dict(zip(df_monthly['month_label'], df_monthly['month']))
-    
-    # Create a column for hover text that combines month_label and percentage value
-    df_filtered['hover_text'] = df_filtered['month_label'] + '<br>' + df_filtered['percentage_complete_authors_text']    
     
     # Dropdowns using labels
     start_label = st.selectbox("Select Start Month", options=df_monthly['month_label'].tolist(), index=0)
@@ -83,7 +77,13 @@ def show_completeness():
         (df_monthly['month'] >= start_month) &
         (df_monthly['month'] <= end_month)
     ].copy()
-
+    
+    # Extract month label and numerical value (percentage_complete_authors) for hover text
+    df_filtered['percentage_complete_authors_text'] = (df_filtered['percentage_complete_authors'] * 100).round(2).astype(str) + '%'  # Corrected formula
+    
+    # Create a column for hover text that combines month_label and percentage value
+    df_filtered['hover_text'] = df_filtered['month_label'] + '<br>' + df_filtered['percentage_complete_authors_text']  
+    
     if df_filtered.empty:
         st.warning("No data available for the selected date range.")
         return
