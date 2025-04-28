@@ -138,7 +138,7 @@ def show_completeness():
                     <div style="font-size: 48px;">{completeness_pct:.2f}%</div>
                     <div style="font-size: 18px; color: {color};">{arrow} {pct_change:.2f}%</div>
                 </div>
-                <div style="font-size: 16px; color: gray;">Target 20% by Q4</div>
+                <div style="font-size: 16px; color: gray;">Target 14% by Q4</div>
         ''', unsafe_allow_html=True)
         
     with col2:
@@ -182,7 +182,7 @@ def show_completeness():
         x=df_filtered['month'],
         y=df_filtered['percentage_complete_authors'] * 100,
         mode='lines',
-        name='Overall Complete Authors',
+        name='Overall % of Complete Profiles',
         line=dict(color='royalblue', width=3)
     ))
 
@@ -190,21 +190,21 @@ def show_completeness():
     fig1.add_trace(go.Bar(
             x=df_filtered['month'],
             y=df_filtered['number_complete_authors'],
-            name='Total Complete Audience',
+            name='Total Count of Compete Profiles',
             marker=dict(color='lightblue'),
             opacity=0.65
             ), secondary_y=True)    
 
     fig1.add_hline(
-        y=20,
+        y=14,
         line_dash="dash",  # Solid line (can use gradient in the line_color)
-        line_color="#1E3A8A",  # Soft blue with opacity (gradient effect)
+        line_color="#8B0000",  # Soft blue with opacity (gradient effect)
         line_width=0.5,  # Thicker line to make it more visible
-        annotation_text="{Target-KPI}",
+        annotation_text="Target",
         annotation_position="top right",
         annotation_font=dict(
         size=14,
-        color="#1E3A8A"  # Change this to the color you want for the annotation text)
+        color="#8B0000"  # Change this to the color you want for the annotation text)
         ))
 
     fig1.update_layout(
@@ -228,6 +228,7 @@ def show_completeness():
         
     # Update right y-axis label (optional: blank if not needed)
     fig1.update_yaxes(
+            range=[10, 15],  # Secondary (right) y-axis range
             title_text="Complete Authors",  # Right axis title can be empty or reused
             secondary_y=True
         )
