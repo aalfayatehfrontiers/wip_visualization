@@ -224,7 +224,11 @@ def show_completeness():
             yaxis_title="%Overall ⟨Y⟩ Authors Complete",  # Left axis (Contactable)
             barmode='overlay',
             showlegend=True
-    )
+        )
+    
+    fig1.update_yaxes(
+            range=[10, 15],  # Primary (left) y-axis range
+        )
         
     # Update right y-axis label (optional: blank if not needed)
     fig1.update_yaxes(
