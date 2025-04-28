@@ -229,6 +229,7 @@ def show_completeness():
     # Update right y-axis label (optional: blank if not needed)
     fig1.update_yaxes(
             range=[10, 15],  # Secondary (right) y-axis range
+            dtick=0.5,  # Set tick interval to 0.5
             title_text="Complete Authors",  # Right axis title can be empty or reused
             secondary_y=True
         )
