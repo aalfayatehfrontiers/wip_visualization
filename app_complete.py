@@ -198,13 +198,13 @@ def show_completeness():
     fig1.add_hline(
         y=14,
         line_dash="dash",  # Solid line (can use gradient in the line_color)
-        line_color="#8B0000",  # Soft blue with opacity (gradient effect)
+        line_color="#CE2029",  # Soft blue with opacity (gradient effect)
         line_width=0.5,  # Thicker line to make it more visible
         annotation_text="Target",
         annotation_position="top right",
         annotation_font=dict(
         size=14,
-        color="#8B0000"  # Change this to the color you want for the annotation text)
+        color="#CE2029"  # Change this to the color you want for the annotation text)
         ))
 
     fig1.update_layout(
