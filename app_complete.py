@@ -183,7 +183,8 @@ def show_completeness():
         y=df_filtered['percentage_complete_authors'] * 100,
         mode='lines',
         name='Overall % of Complete Profiles',
-        line=dict(color='royalblue', width=3)
+        line=dict(color='royalblue', width=3),
+        yaxis='y1'  # Use left y-axis (y1) for this trace
     ))
 
     # Bar chart for total authors (secondary y-axis)
@@ -192,7 +193,8 @@ def show_completeness():
             y=df_filtered['number_complete_authors'],
             name='Total Count of Compete Profiles',
             marker=dict(color='lightblue'),
-            opacity=0.65
+            opacity=0.65,
+            yaxis='y2' 
             ), secondary_y=True)
     
     fig1.add_hline(
@@ -225,11 +227,11 @@ def show_completeness():
             barmode='overlay',
             showlegend=True
         )
-    #fig1.update_yaxes(
-    #        range=[10, 15],  # Primary (left) y-axis range
-    #        dtick=0.5,  # Set tick interval to 0.5
-    #        title_text="%Overall ⟨Y⟩ Authors Complete",  # Left axis title
-    #    )
+    fig1.update_yaxes(
+            range=[10, 15],  # Primary (left) y-axis range
+            dtick=0.5,  # Set tick interval to 0.5
+            title_text="%Overall ⟨Y⟩ Authors Complete",  # Left axis title
+       )
     # Update right y-axis label (optional: blank if not needed)
     fig1.update_yaxes(            
             title_text="Complete Authors",  # Right axis title can be empty or reused
