@@ -227,7 +227,7 @@ def show_completeness():
         )
     fig1.update_yaxes(
             range=[10, 15],  # Primary (left) y-axis range
-            dtick=0.5  # Set tick interval to 0.5
+            dtick=0.5,  # Set tick interval to 0.5
             title_text="%Overall ⟨Y⟩ Authors Complete",  # Left axis title
         )
     # Update right y-axis label (optional: blank if not needed)
