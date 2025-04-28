@@ -195,11 +195,6 @@ def show_completeness():
             opacity=0.65
             ), secondary_y=True)
     
-    fig1.update_yaxes(
-            range=[10, 15],  # Primary (left) y-axis range
-            dtick=0.5  # Set tick interval to 0.5
-        )
-
     fig1.add_hline(
         y=14,
         line_dash="dash",  # Solid line (can use gradient in the line_color)
@@ -230,7 +225,11 @@ def show_completeness():
             barmode='overlay',
             showlegend=True
         )
-        
+    fig1.update_yaxes(
+            range=[10, 15],  # Primary (left) y-axis range
+            dtick=0.5  # Set tick interval to 0.5
+            title_text="%Overall ⟨Y⟩ Authors Complete",  # Left axis title
+        )
     # Update right y-axis label (optional: blank if not needed)
     fig1.update_yaxes(            
             title_text="Complete Authors",  # Right axis title can be empty or reused
