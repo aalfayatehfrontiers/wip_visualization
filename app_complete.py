@@ -78,10 +78,18 @@ def show_completeness():
         (df_monthly['month'] <= end_month)
     ].copy()
     
+    # Format helper
+    def format_number(number):
+        if number >= 1_000_000:
+            return f"{number / 1_000_000:.2f}M"
+        elif number >= 1_000:
+            return f"{number / 1_000:.2f}K"
+        return f"{number:.2f}"
+    
     # Extract month label and numerical value (percentage_complete_authors) for hover text
     df_filtered['percentage_complete_authors_text'] = (df_filtered['percentage_complete_authors'] * 100).round(2).astype(str) + '%'
     # Extract month label and numerical value (number_complete_authors) for hover text
-    df_filtered['number_complete_authors_text'] = df_filtered['number_complete_authors'].round(2).astype(str)
+    df_filtered['number_complete_authors_text'] = df_filtered['number_complete_authors'].apply(format_number)
     
     # Create a column for hover text that combines month_label and percentage value
     df_filtered['hover_text'] = df_filtered['month_label'] + '<br>' + df_filtered['percentage_complete_authors_text']  
