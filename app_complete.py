@@ -81,7 +81,7 @@ def show_completeness():
     # Extract month label and numerical value (percentage_complete_authors) for hover text
     df_filtered['percentage_complete_authors_text'] = (df_filtered['percentage_complete_authors'] * 100).round(2).astype(str) + '%'
     # Extract month label and numerical value (number_complete_authors) for hover text
-    df_filtered['number_complete_authors_text'] = df_filtered['number_complete_authors'].round(2)
+    df_filtered['number_complete_authors_text'] = df_filtered['number_complete_authors'].round(2).astype(str)
     
     # Create a column for hover text that combines month_label and percentage value
     df_filtered['hover_text'] = df_filtered['month_label'] + '<br>' + df_filtered['percentage_complete_authors_text']  
