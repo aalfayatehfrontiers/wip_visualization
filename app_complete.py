@@ -79,10 +79,13 @@ def show_completeness():
     ].copy()
     
     # Extract month label and numerical value (percentage_complete_authors) for hover text
-    df_filtered['percentage_complete_authors_text'] = (df_filtered['percentage_complete_authors'] * 100).round(2).astype(str) + '%'  # Corrected formula
+    df_filtered['percentage_complete_authors_text'] = (df_filtered['percentage_complete_authors'] * 100).round(2).astype(str) + '%'
+    # Extract month label and numerical value (number_complete_authors) for hover text
+    df_filtered['number_complete_authors_text'] = df_filtered['number_complete_authors'].round(2)
     
     # Create a column for hover text that combines month_label and percentage value
     df_filtered['hover_text'] = df_filtered['month_label'] + '<br>' + df_filtered['percentage_complete_authors_text']  
+    df_filtered['hover_text_complete'] = df_filtered['month_label'] + '<br>' + df_filtered['number_complete_authors_text'] 
     
     if df_filtered.empty:
         st.warning("No data available for the selected date range.")
@@ -202,6 +205,8 @@ def show_completeness():
             name='Total Count of Compete Profiles',
             marker=dict(color='lightblue'),
             opacity=0.65,
+            text=df_filtered['hover_text_complete'],  # Set the hover text
+            hoverinfo='text',  # Display the text (month label and percentage) on hover
             yaxis='y2' 
             ), secondary_y=True)
     
