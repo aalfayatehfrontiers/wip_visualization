@@ -213,8 +213,7 @@ def show_completeness():
             name='Total Count of Compete Profiles',
             marker=dict(color='lightblue'),
             opacity=0.65,
-            text=df_filtered['hover_text_complete'],  # Set the hover text
-            hoverinfo='text',  # Display the text (month label and percentage) on hover
+            hovertemplate=df_filtered['hover_text_complete'] + '<extra></extra>',  # Set the hover text and suppress the default bar text
             yaxis='y2' 
             ), secondary_y=True)
     
