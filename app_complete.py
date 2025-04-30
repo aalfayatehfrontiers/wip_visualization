@@ -505,7 +505,7 @@ def show_completeness():
     fig3.add_trace(go.Bar(
             x=df_filtered['month'],
             y=df_filtered['number_base_authors'],
-            name='Overall Audience',
+            name='Total Count of Active Profiles',
             marker=dict(color='#BFA2DB'),
             opacity=0.65
             ), secondary_y=True)    
@@ -513,13 +513,13 @@ def show_completeness():
     fig3.add_hline(
         y=2.5,
         line_dash="dash",  # Solid line (can use gradient in the line_color)
-        line_color="purple",  # Soft blue with opacity (gradient effect)
+        line_color="#CE2029",  # Soft blue with opacity (gradient effect)
         line_width=0.5,  # Thicker line to make it more visible
-        annotation_text="{Target-KPI}",
+        annotation_text="Target",
         annotation_position="top right",
         annotation_font=dict(
         size=14,
-        color="purple"  # Change this to the color you want for the annotation text)
+        color="#CE2029"  # Change this to the color you want for the annotation text)
         ))
 
 
@@ -544,14 +544,14 @@ def show_completeness():
     st.plotly_chart(fig3, use_container_width=True)
 
     # Styled expander title using bold markdown
-    expander_title = "🔍 **:gray[Historical Detailed Analysis Trend]**"
+    expander_title = "🔍 **:gray[Notes on Avg Score Trend]**"
 
     with st.expander(expander_title):
         st.markdown("""
         <div style="background-color: #f0f0f0; color: #4B0082; padding: 20px; border-radius: 10px;">
             <ul style="font-size: 16px; color: black;">
-                <li>An increase was observed during the first releases in January 2025 due to a dimensions base set change, where multiple researcher profiles were cleaned up.</li>
-                <li>Decreased trends were observed at multiple time points due to massive ingest of new author profiles that weren’t processed immediately by the disambiguation framework.</li>
+                <li>An increase was observed during the first releases in January 2025, which is due to a dimensions base set change, where multiple researcher profiles were cleaned up.</li>
+                <li>Decreased trends were observed at the beginning of 2025, which is due to massive ingest of new author profiles that weren’t processed immediately by the disambiguation framework.</li>
             </ul>
         </div>
         """, unsafe_allow_html=True)
