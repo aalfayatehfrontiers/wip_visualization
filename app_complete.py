@@ -1425,13 +1425,13 @@ def show_disambiguation():
     fig4.add_hline(
         y=75,
         line_dash="dash",  # Solid line (can use gradient in the line_color)
-        line_color="black",  # Soft blue with opacity (gradient effect)
+        line_color="#CE2029",  # Soft blue with opacity (gradient effect)
         line_width=0.5,  # Thicker line to make it more visible
-        annotation_text="{Target-KPI}",
+        annotation_text="Target",
         annotation_position="top right",
         annotation_font=dict(
         size=14,
-        color="black"  # Change this to the color you want for the annotation text)
+        color="#CE2029"  # Change this to the color you want for the annotation text)
     ))
 
     fig4.update_layout(
