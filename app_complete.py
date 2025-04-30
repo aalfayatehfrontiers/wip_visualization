@@ -1168,7 +1168,7 @@ def show_disambiguation():
     st.markdown(f'''
             <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 5px;">
                 <div style="display: flex; align-items: baseline; gap: 10px;">
-                    <div style="font-size: 48px;">{overmerged_pct:.2f}%</div>
+                    <div style="font-size: 48px;">{om_potential_retract_end_formated}</div>
                     <div style="font-size: 18px; color: {color};">{arrow} {pct_change:.2f}%</div>
                 </div>
                 <div class="subtitle-font">
@@ -1177,65 +1177,13 @@ def show_disambiguation():
                 </div>
             </div>
     ''', unsafe_allow_html=True)
-    # --------------------------------
-    # 2) OVERMERGED TREND LINE PLOT
-    # --------------------------------
-    # Create the figure
-    fig1 = go.Figure()
-
-    # Add the line plot for "OM with Retractions"
-    fig1.add_trace(go.Scatter(
-        x=df_filtered['month'],
-        y=df_filtered['number_potential_om_wretractions'],
-        mode='lines',
-        name='OM with Retractions',
-        line=dict(color='#B5B300', width=3)
-    ))
-
-    # Add the bar plot for "OM with Retractions" with opacity
-    fig1.add_trace(go.Bar(
-        x=df_filtered['month'],
-        y=df_filtered['number_potential_om_wretractions'],
-        name='OM with Retractions (Bar)',
-        marker=dict(color='#B5B300', opacity=0.7),
-        showlegend=False
-    ))
-
-    # Add the line plot for "Overall OM"
-    fig1.add_trace(go.Scatter(
-        x=df_filtered['month'],
-        y=df_filtered['number_potential_om'],
-        mode='lines',
-        name='Overall OM',
-        line=dict(color='#88B8B2', width=3)
-    ))
-
-    # Add the bar plot for "Overall OM" with opacity
-    fig1.add_trace(go.Bar(
-        x=df_filtered['month'],
-        y=df_filtered['number_potential_om'],
-        name='Overall OM (Bar)',
-        marker=dict(color='#88B8B2', opacity=0.4),
-        showlegend=False
-    ))
-
-    # Update layout for the plot
-    fig1.update_layout(
-        title="Overmerged with Retractions Trend",
-        xaxis_title="Month",
-        yaxis_title="⟨Y⟩ OM Authors",
-        title_font=dict(size=25, family="Arial, sans-serif", color="black"),
-        barmode='stack',  # Stack the bars on top of each other
-        xaxis=dict(tickangle=45),  # Rotate x-axis labels for better visibility
-    )
-
-    # Display the plot
-    st.plotly_chart(fig1, use_container_width=True)
 
     # --------------------------------
     # 3) OVERMERGED PERCENTAGE TREND LINE PLOT
     # --------------------------------
-    fig2 = go.Figure()
+        # Create a subplot with secondary y-axis
+    fig2 = make_subplots(specs=[[{"secondary_y": True}]])
+
     fig2.add_trace(go.Scatter(
         x=df_filtered['month'],
         y=df_filtered['number_potential_om_wretractions']/df_filtered['number_base_authors']* 100,
@@ -1243,6 +1191,16 @@ def show_disambiguation():
         name='% OM With Retractions Authors',
         line=dict(color='#5f9ea0', width=1.5)
     ))
+
+    # Add the bar plot for "OM with Retractions" with opacity
+    fig2.add_trace(go.Bar(
+        x=df_filtered['month'],
+        y=df_filtered['number_potential_om_wretractions'],
+        name='Total Count of OM Profiles With Retractions',
+        marker=dict(color='#B5B300'),
+        opacity=0.65
+        ), secondary_y=True)
+      
     fig2.update_layout(
         title="% OM With Retractions Overtime",
         xaxis_title="Month",
@@ -1252,11 +1210,18 @@ def show_disambiguation():
         range=[0, 0.1]  # Set y-axis range from 0 to 100
         )
     )
+
+    # Update right y-axis label (optional: blank if not needed)
+    fig2.update_yaxes(
+            title_text="Total OM Profiles + Retractions",  # Right axis title can be empty or reused
+            secondary_y=True
+        )
+    
     # Display the plot
     st.plotly_chart(fig2, use_container_width=True)
 
     # Styled expander title using bold markdown
-    expander_title = "🔍 **:gray[Historical Detailed Analysis Trend]**"
+    expander_title = "🔍 **:gray[Notes on OM Profiles Trend]**"
 
     with st.expander(expander_title):
         st.markdown("""
@@ -1480,7 +1445,7 @@ def show_disambiguation():
     st.plotly_chart(fig4, use_container_width=True)
 
     # Styled expander title using bold markdown
-    expander_title_um = "🔍 **:gray[Historical Detailed Analysis Trend]**"
+    expander_title_um = "🔍 **:gray[Notes on UM Profiles Trend]**"
 
     with st.expander(expander_title_um):
         st.markdown("""
